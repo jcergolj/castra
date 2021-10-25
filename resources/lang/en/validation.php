@@ -122,7 +122,7 @@ return [
         'newPasswordConfirmation' => 'Confirm New Password',
         'password_confirmation' => 'Confirm Password',
         'currentPassword' => 'Your Current Password',
-        'remember_me' => 'Remember Me',
+        'remember' => 'Remember Me',
     ],
 
 ];

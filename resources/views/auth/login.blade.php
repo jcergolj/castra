@@ -1,61 +1,52 @@
 <x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+    <form method="POST" action="{{ route('login') }}" class="mt-4">
+        @csrf
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <x-label for="email" :value="trans_validation_attribute('email')" class="label">
+            <x-input
+                id="email"
+                type="email"
+                name="email"
+                :value="old('email')"
+                class="form-input mt-1 block w-full rounded-md focus:border-blue-600"
+                required
+                autofocus
+            />
+            <x-error field="email" />
+        </x-label>
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+        <x-label for="password" :value="trans_validation_attribute('password')" class="label mt-3">
+            <x-input
+                id="password"
+                class="form-input mt-1 block w-full rounded-md focus:border-blue-600"
+                type="password"
+                name="password"
+                required
+            />
+            <x-error field="password" />
+        </x-label>
 
-            <!-- Email Address -->
+        <div class="flex justify-between items-center mt-4">
             <div>
-                <x-label for="email" :value="trans_validation_attribute('email')" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-                <x-error field="email" />
+                <x-label-checkbox for="remember" :value="trans_validation_attribute('remember')" class="inline-flex items-center">
+                    <input type="checkbox" name="remember" class="form-checkbox text-blue-600">
+                    <x-error field="remember" />
+                </x-label-checkbox>
             </div>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="trans_validation_attribute('password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                    type="password"
-                    name="password"
-                    required autocomplete="current-password"
-                />
-
-                <x-error field="password" />
-            </div>
-
-            <!-- Remember Me -->
-            <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
-                    <input
-                        id="remember_me"
-                        type="checkbox"
-                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                        name="remember"
-                    >
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+            @if (Route::has('password.request'))
+                <div>
+                    <a class="block text-sm fontme text-blue-700 hover:underline" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
-                @endif
+                </div>
+            @endif
+        </div>
 
-                <x-button class="ml-3">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
+        <div class="mt-6">
+            <x-button  class="bg-blue-600 hover:bg-blue-500">
+                {{ __('Log in') }}
+            </x-button>
+        </div>
+    </form>
 </x-guest-layout>

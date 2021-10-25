@@ -1,59 +1,48 @@
 <x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+    <x-auth-session-status :status="session('status')" />
 
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
+    <form method="POST" action="{{ route('register') }}" class="mt-4">
+        @csrf
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="trans_validation_attribute('email')" />
+        <x-label for="email" :value="trans_validation_attribute('email')" class="label">
+            <x-input id="email" type="email" name="email" :value="old('email')" class="form-input mt-1 block w-full rounded-md focus:border-blue-600" required autofocus />
+            <x-error field="email" />
+        </x-label>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+        <x-label for="password" :value="trans_validation_attribute('password')" class="label mt-3">
+            <x-input
+                id="password"
+                class="form-input mt-1 block w-full rounded-md focus:border-blue-600"
+                type="password"
+                name="password"
+                required
+            />
+            <x-error field="password" />
+        </x-label>
 
-                <x-error field="email" />
-            </div>
+        <x-label for="password_confirmation" :value="trans_validation_attribute('password_confirmation')" class="label mt-3">
+            <x-input
+                id="password_confirmation"
+                class="form-input mt-1 block w-full rounded-md focus:border-blue-600"
+                type="password"
+                name="password_confirmation"
+                required
+            />
+            <x-error field="password_confirmation" />
+        </x-label>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="trans_validation_attribute('password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                    type="password"
-                    name="password"
-                    required autocomplete="new-password"
-                />
-
-                <x-error field="password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="trans_validation_attribute('password_confirmation')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                    type="password"
-                    name="password_confirmation" required
-                />
-
-                <x-error field="password_confirmation" />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+        <div class="flex justify-between items-center mt-4">
+            <div>
+                <a class="block text-sm fontme text-blue-700 hover:underline" href="{{ route('password.request') }}">
                     {{ __('Already registered?') }}
                 </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
             </div>
-        </form>
-    </x-auth-card>
+        </div>
+
+        <div class="mt-6">
+            <x-button  class="bg-blue-600 hover:bg-blue-500">
+                {{ __('Register') }}
+            </x-button>
+        </div>
+    </form>
 </x-guest-layout>
