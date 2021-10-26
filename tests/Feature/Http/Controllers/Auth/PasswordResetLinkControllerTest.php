@@ -20,7 +20,7 @@ class PasswordResetLinkControllerTest extends TestCase
         $response = $this->get(route('password.request'));
 
         $response->assertStatus(Response::HTTP_OK)
-            ->assertViewHasForm('post', route('password.email'))
+            ->assertViewHasForm(null, 'post', route('password.email'))
             ->assertFormHasCSRF()
             ->assertFormHasEmailInput('email')
             ->assertFormHasSubmitButton();

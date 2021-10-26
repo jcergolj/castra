@@ -28,7 +28,7 @@ class RegisteredUserControllerTest extends TestCase
     public function registration_screen_can_be_rendered()
     {
         $response = $this->get(route('register'))
-            ->assertViewHasForm('post', route('register.store'))
+            ->assertViewHasForm(null, 'post', route('register.store'))
             ->assertFormHasCSRF()
             ->assertFormHasEmailInput('email')
             ->assertFormHasPasswordInput('password')

@@ -23,7 +23,7 @@ class EmailVerificationNotificationControllerTest extends TestCase
         $response = $this->actingAs($user)->get(route('verification.notice'));
 
         $response->assertStatus(Response::HTTP_OK)
-            ->assertViewHasForm('post', route('verification.send'))
+            ->assertViewHasForm('id="resend_verification"', 'post', route('verification.send'))
             ->assertFormHasCSRF()
             ->assertFormHasSubmitButton();
     }

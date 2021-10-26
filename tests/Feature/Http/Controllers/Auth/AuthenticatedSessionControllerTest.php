@@ -20,7 +20,7 @@ class AuthenticatedSessionControllerTest extends TestCase
         $response = $this->get(route('login'));
 
         $response->assertStatus(Response::HTTP_OK)
-            ->assertViewHasForm('post', route('login.store'))
+            ->assertViewHasForm(null, 'post', route('login.store'))
             ->assertFormHasCSRF()
             ->assertFormHasEmailInput('email')
             ->assertFormHasPasswordInput('password')

@@ -18,9 +18,14 @@ class EmailVerificationPromptControllerTest extends TestCase
             'email_verified_at' => null,
         ]);
 
-        $response = $this->actingAs($user)->get(route('verification.notice'));
+        $response = $this->actingAs($user)
+            ->get(route('verification.notice'));
 
-        $response->assertStatus(Response::HTTP_OK);
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertViewHasForm('id="resend_verification"', 'post', route('verification.send'));
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertViewHasForm('id="logout"', 'delete', route('logout'));
     }
 
     /** @test */

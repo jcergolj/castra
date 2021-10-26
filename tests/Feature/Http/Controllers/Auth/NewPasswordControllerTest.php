@@ -22,7 +22,7 @@ class NewPasswordControllerTest extends TestCase
     {
         $this->get(route('password.reset', 'token'))
             ->assertStatus(Response::HTTP_OK)
-            ->assertViewHasForm('post', route('password.update'))
+            ->assertViewHasForm(null, 'post', route('password.update'))
             ->assertFormHasCSRF()
             ->assertFormHasHiddenInput('token', 'token')
             ->assertFormHasPasswordInput('password')
