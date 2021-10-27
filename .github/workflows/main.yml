@@ -2,7 +2,7 @@ on: [push]
 
 jobs:
   fixes:
-    name: "php cs fixer"
+    name: "fix styling"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
