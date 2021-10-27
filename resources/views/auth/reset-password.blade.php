@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-layouts.guest>
     <form method="POST" action="{{ route('password.update') }}" class="mt-4">
         @csrf
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
@@ -13,7 +13,7 @@
                 required
                 autofocus
             />
-            <x-error field="email" />
+            <x-error field="email"/>
         </x-label>
 
         <x-label for="password" :value="trans_validation_attribute('password')" class="label mt-3">
@@ -24,10 +24,14 @@
                 name="password"
                 required
             />
-            <x-error field="password" />
+            <x-error field="password"/>
         </x-label>
 
-        <x-label for="password_confirmation" :value="trans_validation_attribute('password_confirmation')" class="label mt-3">
+        <x-label
+            for="password_confirmation"
+            :value="trans_validation_attribute('password_confirmation')"
+            class="label mt-3"
+        >
             <x-input
                 id="password_confirmation"
                 class="form-input mt-1 block w-full rounded-md focus:border-blue-600"
@@ -35,7 +39,7 @@
                 name="password_confirmation"
                 required
             />
-            <x-error field="password_confirmation" />
+            <x-error field="password_confirmation"/>
         </x-label>
 
         <div class="mt-6">
@@ -44,4 +48,4 @@
             </x-button>
         </div>
     </form>
-</x-guest-layout>
+</x-layouts.guest>
