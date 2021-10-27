@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-layouts.guest>
     <div class="mb-4 text-sm text-gray-600">
             {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
     </div>
@@ -10,7 +10,12 @@
     @endif
 
     <div class="mt-4 flex items-center justify-between">
-        <form id="resend_verification" method="POST" action="{{ route('verification.send') }}" class="mt-4">
+        <form
+            id="resend_verification"
+            method="POST"
+            action="{{ route('verification.send') }}"
+            class="mt-4"
+        >
             @csrf
 
             <div>
@@ -29,4 +34,4 @@
             </x-button>
         </form>
     </div>
-</x-guest-layout>
+</x-layouts.guest>

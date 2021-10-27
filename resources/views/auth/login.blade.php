@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-layouts.guest>
     <form method="POST" action="{{ route('login') }}" class="mt-4">
         @csrf
 
@@ -12,7 +12,7 @@
                 required
                 autofocus
             />
-            <x-error field="email" />
+            <x-error field="email"/>
         </x-label>
 
         <x-label for="password" :value="trans_validation_attribute('password')" class="label mt-3">
@@ -23,20 +23,27 @@
                 name="password"
                 required
             />
-            <x-error field="password" />
+            <x-error field="password"/>
         </x-label>
 
         <div class="flex justify-between items-center mt-4">
             <div>
-                <x-label-checkbox for="remember" :value="trans_validation_attribute('remember')" class="inline-flex items-center">
+                <x-label-checkbox
+                    for="remember"
+                    :value="trans_validation_attribute('remember')"
+                    class="inline-flex items-center"
+                >
                     <input type="checkbox" name="remember" class="form-checkbox text-blue-600">
-                    <x-error field="remember" />
+                    <x-error field="remember"/>
                 </x-label-checkbox>
             </div>
 
             @if (Route::has('password.request'))
                 <div>
-                    <a class="block text-sm fontme text-blue-700 hover:underline" href="{{ route('password.request') }}">
+                    <a
+                        href="{{ route('password.request') }}"
+                        class="block text-sm fontme text-blue-700 hover:underline"
+                    >
                         {{ __('Forgot your password?') }}
                     </a>
                 </div>
@@ -49,4 +56,4 @@
             </x-button>
         </div>
     </form>
-</x-guest-layout>
+</x-layouts.guest>
