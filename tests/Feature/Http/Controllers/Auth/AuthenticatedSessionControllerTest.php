@@ -72,7 +72,7 @@ class AuthenticatedSessionControllerTest extends TestCase
         $this->actingAs($user);
         $this->assertAuthenticatedAs($user);
 
-        $response = $this->post(route('logout'));
+        $response = $this->delete(route('logout'));
         $response->assertRedirect('/');
 
         $this->assertGuest();

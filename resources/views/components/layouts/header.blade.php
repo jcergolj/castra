@@ -48,6 +48,8 @@
                 </a>
                 <form method="POST" action="{{ route('logout') }}" class="max-width">
                     @csrf
+                    @method('DELETE')
+
                     <button
                         type="submit"
                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-600 hover:text-white"
