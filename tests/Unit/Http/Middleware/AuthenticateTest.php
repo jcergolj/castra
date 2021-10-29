@@ -3,14 +3,18 @@
 namespace Tests\Unit\Http\Middleware;
 
 use Tests\TestCase;
+use Tests\Concerns\TestableMiddleware;
 
 /** @see \App\Http\Middleware\Authenticate; */
 class AuthenticateTest extends TestCase
 {
+    use TestableMiddleware;
+
     /**
      * @test
      * @dataProvider dashboardRoutesProvider
      * @dataProvider authRoutesProvider
+     * @dataProvider accountRoutesProvider
      */
     public function authenticate_middleware_is_applied_for_routes($route)
     {
@@ -31,6 +35,13 @@ class AuthenticateTest extends TestCase
             'Route verification.verify doesn\'t have authenticate middleware.' => ['verification.verify'],
             'Route verification.send doesn\'t have authenticate middleware.' => ['verification.send'],
             'Route logout doesn\'t have authenticate middleware.' => ['logout'],
+        ];
+    }
+
+    public function accountRoutesProvider()
+    {
+        return [
+            'Route account.profile doesn\'t have authenticate middleware.' => ['account.profile'],
         ];
     }
 }

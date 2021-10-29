@@ -3,9 +3,12 @@
 namespace Tests\Unit\Http\Middleware;
 
 use Tests\TestCase;
+use Tests\Concerns\TestableMiddleware;
 
 class SignedTest extends TestCase
 {
+    use TestableMiddleware;
+
     /**
      * @test
      * @dataProvider routesProvider

@@ -3,10 +3,13 @@
 namespace Tests\Unit\Http\Middleware;
 
 use Tests\TestCase;
+use Tests\Concerns\TestableMiddleware;
 
 /** @see \App\Http\Middleware\Throttle; */
 class ThrottleTest extends TestCase
 {
+    use TestableMiddleware;
+
     /**
      * @test
      * @dataProvider routesProvider
