@@ -15,7 +15,7 @@ class PasswordResetLinkControllerTest extends TestCase
 {
     use TestableFormRequest;
 
-    public function test_reset_password_link_screen_can_be_rendered()
+    public function test_reset_password_link_view_can_be_rendered()
     {
         $response = $this->get(route('password.request'));
 

@@ -15,7 +15,7 @@ class AuthenticatedSessionControllerTest extends TestCase
     use TestableFormRequest;
 
     /** @test */
-    public function login_screen_can_be_rendered()
+    public function login_view_can_be_rendered()
     {
         $response = $this->get(route('login'));
 

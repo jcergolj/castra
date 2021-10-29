@@ -10,7 +10,7 @@ use Tests\TestCase;
 class DashboardControllerTest extends TestCase
 {
     /** @test */
-    public function dashboard_index_screen_can_be_rendered()
+    public function dashboard_index_view_can_be_rendered()
     {
         $response = $this->actingAs(User::factory()->create())
             ->get(route('dashboard.index'));

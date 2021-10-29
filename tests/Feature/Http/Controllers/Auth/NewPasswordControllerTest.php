@@ -18,7 +18,7 @@ class NewPasswordControllerTest extends TestCase
 {
     use TestableFormRequest;
 
-    public function test_reset_password_screen_can_be_rendered()
+    public function test_reset_password_view_can_be_rendered()
     {
         $this->get(route('password.reset', 'token'))
             ->assertStatus(Response::HTTP_OK)
