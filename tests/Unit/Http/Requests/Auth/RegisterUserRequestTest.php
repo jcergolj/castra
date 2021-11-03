@@ -3,11 +3,9 @@
 namespace Tests\Unit\Http\Requests\Auth;
 
 use App\Http\Requests\Auth\RegisterUserRequest;
-use App\Models\User;
 use App\Rules\PasswordRule;
 use Illuminate\Support\Str;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use PHPUnit\Framework\Assert;
 use Tests\TestCase;
 
 /** @see \App\Http\Requests\Auth\RegisterUserRequest */
@@ -49,15 +47,6 @@ class RegisterUserRequestTest extends TestCase
     }
 
     /** @test */
-    public function password_rule_is_instance_of_password_rule_class()
-    {
-        Assert::assertTrue(
-            $this->createFormRequest(RegisterUserRequest::class)->validator()->getRules()['password'][0] instanceof PasswordRule,
-            'Password does not have password rule class'
-        );
-    }
-
-    /** @test */
     public function request_is_allowed_for_all()
     {
         $request = new RegisterUserRequest();
@@ -71,6 +60,7 @@ class RegisterUserRequestTest extends TestCase
             'Test email must be a string' => ['email', 123, 'string'],
             'Test email must be a valid email address' => ['email', 'not-valid-email-address', 'email'],
             'Test email is less than 255 char in length' => ['email', Str::random(250).'@example.com', 'max'],
+            'Test password is not instance of password rule class' => ['password', '', PasswordRule::class],
         ];
     }
 }

@@ -6,7 +6,6 @@ use App\Http\Requests\Account\UpdatePasswordRequest;
 use App\Rules\PasswordCheckRule;
 use App\Rules\PasswordRule;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use PHPUnit\Framework\Assert;
 use Tests\TestCase;
 
 class UpdatePasswordRequestTest extends TestCase
@@ -40,24 +39,18 @@ class UpdatePasswordRequestTest extends TestCase
     /** @test */
     public function current_password_is_instance_of_password_check_class()
     {
-        Assert::assertTrue(
-            $this->createFormRequest(UpdatePasswordRequest::class)
-                ->by(create_user(['password' => bcrypt('password')]))
-                ->validator()
-                ->getRules()['current_password'][1] instanceof PasswordCheckRule,
-            'Current password does not have password check rule class'
-        );
+        $this->createFormRequest(UpdatePasswordRequest::class)
+            ->by(create_user(['password' => bcrypt('password')]))
+            ->validate(['current_password' => 'invalid'])
+            ->assertFails(['current_password' => PasswordCheckRule::class]);
     }
 
     /** @test */
     public function new_password_is_instance_of_password_rule_class()
     {
-        Assert::assertTrue(
-            $this->createFormRequest(UpdatePasswordRequest::class)
-                ->by(create_user(['password' => bcrypt('password')]))
-                ->validator()
-                ->getRules()['new_password'][0] instanceof PasswordRule,
-            'New password does not have password rule class'
-        );
+        $this->createFormRequest(UpdatePasswordRequest::class)
+            ->by(create_user(['password' => bcrypt('password')]))
+            ->validate(['current_password' => ''])
+            ->assertFails(['current_password' => PasswordRule::class]);
     }
 }

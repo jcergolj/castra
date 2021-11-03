@@ -5,7 +5,6 @@ namespace Tests\Unit\Http\Requests\Auth;
 use App\Http\Requests\Auth\NewPasswordRequest;
 use App\Rules\PasswordRule;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use PHPUnit\Framework\Assert;
 use Tests\TestCase;
 
 /** @see \App\Http\Requests\Auth\NewPasswordRequest */
@@ -42,16 +41,8 @@ class NewPasswordRequestTest extends TestCase
             'Test token is required' => ['token', '', 'required'],
             'Test email is required' => ['email', '', 'required'],
             'Test email is valid email address' => ['email', 'not-valid-email-address', 'email'],
+            'Test password does not have instance of password rule class' => ['password', '', PasswordRule::class],
         ];
-    }
-
-    /** @test */
-    public function password_rule_is_instance_of_password_rule_class()
-    {
-        Assert::assertTrue(
-            $this->createFormRequest(NewPasswordRequest::class)->validator()->getRules()['password'][0] instanceof PasswordRule,
-            'Password does not have password rule class'
-        );
     }
 
     /** @test */
