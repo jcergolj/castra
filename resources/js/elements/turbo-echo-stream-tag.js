@@ -1,7 +1,7 @@
-import { connectStreamSource, disconnectStreamSource } from "@hotwired/turbo";
+import { connectStreamSource, disconnectStreamSource } from '@hotwired/turbo';
 
 const subscribeTo = (type, channel) => {
-    if (type === "presence") {
+    if (type === 'presence') {
         return window.Echo.join(channel);
     }
 
@@ -12,7 +12,7 @@ class TurboEchoStreamSourceElement extends HTMLElement {
     async connectedCallback() {
         connectStreamSource(this);
         this.subscription = subscribeTo(this.type, this.channel).listen(
-            ".Tonysm\\TurboLaravel\\Events\\TurboStreamBroadcast",
+            '.Tonysm\\TurboLaravel\\Events\\TurboStreamBroadcast',
             (e) => {
                 this.dispatchMessageEvent(e.message);
             }
@@ -28,17 +28,17 @@ class TurboEchoStreamSourceElement extends HTMLElement {
     }
 
     dispatchMessageEvent(data) {
-        const event = new MessageEvent("message", { data });
+        const event = new MessageEvent('message', { data });
         return this.dispatchEvent(event);
     }
 
     get channel() {
-        return this.getAttribute("channel");
+        return this.getAttribute('channel');
     }
 
     get type() {
-        return this.getAttribute("type") || "private";
+        return this.getAttribute('type') || 'private';
     }
 }
 
-customElements.define("turbo-echo-stream-source", TurboEchoStreamSourceElement);
+customElements.define('turbo-echo-stream-source', TurboEchoStreamSourceElement);

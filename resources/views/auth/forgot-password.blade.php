@@ -6,13 +6,13 @@
 
     <form method="POST" action="{{ route('password.email') }}" class="mt-4">
         @csrf
-        <x-label for="email" :value="trans_validation_attribute('email')">
+        <x-label for="email" :value="trans_validation_attribute('email')" class="block">
             <x-input
                 id="email"
                 type="email"
                 name="email"
                 :value="old('email')"
-                class="block mt-1 w-full"
+                class="mt-1 block"
                 required
                 autofocus
             />
@@ -20,7 +20,7 @@
         </x-label>
 
         <div class="mt-6">
-            <x-button  class="bg-blue-600 hover:bg-blue-500">
+            <x-button  class="w-full text-sm">
                 {{ __('Email Password Reset Link') }}
             </x-button>
         </div>

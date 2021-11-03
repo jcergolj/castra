@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Response;
 use Tests\TestCase;
 
@@ -10,9 +9,9 @@ use Tests\TestCase;
 class DashboardControllerTest extends TestCase
 {
     /** @test */
-    public function dashboard_index_screen_can_be_rendered()
+    public function dashboard_index_view_can_be_rendered()
     {
-        $response = $this->actingAs(User::factory()->create())
+        $response = $this->actingAs(create_user())
             ->get(route('dashboard.index'));
 
         $response->assertStatus(Response::HTTP_OK)

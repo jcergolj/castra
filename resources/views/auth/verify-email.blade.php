@@ -19,7 +19,7 @@
             @csrf
 
             <div>
-                <x-button  class="bg-blue-600 hover:bg-blue-500">
+                <x-button  class="w-full text-sm">
                     {{ __('Resend Verification Email') }}
                 </x-button>
             </div>
@@ -29,7 +29,7 @@
             @method('DELETE')
             @csrf
 
-            <x-button class="bg-gray-600 hover:bg-gray-500">
+            <x-button class="w-full text-sm">
                 {{ __('Log Out') }}
             </x-button>
         </form>

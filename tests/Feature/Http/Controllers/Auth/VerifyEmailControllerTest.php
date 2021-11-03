@@ -25,9 +25,7 @@ class VerifyEmailControllerTest extends TestCase
 
         Event::assertNotDispatched(Verified::class);
 
-        $user = User::factory()->create([
-            'email_verified_at' => null,
-        ]);
+        $user = User::factory()->unverified()->create();
 
         $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',
@@ -50,9 +48,7 @@ class VerifyEmailControllerTest extends TestCase
     /** @test */
     public function email_is_not_verified_with_invalid_hash()
     {
-        $user = User::factory()->create([
-            'email_verified_at' => null,
-        ]);
+        $user = User::factory()->unverified()->create();
 
         $verificationUrl = URL::temporarySignedRoute(
             'verification.verify',

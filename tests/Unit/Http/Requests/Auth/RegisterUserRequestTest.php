@@ -41,7 +41,7 @@ class RegisterUserRequestTest extends TestCase
     /** @test */
     public function user_must_be_unique()
     {
-        User::factory()->create(['email' => 'joe@example.com']);
+        create_user(['email' => 'joe@example.com']);
 
         $this->createFormRequest(RegisterUserRequest::class)
             ->validate(['email' => 'joe@example.com'])

@@ -3,7 +3,6 @@
 namespace Tests\Feature\Http\Controllers\Auth;
 
 use App\Http\Requests\Auth\PasswordResetLinkRequest;
-use App\Models\User;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Notification;
@@ -15,7 +14,7 @@ class PasswordResetLinkControllerTest extends TestCase
 {
     use TestableFormRequest;
 
-    public function test_reset_password_link_screen_can_be_rendered()
+    public function test_reset_password_link_view_can_be_rendered()
     {
         $response = $this->get(route('password.request'));
 
@@ -30,7 +29,7 @@ class PasswordResetLinkControllerTest extends TestCase
     {
         Notification::fake();
 
-        $user = User::factory()->create();
+        $user = create_user();
 
         $response = $this->from(route('password.request'))->post(route('password.email'), ['email' => $user->email]);
 

@@ -1,4 +1,4 @@
-import "./bootstrap";
-import "./elements/turbo-echo-stream-tag";
-import "./libs/turbo";
-import "alpinejs";
+import './bootstrap';
+import './elements/turbo-echo-stream-tag';
+import './alpine';
+import './turbo';

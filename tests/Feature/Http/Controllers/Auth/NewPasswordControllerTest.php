@@ -3,7 +3,6 @@
 namespace Tests\Feature\Http\Controllers\Auth;
 
 use App\Http\Requests\Auth\NewPasswordRequest;
-use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\Response;
@@ -18,7 +17,7 @@ class NewPasswordControllerTest extends TestCase
 {
     use TestableFormRequest;
 
-    public function test_reset_password_screen_can_be_rendered()
+    public function test_reset_password_view_can_be_rendered()
     {
         $this->get(route('password.reset', 'token'))
             ->assertStatus(Response::HTTP_OK)
@@ -35,7 +34,7 @@ class NewPasswordControllerTest extends TestCase
         Event::fake();
         Notification::fake();
 
-        $user = User::factory()->create();
+        $user = create_user();
 
         $this->post(route('password.email'), ['email' => $user->email]);
 
@@ -64,7 +63,7 @@ class NewPasswordControllerTest extends TestCase
 
     public function test_password_cannot_be_reset_with_invalid_token()
     {
-        $user = User::factory()->create(['password' => Hash::make('password')]);
+        $user = create_user(['password' => Hash::make('password')]);
 
         $response = $this->from(route('password.reset', 'token'))
             ->post(route('password.update'), [

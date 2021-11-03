@@ -2,11 +2,14 @@
 
 namespace Tests\Unit\Http\Middleware;
 
+use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Middleware\Authenticate; */
 class GuestTest extends TestCase
 {
+    use TestableMiddleware;
+
     /**
      * @test
      * @dataProvider routesProvider

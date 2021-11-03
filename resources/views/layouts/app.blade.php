@@ -13,6 +13,7 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body>
+        <x-status></x-status>
         {{ $slot }}
     </body>
 </html>

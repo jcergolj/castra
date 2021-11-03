@@ -3,7 +3,6 @@
 namespace Tests\Feature\Http\Controllers\Auth;
 
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Response;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
@@ -15,7 +14,7 @@ class AuthenticatedSessionControllerTest extends TestCase
     use TestableFormRequest;
 
     /** @test */
-    public function login_screen_can_be_rendered()
+    public function login_view_can_be_rendered()
     {
         $response = $this->get(route('login'));
 
@@ -31,7 +30,7 @@ class AuthenticatedSessionControllerTest extends TestCase
     /** @test */
     public function users_can_authenticate_using_the_login_screen()
     {
-        $user = User::factory()->create();
+        $user = create_user();
 
         $response = $this->post(route('login.store'), [
             'email' => $user->email,
@@ -45,7 +44,7 @@ class AuthenticatedSessionControllerTest extends TestCase
     /** @test */
     public function users_can_not_authenticate_with_invalid_password()
     {
-        $user = User::factory()->create();
+        $user = create_user();
 
         $this->post(route('login.store'), [
             'email' => $user->email,
@@ -64,7 +63,7 @@ class AuthenticatedSessionControllerTest extends TestCase
     /** @test */
     public function authenticated_user_can_logout()
     {
-        $user = User::factory()->make([
+        $user = make_user([
             'email' => 'joe@example.com',
             'password' => bcrypt('password'),
         ]);
@@ -72,7 +71,7 @@ class AuthenticatedSessionControllerTest extends TestCase
         $this->actingAs($user);
         $this->assertAuthenticatedAs($user);
 
-        $response = $this->post(route('logout'));
+        $response = $this->delete(route('logout'));
         $response->assertRedirect('/');
 
         $this->assertGuest();

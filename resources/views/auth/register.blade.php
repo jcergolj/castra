@@ -4,23 +4,27 @@
     <form method="POST" action="{{ route('register') }}" class="mt-4">
         @csrf
 
-        <x-label for="email" :value="trans_validation_attribute('email')" class="label">
+        <x-label for="email" :value="trans_validation_attribute('email')" class="label block">
             <x-input
                 id="email"
                 type="email"
                 name="email"
                 :value="old('email')"
-                class="form-input mt-1 block w-full rounded-md focus:border-blue-600"
+                class="mt-1 block"
                 required
                 autofocus
             />
             <x-error field="email"/>
         </x-label>
 
-        <x-label for="password" :value="trans_validation_attribute('password')" class="label mt-3">
+        <x-label
+            for="password"
+            :value="trans_validation_attribute('password')"
+            class="label block mt-3"
+        >
             <x-input
                 id="password"
-                class="form-input mt-1 block w-full rounded-md focus:border-blue-600"
+                class="mt-1 block"
                 type="password"
                 name="password"
                 required
@@ -28,10 +32,14 @@
             <x-error field="password"/>
         </x-label>
 
-        <x-label for="password_confirmation" :value="trans_validation_attribute('password_confirmation')" class="label mt-3">
+        <x-label
+            for="password_confirmation"
+            :value="trans_validation_attribute('password_confirmation')"
+            class="label block mt-3"
+        >
             <x-input
                 id="password_confirmation"
-                class="form-input mt-1 block w-full rounded-md focus:border-blue-600"
+                class="mt-1 block"
                 type="password"
                 name="password_confirmation"
                 required
@@ -51,7 +59,7 @@
         </div>
 
         <div class="mt-6">
-            <x-button  class="bg-blue-600 hover:bg-blue-500">
+            <x-button  class="w-full text-sm">
                 {{ __('Register') }}
             </x-button>
         </div>
