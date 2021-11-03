@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Account;
 
-use App\Rules\PasswordRule;
 use App\Rules\PasswordCheckRule;
+use App\Rules\PasswordRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePasswordRequest extends FormRequest

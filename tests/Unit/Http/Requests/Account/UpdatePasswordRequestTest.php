@@ -2,12 +2,12 @@
 
 namespace Tests\Unit\Http\Requests\Account;
 
-use Tests\TestCase;
-use PHPUnit\Framework\Assert;
 use App\Http\Requests\Account\UpdatePasswordRequest;
 use App\Rules\PasswordCheckRule;
 use App\Rules\PasswordRule;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
+use PHPUnit\Framework\Assert;
+use Tests\TestCase;
 
 class UpdatePasswordRequestTest extends TestCase
 {

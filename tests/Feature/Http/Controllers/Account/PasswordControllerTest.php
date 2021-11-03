@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Http\Controllers\Account;
 
-use Tests\TestCase;
+use App\Http\Requests\Account\UpdatePasswordRequest;
+use App\Notifications\PasswordUpdatedNotification;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\PasswordUpdatedNotification;
-use App\Http\Requests\Account\UpdatePasswordRequest;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
+use Tests\TestCase;
 
 class PasswordControllerTest extends TestCase
 {
@@ -74,7 +74,7 @@ class PasswordControllerTest extends TestCase
     }
 
     /** @test */
-    function password_updated_notification_is_sent_to_the_user()
+    public function password_updated_notification_is_sent_to_the_user()
     {
         Notification::assertNothingSent(PasswordUpdatedNotification::class);
 
