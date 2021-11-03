@@ -8,7 +8,7 @@ use Tests\TestCase;
 class PasswordUpdatedNotificationTest extends TestCase
 {
     /** @test */
-    function notification_is_sent_via_email()
+    public function notification_is_sent_via_email()
     {
         $notification = new PasswordUpdatedNotification;
 
@@ -16,7 +16,7 @@ class PasswordUpdatedNotificationTest extends TestCase
     }
 
     /** @test */
-    function notification_contains_line()
+    public function notification_contains_line()
     {
         $notification = new PasswordUpdatedNotification;
         $this->assertStringContainsString(

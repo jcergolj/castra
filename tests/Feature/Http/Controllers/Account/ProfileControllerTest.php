@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Http\Controllers\Account;
 
-use Tests\TestCase;
 use Illuminate\Http\Response;
+use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Account\ProfileController */
 class ProfileControllerTest extends TestCase

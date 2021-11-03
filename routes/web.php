@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Account\PasswordController;
+use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 

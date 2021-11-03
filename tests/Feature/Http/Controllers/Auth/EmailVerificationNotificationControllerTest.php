@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Http\Controllers\Auth;
 
-use Tests\TestCase;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Auth\Notifications\VerifyEmail;
+use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Auth\EmailVerificationNotificationController */
 class EmailVerificationNotificationControllerTest extends TestCase
