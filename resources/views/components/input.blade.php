@@ -2,5 +2,5 @@
 
 <input
     {{ $disabled ? 'disabled' : '' }}
-    {!! $attributes->merge(['class' => 'rounded-md shadow-sm border-gray-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50']) !!}
+    {!! $attributes->merge(['class' => 'form-input w-full rounded-md focus:border-blue-600']) !!}
 >

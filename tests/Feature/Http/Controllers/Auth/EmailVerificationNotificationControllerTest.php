@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Http\Controllers\Auth;
 
+use Tests\TestCase;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Notification;
-use Tests\TestCase;
+use Illuminate\Auth\Notifications\VerifyEmail;
 
 /** @see \App\Http\Controllers\Auth\EmailVerificationNotificationController */
 class EmailVerificationNotificationControllerTest extends TestCase
@@ -16,9 +16,7 @@ class EmailVerificationNotificationControllerTest extends TestCase
     /** @test */
     public function email_verification_with_resend_verification_view_can_be_rendered_if_user_is_not_verified()
     {
-        $user = User::factory()->create([
-            'email_verified_at' => null,
-        ]);
+        $user = User::factory()->unverified()->create();
 
         $response = $this->actingAs($user)->get(route('verification.notice'));
 
@@ -34,6 +32,7 @@ class EmailVerificationNotificationControllerTest extends TestCase
         $user = User::factory()->create([
             'email_verified_at' => Carbon::yesterday(),
         ]);
+
         $verifiedAt = $user->email_verified_at;
 
         $response = $this->actingAs($user)->post(route('verification.send'));
@@ -49,9 +48,7 @@ class EmailVerificationNotificationControllerTest extends TestCase
     {
         Notification::fake();
 
-        $user = User::factory()->create([
-             'email_verified_at' => null,
-         ]);
+        $user = User::factory()->unverified()->create();
 
         $response = $this->actingAs($user)
             ->from(route('verification.notice'))

@@ -1,6 +1,9 @@
-@props(['value'])
+@props(['value' => null])
 
-<label {{ $attributes->merge(['class' => 'block']) }}>
-    <span class="text-gray-700 text-sm">{{ $value }}</span>
+<label>
+    @if ($value !== null)
+        <span class="text-gray-700 text-sm">{{ $value }}</span>
+    @endif
+
     {{ $slot }}
 </label>

@@ -1,32 +1,26 @@
 <?php
 
+use App\Models\User;
 use Database\Factories\UserFactory;
 
 /**
- * Admin seeder.
+ * User seeder.
  *
+ * @param  $attributes
  * @return \App\Models\User
  */
-function create_admin()
+function create_user($attributes = []) : User
 {
-    return UserFactory::new()->forRole([
-            'name' => 'admin',
-        ])->create([
-            'email' => 'admin@admin.lte',
-        ]);
+    return User::factory()->create($attributes);
 }
 
 /**
  * User seeder.
  *
- * @param  $email
+ * @param  $attributes
  * @return \App\Models\User
  */
-function create_user($email = null)
+function make_user($attributes = []) : User
 {
-    return UserFactory::new()->forRole([
-            'name' => 'manager',
-        ])->create([
-            'email' => $email ?? 'manager@admin.lte',
-        ]);
+    return User::factory()->make($attributes);
 }

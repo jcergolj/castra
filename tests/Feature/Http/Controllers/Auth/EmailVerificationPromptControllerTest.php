@@ -14,9 +14,7 @@ class EmailVerificationPromptControllerTest extends TestCase
     /** @test */
     public function email_verification_view_can_be_rendered_if_user_is_not_verified()
     {
-        $user = User::factory()->create([
-            'email_verified_at' => null,
-        ]);
+        $user = User::factory()->unverified()->create();
 
         $response = $this->actingAs($user)
             ->get(route('verification.notice'));

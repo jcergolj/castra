@@ -8543,11 +8543,11 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
  */
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
-  broadcaster: 'pusher',
+  broadcaster: "pusher",
   key: "",
   cluster: "mt1",
   forceTLS: process.env.MIX_PUSHER_APP_USE_SSL === "true",
@@ -8555,8 +8555,8 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   wsHost: process.env.MIX_PUSHER_APP_HOST,
   wsPort: process.env.MIX_PUSHER_APP_PORT || null
 });
-document.addEventListener('turbo:before-fetch-request', function (e) {
-  e.detail.fetchOptions.headers['X-Socket-ID'] = window.Echo.socketId();
+document.addEventListener("turbo:before-fetch-request", function (e) {
+  e.detail.fetchOptions.headers["X-Socket-ID"] = window.Echo.socketId();
 });
 
 /***/ }),

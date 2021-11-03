@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Account\PasswordController;
 
 require __DIR__.'/auth.php';
 
@@ -16,5 +17,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('account.')
         ->group(function () {
             Route::get('profile', [ProfileController::class, '__invoke'])->name('profile');
+
+            Route::get('password/edit', [PasswordController::class, 'edit'])->name('password.edit');
+            Route::patch('password', [PasswordController::class, 'update'])->name('password.update');
         });
 });

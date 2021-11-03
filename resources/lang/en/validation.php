@@ -106,6 +106,7 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'password_check' => 'The :attribute is invalid.',
 
     'custom' => [
         'attribute-name' => [
@@ -118,10 +119,10 @@ return [
         'email' => 'E-Mail Address',
         'new_email' => 'New E-Mail Address',
         'password' => 'Password',
-        'newPassword' => 'New Password',
-        'newPasswordConfirmation' => 'Confirm New Password',
+        'current_password' => 'Current Password',
+        'new_password' => 'New Password',
+        'new_password_confirmation' => 'Confirm New Password',
         'password_confirmation' => 'Confirm Password',
-        'currentPassword' => 'Your Current Password',
         'remember' => 'Remember Me',
     ],
 

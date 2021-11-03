@@ -41,7 +41,7 @@
                 class="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10"
             >
                 <a
-                    href="#"
+                    href="{{ route('account.profile') }}"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-600 hover:text-white"
                 >
                     Profile
