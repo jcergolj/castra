@@ -50,6 +50,25 @@ jobs:
     - name: Run insights
       run: php artisan insights --no-interaction --min-quality=90 --min-complexity=85 --min-architecture=90 --min-style=95
 
+  phpstan:
+    name: "phpstan"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.0']
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+    - name: Run composer install
+      run: composer install -n --prefer-dist
+      env:
+        APP_ENV: testing
+    - name: Run phphstan
+      run: ./vendor/bin/phpstan analyse --memory-limit=2G
+
   phpunit:
     name: "phpunit"
     runs-on: ubuntu-latest

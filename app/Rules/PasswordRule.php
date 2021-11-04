@@ -14,7 +14,7 @@ class PasswordRule implements ImplicitRule
     /** @var array */
     public $failedRules = null;
 
-    /** @var string */
+    /** @var string|null */
     protected $confirmationValue;
 
     /** @var string */

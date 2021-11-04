@@ -9,7 +9,7 @@ class ProfileController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function __invoke()
     {

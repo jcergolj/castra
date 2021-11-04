@@ -11,7 +11,7 @@ class PasswordController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function edit()
     {
@@ -22,7 +22,7 @@ class PasswordController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\Account\UpdatePasswordRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdatePasswordRequest $request)
     {

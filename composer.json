@@ -28,6 +28,7 @@
         "laravel/breeze": "^1.1",
         "mockery/mockery": "^1.4",
         "nunomaduro/collision": "^5.0",
+        "nunomaduro/larastan": "^1.0",
         "nunomaduro/phpinsights": "^2.0",
         "phpunit/phpunit": "^9.3.3"
     },

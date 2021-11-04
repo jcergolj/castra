@@ -4,8 +4,8 @@ if (! function_exists('trans_validation_attribute')) {
     /**
      * Translation for validation attribute.
      *
-     * @param  string  $message
-     * @return void
+     * @param  string  $key
+     * @return string
      */
     function trans_validation_attribute($key)
     {
