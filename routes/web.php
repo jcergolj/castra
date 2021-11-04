@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Account\PasswordController;
-use App\Http\Controllers\Account\ProfileController;
-use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Account\EmailController;
+use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Account\PasswordController;
 
 require __DIR__.'/auth.php';
 
@@ -20,5 +21,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::get('password/edit', [PasswordController::class, 'edit'])->name('password.edit');
             Route::patch('password', [PasswordController::class, 'update'])->name('password.update');
+
+            Route::get('email/edit', [EmailController::class, 'edit'])->name('email.edit');
+            Route::patch('email', [EmailController::class, 'update'])->name('email.update');
         });
 });
