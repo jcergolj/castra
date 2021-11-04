@@ -8,17 +8,38 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
+use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
+/** @see \App\Http\Controllers\Account\PasswordController */
 class PasswordControllerTest extends TestCase
 {
-    use TestableFormRequest;
+    use TestableFormRequest, TestableMiddleware;
 
     public function setUp() : void
     {
         parent::setUp();
 
         Notification::fake();
+    }
+
+    /**
+     * @test
+     * @dataProvider middlewareRouteDataProvider
+     */
+    public function middleware_is_applied_for_routes($middleware, $route)
+    {
+        $this->assertContains($middleware, $this->getMiddlewareFor($route));
+    }
+
+    public function middlewareRouteDataProvider()
+    {
+        return [
+            'Auth middleware is not applied to account.password.edit route' => ['auth', 'account.password.edit'],
+            'Auth middleware is not applied to account.password.update route' => ['auth', 'account.password.update'],
+            'Verified middleware is not applied to account.password.edit route' => ['verified', 'account.password.edit'],
+            'Verified middleware is not applied to account.password.update route' => ['verified', 'account.password.update'],
+        ];
     }
 
     /** @test */

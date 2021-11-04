@@ -3,11 +3,26 @@
 namespace Tests\Feature\Http\Controllers\Account;
 
 use Illuminate\Http\Response;
+use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Account\ProfileController */
 class ProfileControllerTest extends TestCase
 {
+    use TestableMiddleware;
+
+    /** @test */
+    public function auth_middleware_is_applied_for_account_profile_route()
+    {
+        $this->assertContains('auth', $this->getMiddlewareFor('account.profile'));
+    }
+
+    /** @test */
+    public function verified_middleware_is_applied_for_account_profile_route()
+    {
+        $this->assertContains('verified', $this->getMiddlewareFor('account.profile'));
+    }
+
     /** @test */
     public function profile_view_can_be_rendered()
     {

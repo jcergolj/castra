@@ -6,12 +6,36 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Response;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
+use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Auth\AuthenticatedSessionController */
 class AuthenticatedSessionControllerTest extends TestCase
 {
-    use TestableFormRequest;
+    use TestableFormRequest, TestableMiddleware;
+
+    /**
+     * @test
+     * @dataProvider routesProvider
+     */
+    public function guest_middleware_is_applied_for_routes($route)
+    {
+        $this->assertContains('guest', $this->getMiddlewareFor($route));
+    }
+
+    public function routesProvider()
+    {
+        return [
+            'Route login doesn\'t have guest middleware.' => ['login'],
+            'Route login.store doesn\'t have guest middleware.' => ['login.store'],
+        ];
+    }
+
+     /** @test */
+    public function authenticate_middleware_is_applied_for_logout_route()
+    {
+        $this->assertContains('auth', $this->getMiddlewareFor('logout'));
+    }
 
     /** @test */
     public function login_view_can_be_rendered()

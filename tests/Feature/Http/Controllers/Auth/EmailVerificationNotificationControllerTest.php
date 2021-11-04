@@ -8,11 +8,26 @@ use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
+use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Auth\EmailVerificationNotificationController */
 class EmailVerificationNotificationControllerTest extends TestCase
 {
+    use TestableMiddleware;
+
+    /** @test */
+    public function throttle_middleware_is_applied_for_verification_send_route()
+    {
+        $this->assertContains('throttle', $this->getMiddlewareFor('verification.send'));
+    }
+
+    /** @test */
+    public function auth_middleware_is_applied_for_verification_send_route()
+    {
+        $this->assertContains('auth', $this->getMiddlewareFor('verification.send'));
+    }
+
     /** @test */
     public function email_verification_with_resend_verification_view_can_be_rendered_if_user_is_not_verified()
     {

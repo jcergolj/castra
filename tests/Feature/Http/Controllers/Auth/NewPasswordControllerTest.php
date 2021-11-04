@@ -10,12 +10,25 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
+use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Auth\NewPasswordController */
 class NewPasswordControllerTest extends TestCase
 {
-    use TestableFormRequest;
+    use TestableFormRequest, TestableMiddleware;
+
+     /** @test */
+    public function guest_middleware_is_applied_for_password_reset_route()
+    {
+        $this->assertContains('guest', $this->getMiddlewareFor('password.reset'));
+    }
+
+    /** @test */
+    public function guest_middleware_is_applied_for_password_update_route()
+    {
+        $this->assertContains('guest', $this->getMiddlewareFor('password.update'));
+    }
 
     public function test_reset_password_view_can_be_rendered()
     {

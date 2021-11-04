@@ -2,21 +2,40 @@
 
 namespace Tests\Feature\Http\Controllers\Auth;
 
+use Tests\TestCase;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Support\Facades\Event;
+use Tests\Concerns\TestableMiddleware;
+use App\Providers\RouteServiceProvider;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use Tests\TestCase;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /** @see \App\Http\Controllers\Auth\VerifyEmailControllerTest */
 class VerifyEmailControllerTest extends TestCase
 {
-    use TestableFormRequest;
+    use TestableFormRequest, TestableMiddleware;
+
+    /**
+     * @test
+     * @dataProvider middlewareRouteDataProvider
+     */
+    public function middleware_is_applied_for_routes($middleware, $route)
+    {
+        $this->assertContains($middleware, $this->getMiddlewareFor($route));
+    }
+
+    public function middlewareRouteDataProvider()
+    {
+        return [
+            'Auth middleware is not applied to verification.verify' => ['auth', 'verification.verify'],
+            'Signed middleware is not applied to verification.verify' => ['signed', 'verification.verify'],
+            'Throttle middleware is not applied to verification.verify' => ['throttle', 'verification.verify'],
+        ];
+    }
 
     /** @test */
     public function email_can_be_verified()

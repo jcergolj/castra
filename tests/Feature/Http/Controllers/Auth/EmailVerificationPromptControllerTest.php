@@ -6,11 +6,20 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Auth\EmailVerificationPromptController */
 class EmailVerificationPromptControllerTest extends TestCase
 {
+    use TestableMiddleware;
+
+    /** @test */
+    public function auth_middleware_is_applied_for_verification_notice_route()
+    {
+        $this->assertContains('auth', $this->getMiddlewareFor('verification.notice'));
+    }
+
     /** @test */
     public function email_verification_view_can_be_rendered_if_user_is_not_verified()
     {
