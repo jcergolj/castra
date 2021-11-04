@@ -1,0 +1,82 @@
+<?php
+
+namespace {{ namespace }};
+
+use Tests\TestCase;
+use Tests\Concerns\TestableMiddleware;
+use Jcergolj\FormRequestAssertions\TestableFormRequest;
+
+class {{ class }} extends TestCase
+{
+    use TestableFormRequest, TestableMiddleware;
+
+    /**
+     * @test
+     * @dataProvider middlewareRouteDataProvider
+     */
+    public function middleware_is_applied_for_routes($middleware, $route)
+    {
+        $this->assertContains($middleware, $this->getMiddlewareFor($route));
+    }
+
+    public function middlewareRouteDataProvider()
+    {
+        return [
+            '{ middleware } middleware is not applied to { route }' => ['{ middleware }', '{ route }'],
+        ];
+    }
+
+    /** @test */
+    public function index_view_can_be_rendered()
+    {
+
+    }
+
+    /** @test */
+    public function create_view_can_be_rendered()
+    {
+
+    }
+
+    /** @test */
+    public function create_view_form_is_inside_turbo_frame()
+    {
+
+    }
+
+    /** @test */
+    public function xyz_can_be_created()
+    {
+
+    }
+
+    /** @test */
+    public function edit_view_can_be_rendered()
+    {
+
+    }
+
+    /** @test */
+    public function edit_view_form_is_inside_turbo_frame()
+    {
+
+    }
+
+    /** @test */
+    public function xyz_can_be_updated()
+    {
+
+    }
+
+    /** @test */
+    public function xyz_can_be_destroyed()
+    {
+
+    }
+
+    /** @test */
+    public function xyz_controller_has_xyz_request()
+    {
+        $this->assertRouteUsesFormRequest('{ route }', { request }::class);
+    }
+}
