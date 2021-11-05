@@ -18,7 +18,7 @@ class NewPasswordControllerTest extends TestCase
 {
     use TestableFormRequest, TestableMiddleware;
 
-     /** @test */
+    /** @test */
     public function guest_middleware_is_applied_for_password_reset_route()
     {
         $this->assertContains('guest', $this->getMiddlewareFor('password.reset'));

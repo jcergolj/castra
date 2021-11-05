@@ -2,17 +2,17 @@
 
 namespace Tests\Feature\Http\Controllers\Auth;
 
-use Tests\TestCase;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\URL;
-use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
-use Tests\Concerns\TestableMiddleware;
-use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\URL;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Tests\Concerns\TestableMiddleware;
+use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Auth\VerifyEmailControllerTest */
 class VerifyEmailControllerTest extends TestCase

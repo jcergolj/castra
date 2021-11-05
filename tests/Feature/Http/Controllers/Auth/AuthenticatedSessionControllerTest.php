@@ -31,7 +31,7 @@ class AuthenticatedSessionControllerTest extends TestCase
         ];
     }
 
-     /** @test */
+    /** @test */
     public function authenticate_middleware_is_applied_for_logout_route()
     {
         $this->assertContains('auth', $this->getMiddlewareFor('logout'));
