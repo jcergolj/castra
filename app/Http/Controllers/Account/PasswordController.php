@@ -26,7 +26,7 @@ class PasswordController extends Controller
      */
     public function update(UpdatePasswordRequest $request)
     {
-            $request->user()->update(['password' => bcrypt($request->new_password)]);
+        $request->user()->update(['password' => bcrypt($request->new_password)]);
 
         $request->user()->notify(new PasswordUpdatedNotification());
 
