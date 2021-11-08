@@ -14,10 +14,9 @@ class PasswordUpdatedNotification extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via()
     {
         return ['mail'];
     }
@@ -25,12 +24,11 @@ class PasswordUpdatedNotification extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail()
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject('Your password has been changed')
             ->greeting('Hi there')
             ->line('I just want to let you know that your password has been changed.')
@@ -40,13 +38,10 @@ class PasswordUpdatedNotification extends Notification implements ShouldQueue
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray()
     {
-        return [
-            //
-        ];
+        return [];
     }
 }

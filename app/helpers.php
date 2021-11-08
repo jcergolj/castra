@@ -1,5 +1,17 @@
 <?php
 
+if (! function_exists('user')) {
+    /**
+     * Get current auth user.
+     *
+     * @return App\Models\User|null
+     */
+    function user()
+    {
+        return request()->user() ?? null;
+    }
+}
+
 if (! function_exists('trans_validation_attribute')) {
     /**
      * Translation for validation attribute.

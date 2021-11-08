@@ -3,12 +3,12 @@
     <div class="mt-8">
         <div class="mt-4">
             <div class="p-6 bg-white rounded-md shadow-md">
-                <h2 class="text-lg text-gray-700 font-semibold capitalize">Password</h2>
-                <turbo-frame id="frame_update_password">
+                <h2 class="text-lg text-gray-700 font-semibold capitalize">Email</h2>
+                <turbo-frame id="frame_update_email">
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-4">
                         <form
-                            id="update_password"
-                            action="{{ route('account.password.update') }}"
+                            id="email_update"
+                            action="{{ route('account.email.update') }}"
                             method="POST"
                         >
                             @csrf
@@ -29,30 +29,16 @@
                             </div>
 
                             <div class="mt-4">
-                                <x-label for="new_password" class="text-gray-700">
-                                    {{ trans_validation_attribute('new_password') }}
+                                <x-label for="new_email" class="text-gray-700">
+                                    {{ trans_validation_attribute('new_email') }}
                                     <x-input
-                                        id="password"
+                                        id="new_email"
                                         class="mt-2"
-                                        type="password"
-                                        name="new_password"
+                                        type="email"
+                                        name="new_email"
                                         required
                                     />
-                                    <x-error field="new_password"/>
-                                </x-label>
-                            </div>
-
-                            <div class="mt-4">
-                                <x-label for="new_password_confirmation" class="text-gray-700">
-                                    {{ trans_validation_attribute('new_password_confirmation') }}
-                                    <x-input
-                                        id="new_password_confirmation"
-                                        class="mt-2"
-                                        type="password"
-                                        name="new_password_confirmation"
-                                        required
-                                    />
-                                    <x-error field="new_password_confirmation"/>
+                                    <x-error field="new_email"/>
                                 </x-label>
                             </div>
 
@@ -65,7 +51,6 @@
                                 </a>
                                 <x-button>Save</x-button>
                             </div>
-
                         </form>
                     </div>
                 </turbo-frame>

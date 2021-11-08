@@ -8,6 +8,7 @@ use App\Rules\PasswordRule;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
 use Tests\TestCase;
 
+/** @see \App\Http\Requests\Account\UpdatePasswordRequest */
 class UpdatePasswordRequestTest extends TestCase
 {
     use TestableFormRequest;
@@ -25,9 +26,7 @@ class UpdatePasswordRequestTest extends TestCase
             ->assertPasses();
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function current_password_is_required()
     {
         $this->createFormRequest(UpdatePasswordRequest::class)

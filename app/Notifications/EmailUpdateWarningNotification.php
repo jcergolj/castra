@@ -7,27 +7,30 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class EmailUpdatedNotification extends Notification
+class EmailUpdateWarningNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    /** @var string */
+    public $newEmail;
+
     /**
-     * Create a new notification instance.
+     * Create a new message instance.
      *
+     * @param  string  $newEmail
      * @return void
      */
-    public function __construct()
+    public function __construct($newEmail)
     {
-        //
+        $this->newEmail = $newEmail;
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via()
     {
         return ['mail'];
     }
@@ -40,10 +43,13 @@ class EmailUpdatedNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return (new MailMessage())
+            ->subject('Someone requested an email address change')
+            ->greeting('Hi there')
+            ->line('Someone has requested an email address update.')
+            ->line("From {$notifiable->email} to {$this->newEmail}.")
+            ->line('Wasn\'t you?')
+            ->line('Please contact us immediately.');
     }
 
     /**
@@ -54,8 +60,6 @@ class EmailUpdatedNotification extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
-        ];
+        return [];
     }
 }

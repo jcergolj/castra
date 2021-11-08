@@ -1,4 +1,6 @@
 <x-layouts.guest>
+    <x-auth-session-status :status="session('status')"/>
+
     <form method="POST" action="{{ route('login') }}" class="mt-4">
         @csrf
 

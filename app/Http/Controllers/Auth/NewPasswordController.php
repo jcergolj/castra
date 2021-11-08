@@ -35,7 +35,8 @@ class NewPasswordController extends Controller
         $status = $this->resetPassword($request);
 
         if ($status === Password::PASSWORD_RESET) {
-            return redirect()->route('login')->with('status', __($status));
+            msg(__($status));
+            return redirect()->route('login');
         }
 
         return back()->withInput($request->only('email'))

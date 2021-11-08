@@ -1,12 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Account\EmailController;
-use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Account\PasswordController;
-
-require __DIR__.'/auth.php';
+use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Account\VerifyNewEmailController;
+use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
 
@@ -26,3 +25,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::patch('email', [EmailController::class, 'update'])->name('email.update');
         });
 });
+
+Route::get('account/verify-email', [VerifyNewEmailController::class, '__invoke'])
+    ->middleware('throttle:6,1')
+    ->name('account.verification.verify');

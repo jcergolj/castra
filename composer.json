@@ -30,7 +30,8 @@
         "nunomaduro/collision": "^5.0",
         "nunomaduro/larastan": "^1.0",
         "nunomaduro/phpinsights": "^2.0",
-        "phpunit/phpunit": "^9.3.3"
+        "phpunit/phpunit": "^9.3.3",
+        "timacdonald/log-fake": "^1.9"
     },
     "config": {
         "optimize-autoloader": true,
@@ -76,6 +77,14 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "cghooks": "vendor/bin/cghooks"
+        "cghooks": "vendor/bin/cghooks",
+        "phpstan": "./vendor/bin/phpstan analyse --memory-limit=2G",
+        "insights": "@php artisan insights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80",
+        "phpcs": "vendor/bin/php-cs-fixer fix",
+        "analyse": [
+            "@phpcs",
+            "@insights",
+            "@phpstan"
+        ]
     }
 }

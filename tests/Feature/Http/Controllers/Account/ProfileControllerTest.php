@@ -33,15 +33,28 @@ class ProfileControllerTest extends TestCase
     }
 
     /** @test */
-    public function turbo_frame_change_password_exists_with_a_link()
+    public function turbo_frame_update_password_exists_with_a_link()
     {
         $response = $this->actingAs(create_user())
             ->get(route('account.profile'));
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertElementHasChild(
-                'turbo-frame[id="change_password"]',
+                'turbo-frame[id="frame_update_password"]',
                 'a[href="'.route('account.password.edit').'"]'
+            );
+    }
+
+    /** @test */
+    public function turbo_frame_update_email_exists_with_a_link()
+    {
+        $response = $this->actingAs(create_user())
+            ->get(route('account.profile'));
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertElementHasChild(
+                'turbo-frame[id="frame_update_email"]',
+                'a[href="'.route('account.email.edit').'"]'
             );
     }
 }

@@ -3,10 +3,19 @@
 namespace Tests\Unit\Notifications;
 
 use App\Notifications\PasswordUpdatedNotification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Tests\TestCase;
 
+/** @see \App\Notifications\EmailUpdateRequestNotification */
 class PasswordUpdatedNotificationTest extends TestCase
 {
+    /** @test */
+    public function notification_is_queued()
+    {
+        $notification = new PasswordUpdatedNotification;
+        $this->assertInstanceOf(ShouldQueue::class, $notification);
+    }
+
     /** @test */
     public function notification_is_sent_via_email()
     {

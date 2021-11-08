@@ -49,7 +49,7 @@ class PasswordControllerTest extends TestCase
             ->get(route('account.password.edit'));
 
         $response->assertStatus(Response::HTTP_OK)
-            ->assertViewHasForm('id="password-update"', 'patch', route('account.password.update'))
+            ->assertViewHasForm('id="update_password"', 'patch', route('account.password.update'))
             ->assertFormHasCSRF()
             ->assertFormHasPasswordInput('current_password')
             ->assertFormHasPasswordInput('new_password')
@@ -65,7 +65,7 @@ class PasswordControllerTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertElementHasChild(
-                'turbo-frame[id="change_password"]',
+                'turbo-frame[id="frame_update_password"]',
                 'form[action="'.route('account.password.update').'"]'
             );
     }

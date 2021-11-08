@@ -2,13 +2,19 @@
 
 namespace Tests\Feature\Http\Controllers\Account;
 
-use Tests\TestCase;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\EmailUpdatedNotification;
 use App\Http\Requests\Account\UpdateEmailRequest;
+use App\Notifications\EmailUpdateRequestNotification;
+use App\Notifications\EmailUpdateWarningNotification;
+use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Str;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
 use Tests\Concerns\TestableMiddleware;
+use Tests\TestCase;
+use TiMacDonald\Log\LogFake;
 
 /** @see \App\Http\Controllers\Account\EmailController */
 class EmailControllerTest extends TestCase
@@ -48,10 +54,10 @@ class EmailControllerTest extends TestCase
             ->get(route('account.email.edit'));
 
         $response->assertStatus(Response::HTTP_OK)
-            ->assertViewHasForm('id="email-update"', 'patch', route('account.email.update'))
+            ->assertViewHasForm('id="email_update"', 'patch', route('account.email.update'))
             ->assertFormHasCSRF()
             ->assertFormHasPasswordInput('current_password')
-            ->assertFormHasPasswordInput('new_email')
+            ->assertFormHasEmailInput('new_email')
             ->assertFormHasSubmitButton();
     }
 
@@ -63,14 +69,18 @@ class EmailControllerTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertElementHasChild(
-                'turbo-frame[id="change_email"]',
+                'turbo-frame[id="frame_update_email"]',
                 'form[action="'.route('account.email.update').'"]'
             );
     }
 
     /** @test */
-    public function user_can_change_his_email()
+    public function user_can_request_email_change()
     {
+        Log::swap(new LogFake);
+
+        Log::channel('security_log')->assertNotLogged('info');
+
         $jane = create_user(['email' => 'jane@example.com']);
         $user = create_user(['email' => 'user@example.com']);
         $jack = create_user(['email' => 'jack@example.com']);
@@ -86,15 +96,20 @@ class EmailControllerTest extends TestCase
             ->assertRedirect(route('account.profile'))
             ->assertSessionHas('status');
 
-        $this->assertTrue('jane@example.com', $jane->fresh()->email);
-        $this->assertTrue('new.user.email@example.com', $user->fresh()->email);
-        $this->assertTrue('jack@example.com', $jack->fresh()->email);
+        $this->assertSame('jane@example.com', $jane->fresh()->email);
+        $this->assertSame('user@example.com', $user->fresh()->email);
+        $this->assertSame('jack@example.com', $jack->fresh()->email);
+
+        Log::channel('security_log')
+            ->assertLogged('info', 1, function ($message, $context) use ($user) {
+                return Str::contains($message, [$user->id, 'user@example.com', 'new.user.email@example.com']);
+            });
     }
 
     /** @test */
-    public function email_updated_notification_is_sent_to_the_user()
+    public function email_update_request_notification_is_sent_to_the_requested_email_address()
     {
-        Notification::assertNothingSent(EmailUpdatedNotification::class);
+        Notification::assertNothingSent(EmailUpdateRequestNotification::class);
 
         $user = create_user();
 
@@ -105,9 +120,24 @@ class EmailControllerTest extends TestCase
                 'new_email' => 'new.email@example.com',
             ]);
 
-        Notification::assertSentTo($user, EmailUpdatedNotification::class, function () {
+        Notification::assertSentTo($user, EmailUpdateRequestNotification::class);
+    }
 
-        });
+    /** @test */
+    public function email_update_warning_notification_is_sent_to_original_email_address()
+    {
+        Notification::assertNothingSent(EmailUpdateWarningNotification::class);
+
+        $user = create_user();
+
+        $this->actingAs($user)
+            ->from(route('account.profile'))
+            ->patch(route('account.email.update'), [
+                'current_password' => 'password',
+                'new_email' => 'new.email@example.com',
+            ]);
+
+        Notification::assertSentTo($user, EmailUpdateWarningNotification::class);
     }
 
     /** @test */
