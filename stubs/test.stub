@@ -1,0 +1,157 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Http\Response;
+use Tests\TestCase;
+use Tests\Concerns\TestableMiddleware;
+use Jcergolj\FormRequestAssertions\TestableFormRequest;
+
+/** @see \App\Http\Controllers\Controller */
+class {{ class }} extends TestCase
+{
+    use TestableFormRequest, TestableMiddleware;
+
+    /**
+     * @test
+     * @dataProvider middlewareRouteDataProvider
+     */
+    public function middleware_is_applied_for_routes($middleware, $route)
+    {
+        $this->assertContains($middleware, $this->getMiddlewareFor($route));
+    }
+
+    public function middlewareRouteDataProvider()
+    {
+        return [
+            '{ middleware } middleware is not applied to { route }' => ['{ middleware }', '{ route }'],
+        ];
+    }
+
+    /** @test */
+    public function index_view_can_be_rendered()
+    {
+        $response = $this->actingAs(create_user())
+            ->get(route('.index'));
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertSee('');
+    }
+
+    /** @test */
+    public function create_view_can_be_rendered()
+    {
+        $response = $this->actingAs(create_user())
+            ->get(route('.create'));
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertViewHasForm('id="xyz"', 'POST', route('.store'))
+            ->assertFormHasCSRF()
+            //
+            ->assertFormHasSubmitButton();
+    }
+
+    /** @test */
+    public function create_view_form_is_inside_turbo_frame()
+    {
+        $response = $this->actingAs(create_user())
+            ->get(route('.create'));
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertElementHasChild(
+                'turbo-frame[id="xyz"]',
+                'form[action="'.route('.store').'"]'
+            );
+    }
+
+    /** @test */
+    public function xyz_can_be_created()
+    {
+        $response = $this->actingAs(create_user())
+            ->from(route('.index'))
+            ->post(route('.store'), [
+                //
+            ]);
+
+        $response->assertStatus(Response::HTTP_FOUND)
+            ->assertRedirect(route('.index'))
+            ->assertSessionHas('status');
+
+        // other assertions
+    }
+
+    /** @test */
+    public function store_has_xyz_request()
+    {
+        $this->assertRouteUsesFormRequest('{ route }', { request }::class);
+    }
+
+    /** @test */
+    public function show_view_can_be_rendered()
+    {
+        $response = $this->actingAs(create_admin())
+            ->get(route('xyz.show'));
+
+        $response->assertStatus(Response::HTTP_OK);
+    }
+
+    /** @test */
+    public function edit_view_can_be_rendered()
+    {
+        $response = $this->actingAs(create_user())
+            ->get(route('.edit', 'xyz'));
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertViewHasForm('id="xyz"', 'PATCH', route('.update'))
+            ->assertFormHasCSRF()
+            //
+            ->assertFormHasSubmitButton();
+    }
+
+    /** @test */
+    public function edit_view_form_is_inside_turbo_frame()
+    {
+        $response = $this->actingAs(create_user())
+            ->get(route('.edit'));
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertElementHasChild(
+                'turbo-frame[id="xyz"]',
+                'form[action="'.route('.update').'"]'
+            );
+    }
+
+    /** @test */
+    public function xyz_can_be_updated()
+    {
+        $response = $this->actingAs(create_user())
+            ->from(route('.show', ))
+            ->patch(route('.update', ), [
+                //
+            ]);
+
+        $response->assertStatus(Response::HTTP_FOUND)
+            ->assertRedirect(route('.show'))
+            ->assertSessionHas('status');
+
+        // other assertions
+    }
+
+    /** @test */
+    public function update_has_xyz_request()
+    {
+        $this->assertRouteUsesFormRequest('{ route }', { request }::class);
+    }
+
+    /** @test */
+    public function xyz_can_be_destroyed()
+    {
+        $response = $this->actingAs(create_user())
+            ->from(route('.index'))
+            ->delete('.destroy');
+
+        $response->assertStatus(Response::HTTP_FOUND)
+            ->assertRedirect(route('.index'))
+            ->assertSessionHas('status');
+    }
+}
