@@ -1,0 +1,80 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Auth\Access\HandlesAuthorization;
+use {{ namespacedModel }};
+use {{ namespacedUserModel }};
+
+class {{ class }}
+{
+    use HandlesAuthorization;
+
+    /**
+     * @param  \{{ namespacedUserModel }}  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAny({{ user }} $user)
+    {
+        //
+    }
+
+    /**
+     * @param  \{{ namespacedUserModel }}  $user
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function view({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * @param  \{{ namespacedUserModel }}  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function create({{ user }} $user)
+    {
+        //
+    }
+
+    /**
+     * @param  \{{ namespacedUserModel }}  $user
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function update({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * @param  \{{ namespacedUserModel }}  $user
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function delete({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * @param  \{{ namespacedUserModel }}  $user
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * @param  \{{ namespacedUserModel }}  $user
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function forceDelete({{ user }} $user, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+}

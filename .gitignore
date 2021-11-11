@@ -1,0 +1,9 @@
+/node_modules
+/public/storage
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+docker-compose.override.yml
+npm-debug.log
+.php-cs-fixer.cache

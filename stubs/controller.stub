@@ -1,0 +1,67 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class {{ class }} extends Controller
+{
+    /** @return \Illuminate\View\View */
+    public function index()
+    {
+
+    }
+
+    /** @return \Illuminate\View\View */
+    public function create()
+    {
+
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request)
+    {
+
+    }
+
+    /**
+     * @param  \App\Models\  $
+     * @return \Illuminate\View\View
+     */
+    public function show($)
+    {
+
+    }
+
+    /**
+     * @param  \App\Models\  $
+     * @return \Illuminate\View\View
+     */
+    public function edit($)
+    {
+
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\  $
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $)
+    {
+
+    }
+
+    /**
+     * @param  \App\Models\  $
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($)
+    {
+
+    }
+}

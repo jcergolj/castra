@@ -1,0 +1,95 @@
+on: [push]
+
+jobs:
+  fixes:
+    name: "fix styling"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run PHP CS Fixer
+        uses: docker://oskarstark/php-cs-fixer-ga
+        with:
+          args: --config=.php-cs-fixer.dist.php --allow-risky=yes
+
+      - name: Install NPM dependencies
+        run: npm ci
+
+      - name: Run Prettier
+        run: npm run format
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: fix styling
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  insights:
+    name: "insights"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.1']
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+    - name: Run composer install
+      run: composer install -n --prefer-dist
+      env:
+        APP_ENV: testing
+    - name: Cache composer dependencies
+      uses: actions/cache@v1
+      with:
+        path: vendor
+        key: composer-${{ hashFiles('composer.lock') }}
+    - name: Run insights
+      run: php artisan insights --no-interaction --min-quality=90 --min-complexity=85 --min-architecture=90 --min-style=95
+
+  phpstan:
+    name: "phpstan"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.1']
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+    - name: Run composer install
+      run: composer install -n --prefer-dist
+      env:
+        APP_ENV: testing
+    - name: Run phphstan
+      run: ./vendor/bin/phpstan analyse --memory-limit=2G
+
+  phpunit:
+    name: "phpunit"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.1']
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+    - name: Run composer install
+      run: composer install -n --prefer-dist
+      env:
+        APP_ENV: testing
+    - name: Prepare Laravel Application
+      run: |
+          cp .env.example .env
+          php artisan key:generate
+    - name: Run tests
+      run: php artisan test --parallel
+      env:
+        APP_ENV: testing
