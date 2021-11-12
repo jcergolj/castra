@@ -15,7 +15,7 @@ class {{ class }} extends Controller
      */
     public function index({{ parentModel }} ${{ parentModelVariable }})
     {
-        //
+
     }
 
     /**
@@ -25,7 +25,7 @@ class {{ class }} extends Controller
      */
     public function store(Request $request, {{ parentModel }} ${{ parentModelVariable }})
     {
-        //
+
     }
 
     /**
@@ -35,7 +35,7 @@ class {{ class }} extends Controller
      */
     public function show({{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 
     /**
@@ -46,7 +46,7 @@ class {{ class }} extends Controller
      */
     public function update(Request $request, {{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 
     /**
@@ -56,6 +56,6 @@ class {{ class }} extends Controller
      */
     public function destroy({{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 }

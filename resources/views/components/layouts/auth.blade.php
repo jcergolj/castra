@@ -1,6 +1,6 @@
 <x-app-layout>
     <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200 font-roboto">
-        <x-layouts.sidebar/>
+        <x-sidebar/>
 
         <div class="flex-1 flex flex-col overflow-hidden">
             <x-layouts.header/>

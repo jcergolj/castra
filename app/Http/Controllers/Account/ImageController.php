@@ -26,7 +26,7 @@ class ImageController extends Controller
                 ->delete("{$request->user()->profile_image}");
         }
 
-        /** @var \Illuminate\Http\UploadedFile */
+        /** @var \Illuminate\Http\UploadedFile $profileImage */
         $profileImage = $request->file('profile_image');
         $path = $profileImage->store('/', 'profile_image');
 

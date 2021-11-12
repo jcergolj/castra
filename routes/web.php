@@ -5,6 +5,7 @@ use App\Http\Controllers\Account\ImageController;
 use App\Http\Controllers\Account\PasswordController;
 use App\Http\Controllers\Account\ProfileController;
 use App\Http\Controllers\Account\VerifyNewEmailController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::get('profile-image/edit', [ImageController::class, 'edit'])->name('profile-image.edit');
             Route::patch('profile-image', [ImageController::class, 'update'])->name('profile-image.update');
+        });
+
+    Route::middleware('admin')
+        ->prefix('admin')
+        ->name('admin.')
+        ->group(function () {
+            Route::resource('users', UserController::class);
+
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
         });
 });
 

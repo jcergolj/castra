@@ -43,4 +43,14 @@ class UserTest extends TestCase
 
         $this->assertSame('new-image-name.jpg', $user->fresh()->profile_image);
     }
+
+    /** @test */
+    public function is_admin()
+    {
+        $admin = create_admin();
+        $member = create_member();
+
+        $this->assertTrue($admin->isAdmin());
+        $this->assertFalse($member->isAdmin());
+    }
 }

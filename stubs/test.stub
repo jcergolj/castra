@@ -32,7 +32,7 @@ class {{ class }} extends TestCase
     public function index_view_can_be_rendered()
     {
         $response = $this->actingAs(create_user())
-            ->get('.index');
+            ->get(route('.index'));
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertSee('');
@@ -42,7 +42,7 @@ class {{ class }} extends TestCase
     public function create_view_can_be_rendered()
     {
         $response = $this->actingAs(create_user())
-            ->get(route('xyz.create'));
+            ->get(route('.create'));
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertViewHasForm('id="xyz"', 'POST', route('.store'))
@@ -74,7 +74,7 @@ class {{ class }} extends TestCase
             ]);
 
         $response->assertStatus(Response::HTTP_FOUND)
-            ->assertRedirect(route(''))
+            ->assertRedirect(route('.index'))
             ->assertSessionHas('status');
 
         // other assertions

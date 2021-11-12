@@ -30,8 +30,6 @@ class EmailUpdateWarningNotification extends Notification implements ShouldQueue
     }
 
     /**
-     * Get the mail representation of the notification.
-     *
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
@@ -46,11 +44,8 @@ class EmailUpdateWarningNotification extends Notification implements ShouldQueue
             ->line('Please contact us immediately.');
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
+    /** @return array */
+    public function toArray()
     {
         return [];
     }

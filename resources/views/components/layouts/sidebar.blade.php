@@ -12,17 +12,19 @@
     <div class="flex items-center justify-center mt-8">
         <div class="flex items-center">
             <x-svg.logo/>
-            <span class="text-white text-2xl mx-2 font-semibold">{{ __('Dashboard') }}</span>
+            <span class="text-white text-2xl mx-2 font-semibold">Dashboard</span>
         </div>
     </div>
 
     <nav class="mt-10">
-        <a
-            href="{{ route('dashboard.index') }}"
-            class="flex items-center mt-4 py-2 px-6 bg-gray-700 bg-opacity-25 text-gray-100"
-        >
-            <x-svg.dashboard/>
-            <span class="mx-3">{{ __('Dashboard') }}</span>
-        </a>
+        @foreach($menu as $item)
+            <a
+                href="{{ route($item['route']) }}"
+                class="flex items-center mt-4 py-2 px-6 bg-gray-700 bg-opacity-25 text-gray-100"
+            >
+                <x-dynamic-component :component="$item['svg']"/>
+                <span class="mx-3">{{ $item['title'] }}</span>
+            </a>
+        @endforeach
     </nav>
 </div>

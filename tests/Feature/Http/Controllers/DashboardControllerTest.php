@@ -42,7 +42,7 @@ class DashboardControllerTest extends TestCase
     public function dashboardRoutesProvider()
     {
         return [
-            'Route dashboard doesn\'t have authenticate middleware.' => ['dashboard.index'],
+            'Route dashboard doesn\'t have middleware.' => ['dashboard.index'],
         ];
     }
 }

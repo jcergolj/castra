@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePasswordRequest extends FormRequest
 {
-   /** @return bool */
+    /** @return bool */
     public function authorize()
     {
         return true;

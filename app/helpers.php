@@ -4,11 +4,11 @@ if (! function_exists('user')) {
     /**
      * Get current auth user.
      *
-     * @return App\Models\User|null
+     * @return mixed
      */
     function user()
     {
-        return request()->user() ?? null;
+        return request()->user();
     }
 }
 

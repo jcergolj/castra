@@ -11,6 +11,8 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         <script src="{{ asset('js/app.js') }}" defer></script>
+
+        @stack('scripts')
     </head>
     <body>
         <x-status></x-status>

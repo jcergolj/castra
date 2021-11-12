@@ -11,7 +11,7 @@ class {{ class }} extends Controller
     /** @return \Illuminate\Http\Response */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -20,7 +20,7 @@ class {{ class }} extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -29,7 +29,7 @@ class {{ class }} extends Controller
      */
     public function show({{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 
     /**
@@ -39,7 +39,7 @@ class {{ class }} extends Controller
      */
     public function update(Request $request, {{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 
     /**
@@ -48,6 +48,6 @@ class {{ class }} extends Controller
      */
     public function destroy({{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 }

@@ -3,17 +3,6 @@
         <button @click="sidebarOpen = true" class="text-gray-500 focus:outline-none lg:hidden">
             <x-svg.hamburger/>
         </button>
-
-        <div class="relative mx-4 lg:mx-0">
-            <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
-                <x-svg.search/>
-            </span>
-            <input
-                type="text"
-                class="form-input w-32 sm:w-64 rounded-md pl-10 pr-4 focus:border-blue-600"
-                placeholder="{{__('Search')}}"
-            >
-        </div>
     </div>
 
     <div class="flex items-center">

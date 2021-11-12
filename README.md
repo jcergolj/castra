@@ -59,7 +59,7 @@ Let's look at them:
 - php insights: PHP code quality analyser
 `composer insights`
 
-- phpstan:  PHP static analysis t++ool
+- phpstan:  PHP static analysis tool
 `composer phpstan`
 
 ## License

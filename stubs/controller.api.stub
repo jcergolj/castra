@@ -10,7 +10,7 @@ class {{ class }} extends Controller
     /** @return \Illuminate\Http\Response */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -19,34 +19,34 @@ class {{ class }} extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
-     * @param  int  $id
+     * @param  \App\Models\  $
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($)
     {
-        //
+
     }
 
     /**
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\  $
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $)
     {
-        //
+
     }
 
     /**
-     * @param  int  $id
+     * @param  \App\Models\  $
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($)
     {
-        //
+
     }
 }

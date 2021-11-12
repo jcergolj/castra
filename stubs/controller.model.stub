@@ -11,13 +11,13 @@ class {{ class }} extends Controller
     /** @return \Illuminate\View\View */
     public function index()
     {
-        //
+
     }
 
     /** @return \Illuminate\View\View */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -26,7 +26,7 @@ class {{ class }} extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -35,7 +35,7 @@ class {{ class }} extends Controller
      */
     public function show({{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 
     /**
@@ -44,7 +44,7 @@ class {{ class }} extends Controller
      */
     public function edit({{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 
     /**
@@ -54,7 +54,7 @@ class {{ class }} extends Controller
      */
     public function update(Request $request, {{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 
     /**
@@ -63,6 +63,6 @@ class {{ class }} extends Controller
      */
     public function destroy({{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 }
