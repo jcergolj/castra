@@ -18,7 +18,7 @@ class RedirectIfAuthenticatedTest extends TestCase
         $this->actingAs(create_admin());
         $request = $this->app->make(Request::class);
 
-        $response = (new RedirectIfAuthenticated)->handle($request, function () {
+        $response = (new RedirectIfAuthenticated())->handle($request, function () {
         });
         $expectedResponse = new RedirectResponse(route('admin.dashboard.index'));
         $expectedResponse->setRequest($request);
@@ -33,7 +33,7 @@ class RedirectIfAuthenticatedTest extends TestCase
         $this->actingAs(create_user());
         $request = $this->app->make(Request::class);
 
-        $response = (new RedirectIfAuthenticated)->handle($request, function () {
+        $response = (new RedirectIfAuthenticated())->handle($request, function () {
         });
         $expectedResponse = new RedirectResponse(route('dashboard.index'));
         $expectedResponse->setRequest($request);
@@ -52,7 +52,7 @@ class RedirectIfAuthenticatedTest extends TestCase
             return $expectedResponse;
         };
 
-        $actualResponse = (new RedirectIfAuthenticated)->handle($request, $next);
+        $actualResponse = (new RedirectIfAuthenticated())->handle($request, $next);
 
         $this->assertSame($expectedResponse, $actualResponse);
     }

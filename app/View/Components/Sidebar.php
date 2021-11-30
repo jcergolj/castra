@@ -27,9 +27,7 @@ class Sidebar extends Component
         }
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\View
-     */
+    /** @return \Illuminate\Contracts\View\View */
     public function render()
     {
         $this->menu = $this->menuStrategy()->build();

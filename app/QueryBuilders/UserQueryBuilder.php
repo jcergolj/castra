@@ -2,8 +2,6 @@
 
 namespace App\QueryBuilders;
 
-use App\QueryBuilders\QueryBuilder;
-
 class UserQueryBuilder extends QueryBuilder
 {
     /**
@@ -15,7 +13,7 @@ class UserQueryBuilder extends QueryBuilder
     public function search($term = null)
     {
         $this->when($term, function ($query, $term) {
-            $query->where('email', 'LIKE', "%$term%");
+            $query->where('email', 'LIKE', "%{$term}%");
         });
 
         return $this;

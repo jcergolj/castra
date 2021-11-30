@@ -75,7 +75,7 @@ class EmailControllerTest extends TestCase
     /** @test */
     public function user_can_request_email_change()
     {
-        Log::swap(new LogFake);
+        Log::swap(new LogFake());
 
         Log::channel('security_log')->assertNotLogged('info');
 

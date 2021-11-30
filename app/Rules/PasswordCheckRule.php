@@ -12,7 +12,7 @@ class PasswordCheckRule implements Rule
     protected $user;
 
     /**
-     * @param \App\Models\User  $user
+     * @param  \App\Models\User  $user
      * @return void
      */
     public function __construct(User $user)

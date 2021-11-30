@@ -11,7 +11,7 @@ class AdminNavTest extends TestCase
     /** @test */
     public function build()
     {
-        $nav = new AdminNav;
+        $nav = new AdminNav();
         $actual = $nav->build();
         $expected = [
             ['svg' => 'svg.dashboard', 'route' => 'admin.dashboard.index', 'title' => 'Dashboard'],

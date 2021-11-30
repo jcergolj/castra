@@ -12,14 +12,14 @@ class PasswordUpdatedNotificationTest extends TestCase
     /** @test */
     public function notification_is_queued()
     {
-        $notification = new PasswordUpdatedNotification;
+        $notification = new PasswordUpdatedNotification();
         $this->assertInstanceOf(ShouldQueue::class, $notification);
     }
 
     /** @test */
     public function notification_is_sent_via_email()
     {
-        $notification = new PasswordUpdatedNotification;
+        $notification = new PasswordUpdatedNotification();
 
         $this->assertContains('mail', $notification->via(null));
     }
@@ -27,7 +27,7 @@ class PasswordUpdatedNotificationTest extends TestCase
     /** @test */
     public function notification_contains_line()
     {
-        $notification = new PasswordUpdatedNotification;
+        $notification = new PasswordUpdatedNotification();
         $this->assertStringContainsString(
             'password has been changed',
             $notification->toMail(null)->render()

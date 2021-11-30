@@ -46,7 +46,7 @@ class SidebarTest extends TestCase
 
         $component->expects($this->once())
             ->method('menuStrategy')
-            ->willReturn(new MemberNav);
+            ->willReturn(new MemberNav());
 
         $component->render();
     }

@@ -8,9 +8,8 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": " ^2.0",
         "laravel/framework": "^8.12",
@@ -18,12 +17,12 @@
         "tonysm/turbo-laravel": "^0.16.0"
     },
     "require-dev": {
-        "brainmaestro/composer-git-hooks": "^2.8",
         "brianium/paratest": "^6.3",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "itsgoingd/clockwork": "^5.1",
         "jcergolj/laravel-form-request-assertions": "^1.0",
+        "jcergolj/laravel-php-cs-fixer-phpdoc-rules": "dev-master",
         "jcergolj/laravel-view-test-assertions": "^2.0",
         "johnkary/phpunit-speedtrap": "^4.0",
         "laravel/breeze": "^1.1",
@@ -32,12 +31,16 @@
         "nunomaduro/larastan": "^1.0",
         "nunomaduro/phpinsights": "^2.0",
         "phpunit/phpunit": "^9.3.3",
-        "timacdonald/log-fake": "^1.9"
+        "timacdonald/log-fake": "^1.9",
+        "worksome/envy": "^0.3.1"
     },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "extra": {
         "laravel": {
@@ -70,12 +73,18 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "jsprettier": "npm run format",
+        "jsprettier": "npm run format-js",
+        "bladeprettier": "npm run format-blade",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=2G",
-        "insights": "@php artisan insights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80",
+        "insights": "@php artisan insights --no-interaction --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80 --fix -v",
         "phpcs": "vendor/bin/php-cs-fixer fix",
+        "env-sync": "php artisan envy:sync --dry",
+        "env-prune": "php artisan envy:prune --dry",
         "analyse": [
+            "@env-prune",
+            "@env-sync",
             "@phpcs",
+            "@bladeprettier",
             "@jsprettier",
             "@insights",
             "@phpstan"

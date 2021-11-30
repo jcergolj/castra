@@ -29,7 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-     /**
+    /**
      * @param  \Illuminate\Database\Query\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder|static
      */

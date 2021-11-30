@@ -23,7 +23,7 @@ class UserController extends Controller
             'users' => $users,
             'per_page' => $request->get('per_page', AppServiceProvider::PER_PAGE),
             'order_by' => $request->get('order_by', 'email'),
-            'order_by_direction' => $request->get('order_by_direction', 'asc')
+            'order_by_direction' => $request->get('order_by_direction', 'asc'),
         ]);
     }
 

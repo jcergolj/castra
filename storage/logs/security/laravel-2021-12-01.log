@@ -1,0 +1,2 @@
+[2021-12-01 18:51:38] testing.INFO: User with an id {user()->id}, requested email change from {user()->email} to {$request->new_email}.  
+[2021-12-01 18:51:38] testing.INFO: User with an id {user()->id}, requested email change from {user()->email} to {$request->new_email}.  

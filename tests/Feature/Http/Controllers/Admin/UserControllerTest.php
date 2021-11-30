@@ -39,6 +39,18 @@ class UserControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
     }
 
+    /** @test */
+    public function filters()
+    {
+        $response = $this->actingAs(create_user())
+            ->get(route('.create'));
+
+        $response->assertViewHasForm('id="xyz"', 'PATCH', route('.update'))
+            ->assertFormHasCSRF()
+                //
+            ->assertFormHasSubmitButton();
+    }
+
     // assert search, role select and per page are visible
     // assert order by email and role and created is possible
     // assert filter is applied to model

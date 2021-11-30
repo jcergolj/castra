@@ -11,7 +11,7 @@ class MemberNavTest extends TestCase
     /** @test */
     public function build()
     {
-        $nav = new MemberNav;
+        $nav = new MemberNav();
         $actual = $nav->build();
         $expected = [
             ['svg' => 'svg.dashboard', 'route' => 'dashboard.index', 'title' => 'Dashboard'],

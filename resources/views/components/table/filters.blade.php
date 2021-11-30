@@ -1,6 +1,6 @@
 @props(['perPage'])
 
-<form method="get" action="{{ route('admin.users.index') }}">
+<form id="filters-form" method="get" action="{{ route('admin.users.index') }}">
     <div class="mt-3 flex flex-col sm:flex-row">
         <div class="flex">
             <div class="relative">

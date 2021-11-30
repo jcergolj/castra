@@ -15,9 +15,7 @@ class VerifyNewEmailControllerTest extends TestCase
 {
     use TestableMiddleware;
 
-    /**
-     * @test
-     */
+    /** @test */
     public function throttle_is_applied_for_account_verification_verify_route()
     {
         $this->assertContains('throttle', $this->getMiddlewareFor('account.verification.verify'));

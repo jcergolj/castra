@@ -25,7 +25,7 @@ class AdminTest extends TestCase
             return $expectedResponse;
         };
 
-        $actualResponse = (new Admin)->handle($request, $next);
+        $actualResponse = (new Admin())->handle($request, $next);
 
         $this->assertSame($expectedResponse, $actualResponse);
     }
@@ -41,7 +41,7 @@ class AdminTest extends TestCase
             return $member;
         });
 
-        $response = (new Admin)->handle($request, function () {
+        $response = (new Admin())->handle($request, function () {
         });
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }

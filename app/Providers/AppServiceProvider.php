@@ -9,7 +9,7 @@ use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
-    const PER_PAGE = 10;
+    public const PER_PAGE = 10;
 
     /** @return void */
     public function register()

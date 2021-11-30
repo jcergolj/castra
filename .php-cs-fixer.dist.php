@@ -1,5 +1,8 @@
 <?php
 
+use Jcergolj\LaravelPhpCsPhpdocRules\LaravelPhpdocAlignmentFixer;
+use Jcergolj\LaravelPhpCsPhpdocRules\LaravelPhpdocOrderFixer;
+use Jcergolj\LaravelPhpCsPhpdocRules\LaravelPhpdocSeparationFixer;
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
@@ -115,7 +118,10 @@ $rules = [
         'operators' => ['=>' => null],
     ],
     'blank_line_before_statement' => [
-        'statements' => ['return'],
+        'statements' => [
+        'continue',
+        'exit',
+        'return', ],
     ],
     'class_attributes_separation' => [
         'elements' => [
@@ -143,16 +149,35 @@ $rules = [
     'visibility_required' => [
         'elements' => ['property', 'method', 'const'],
     ],
+    // custom missing rules
+    'no_unused_imports'        => true,
+    'method_chaining_indentation' => true,
+    'new_with_braces' => true,
+    'no_blank_lines_after_phpdoc' => true,
+    'no_multiline_whitespace_around_double_arrow' => true,
+    'no_space_around_double_colon' => true,
+    'no_superfluous_elseif' => true,
+    'no_useless_else' => true,
+    'phpdoc_line_span' => ['const' => 'single', 'method' => 'single', 'property' => 'single'],
+    'phpdoc_var_annotation_correct_order' => true,
+    'simple_to_complex_string_variable' => true,
+    'simplified_if_return' => true,
+    'single_blank_line_at_eof' => true,
+    'single_class_element_per_statement' => true,
+    'single_space_after_construct' => true,
+    'LaravelCodeStyle/laravel_phpdoc_alignment' => true,
+    'LaravelCodeStyle/laravel_phpdoc_order' => true,
+    // 'LaravelCodeStyle/laravel_phpdoc_separation' => true,
 ];
 
 $finder = Finder::create()
     ->in([
-        __DIR__ . '/app',
-        __DIR__ . '/config',
-        __DIR__ . '/database',
-        __DIR__ . '/resources',
-        __DIR__ . '/routes',
-        __DIR__ . '/tests',
+        __DIR__.'/app',
+        __DIR__.'/config',
+        __DIR__.'/database',
+        __DIR__.'/resources',
+        __DIR__.'/routes',
+        __DIR__.'/tests',
     ])
     ->name('*.php')
     ->notName('*.blade.php')
@@ -161,6 +186,11 @@ $finder = Finder::create()
 
 return (new Config())
     ->setFinder($finder)
+    ->registerCustomFixers([
+        new LaravelPhpdocAlignmentFixer(),
+        new LaravelPhpdocOrderFixer(),
+        new LaravelPhpdocSeparationFixer(),
+    ])
     ->setRules($rules)
     ->setRiskyAllowed(true)
     ->setUsingCache(true);

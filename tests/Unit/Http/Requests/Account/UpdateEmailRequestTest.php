@@ -4,7 +4,6 @@ namespace Tests\Unit\Http\Requests\Account;
 
 use App\Http\Requests\Account\UpdateEmailRequest;
 use App\Rules\PasswordCheckRule;
-use App\Rules\PasswordRule;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
 use Tests\TestCase;
 
