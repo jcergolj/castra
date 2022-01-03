@@ -2,18 +2,18 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Activity;
-use Mockery\MockInterface;
 use App\Enums\ActivityEvents;
-use Illuminate\Http\Response;
-use App\Providers\AppServiceProvider;
-use Illuminate\Support\Facades\Config;
-use Tests\Concerns\TestableMiddleware;
 use App\Http\Requests\Admin\StoreDeletedUserRequest;
-use Jcergolj\FormRequestAssertions\TestableFormRequest;
+use App\Models\Activity;
+use App\Models\User;
+use App\Providers\AppServiceProvider;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
+use Jcergolj\FormRequestAssertions\TestableFormRequest;
+use Mockery\MockInterface;
+use Tests\Concerns\TestableMiddleware;
+use Tests\TestCase;
 
 /** @see \App\Http\Controllers\DeletedUserController */
 class DeletedUserControllerTest extends TestCase
@@ -53,8 +53,8 @@ class DeletedUserControllerTest extends TestCase
             ->post(route('admin.bulk.users.destroy', [
                 'ids' => [
                     $joe->id,
-                    $jack->id
-                ]
+                    $jack->id,
+                ],
             ]));
 
         $response->assertStatus(Response::HTTP_FOUND)
@@ -80,8 +80,8 @@ class DeletedUserControllerTest extends TestCase
             ->post(route('admin.bulk.users.destroy', [
                 'ids' => [
                     $joe->id,
-                    $jack->id
-                ]
+                    $jack->id,
+                ],
             ]));
 
         $response->assertStatus(Response::HTTP_FOUND)
@@ -112,7 +112,7 @@ class DeletedUserControllerTest extends TestCase
     }
 
     /** @test */
-    function admin_can_restore_user()
+    public function admin_can_restore_user()
     {
         $deletedUser = create_user(['deleted_at' => now()]);
 

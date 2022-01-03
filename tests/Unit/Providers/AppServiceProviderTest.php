@@ -4,8 +4,8 @@ namespace Tests\Unit\Providers;
 
 use App\Providers\AppServiceProvider;
 use Facades\Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 use Tests\TestCase;
 
 /** @see \App\Providers\AppServiceProvider */

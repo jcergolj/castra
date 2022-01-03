@@ -2,15 +2,15 @@
 
 namespace Tests\Feature\Http\Controllers\Account;
 
-use Tests\TestCase;
 use App\Enums\ActivityEvents;
+use App\Services\SignedUrlGenerator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
-use App\Services\SignedUrlGenerator;
-use Tests\Concerns\TestableMiddleware;
 use Spatie\Activitylog\Models\Activity;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Tests\Concerns\TestableMiddleware;
+use Tests\TestCase;
 
 /** @see \App\Http\Controllers\VerifyNewEmailController */
 class VerifyNewEmailControllerTest extends TestCase

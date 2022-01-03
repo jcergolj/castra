@@ -2,17 +2,17 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Activity;
-use Mockery\MockInterface;
 use App\Enums\ActivityEvents;
-use Illuminate\Http\Response;
+use App\Models\Activity;
+use App\Models\User;
 use App\Providers\AppServiceProvider;
-use Illuminate\Support\Facades\Config;
-use Tests\Concerns\TestableMiddleware;
-use Jcergolj\FormRequestAssertions\TestableFormRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
+use Jcergolj\FormRequestAssertions\TestableFormRequest;
+use Mockery\MockInterface;
+use Tests\Concerns\TestableMiddleware;
+use Tests\TestCase;
 
 /** @see \App\Http\Controllers\UserController */
 class UserControllerTest extends TestCase

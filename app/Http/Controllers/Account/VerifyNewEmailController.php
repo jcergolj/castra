@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Enums\ActivityEvents;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Enums\ActivityEvents;
 use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
 
 class VerifyNewEmailController extends Controller
 {

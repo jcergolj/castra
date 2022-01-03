@@ -43,7 +43,7 @@ class DeletedUserController extends Controller
      */
     private function logDeletedUsers($ids)
     {
-        foreach($ids as $id) {
+        foreach ($ids as $id) {
             $deletedUser = User::withTrashed()->find($id);
 
             activity()
