@@ -2,15 +2,15 @@
 
 namespace Tests\Feature\Http\Controllers\Account;
 
-use Tests\TestCase;
 use App\Enums\ActivityEvents;
+use App\Models\Activity;
+use App\Services\SignedUrlGenerator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
-use App\Services\SignedUrlGenerator;
-use Tests\Concerns\TestableMiddleware;
-use Spatie\Activitylog\Models\Activity;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Tests\Concerns\TestableMiddleware;
+use Tests\TestCase;
 
 /** @see \App\Http\Controllers\VerifyNewEmailController */
 class VerifyNewEmailControllerTest extends TestCase
@@ -79,10 +79,10 @@ class VerifyNewEmailControllerTest extends TestCase
 
         $activity = Activity::first();
 
-        $this->assertSame(ActivityEvents::email_updated_by_user->name, $activity->event);
+        $this->assertSame(ActivityEvents::email_updated_by_user, $activity->event);
         $this->assertTrue($activity->causer->is($user));
         $this->assertTrue($activity->subject->is($user));
-        $this->assertTrue($activity->properties->contains('new.email@example.com'));
+        $this->assertSame(['email' => 'new.email@example.com'], $activity->properties);
     }
 
     /** @test */

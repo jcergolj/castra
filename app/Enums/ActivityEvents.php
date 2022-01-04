@@ -5,5 +5,5 @@ namespace App\Enums;
 enum ActivityEvents : string
 {
     case email_updated_by_user = 'email updated by user';
-    case user_deleted = 'user deleted';
+    case deleted = 'deleted';
 }

@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use App\Enums\ActivityEvents;
-use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\AppServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -67,13 +66,6 @@ class UserController extends Controller
         }
 
         $user->delete();
-
-        activity()
-            ->performedOn($user)
-            ->causedBy(user())
-            ->withProperty('restore_url', route('admin.users.restore', $user))
-            ->event(ActivityEvents::user_deleted->name)
-            ->log(ActivityEvents::user_deleted->name);
 
         msg_success_with_undo('User has been successfully deleted.', route('admin.users.restore', $user));
 

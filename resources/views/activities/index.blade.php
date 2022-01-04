@@ -10,7 +10,7 @@
                         <option value="">All</option>
                         @foreach (\App\Enums\UserRoles::cases() as $role)
                             <option
-                                @if (request()->user()->role === $role->name) selected @endif
+                                @if (request()->user()->role->name === $role->name) selected @endif
                                 value="{{ $role->name }}"
                             >
                                 {{ $role->value }}
@@ -83,7 +83,7 @@
                                 </div>
                             </x-table.td>
                             <x-table.td>
-                                <p class="text-gray-900 whitespace-no-wrap">{{ $user->role }}</p>
+                                <p class="text-gray-900 whitespace-no-wrap">{{ $user->role->value }}</p>
                             </x-table.td>
                             <x-table.td>
                                 <p class="text-gray-900 whitespace-no-wrap">

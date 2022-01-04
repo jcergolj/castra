@@ -11,6 +11,8 @@ parameters:
 
     ignoreErrors:
         - '#Unsafe usage of new static#'
+        - '#Access to an undefined property Spatie\\Activitylog\\Models\\Activity::\$event.#'
+        - '#Access to an undefined property Spatie\\Activitylog\\Models\\Activity::\$properties.#'
 
     excludePaths:
         - ./*/*/FileToBeExcluded.php

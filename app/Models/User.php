@@ -3,17 +3,18 @@
 namespace App\Models;
 
 use App\Enums\UserRoles;
+use App\Models\Concerns\LogsDeleteActivity;
 use App\QueryBuilders\UserQueryBuilder;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes, LogsDeleteActivity;
 
     /** @var array */
     protected $hidden = [
@@ -26,7 +27,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'id' => 'integer',
         'email_verified_at' => 'datetime',
         'deleted_at' => 'datetime',
+        'role' => UserRoles::class,
     ];
+
+    /** @return string */
+    public function restoreRouteName()
+    {
+        return 'admin.users.restore';
+    }
 
     /**
      * @param  \Illuminate\Database\Query\Builder  $query
@@ -59,7 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /** @return bool */
     public function isAdmin()
     {
-        return $this->role === UserRoles::admin->name;
+        return $this->role === UserRoles::admin;
     }
 
     /** @return bool */

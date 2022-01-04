@@ -62,13 +62,23 @@ class PasswordRule implements ImplicitRule
         return $this->message;
     }
 
-    /**
-     * Set validation rules.
-     *
-     * @return array
-     */
+    /** @return void */
+    public function passwordDefaultsRules()
+    {
+        Password::defaults(function () {
+            $rule = Password::min(self::MIN_PASSWORD_LENGTH);
+
+            return config('app.env') === 'production'
+                ? $rule->mixedCase()->uncompromised()
+                : $rule;
+        });
+    }
+
+    /** @return array */
     protected function rules()
     {
+        $this->passwordDefaultsRules();
+
         $rules = ['required', Password::defaults()];
 
         if ($this->confirmationValue !== null) {

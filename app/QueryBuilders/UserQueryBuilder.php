@@ -2,7 +2,9 @@
 
 namespace App\QueryBuilders;
 
+use App\Enums\UserRoles;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class UserQueryBuilder extends Builder
 {
@@ -32,7 +34,7 @@ class UserQueryBuilder extends Builder
     public function role($role = null)
     {
         $this->when($role, function ($query, $role) {
-            $query->where('role', $role);
+            $query->where('role', UserRoles::from(Str::ucfirst($role)));
         });
 
         return $this;

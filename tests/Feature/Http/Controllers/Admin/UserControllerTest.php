@@ -2,17 +2,17 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Activity;
-use Mockery\MockInterface;
 use App\Enums\ActivityEvents;
-use Illuminate\Http\Response;
+use App\Models\Activity;
+use App\Models\User;
 use App\Providers\AppServiceProvider;
-use Illuminate\Support\Facades\Config;
-use Tests\Concerns\TestableMiddleware;
-use Jcergolj\FormRequestAssertions\TestableFormRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
+use Jcergolj\FormRequestAssertions\TestableFormRequest;
+use Mockery\MockInterface;
+use Tests\Concerns\TestableMiddleware;
+use Tests\TestCase;
 
 /** @see \App\Http\Controllers\UserController */
 class UserControllerTest extends TestCase
@@ -68,6 +68,7 @@ class UserControllerTest extends TestCase
     /** @test */
     public function index_view_has_search_role_and_per_page_filters()
     {
+        $this->withoutExceptionHandling();
         $response = $this->actingAs(create_admin())
             ->get(route('admin.users.index'));
 
@@ -191,7 +192,7 @@ class UserControllerTest extends TestCase
             ->assertRedirect(route('admin.users.index'))
             ->assertSessionHas('status');
 
-        $this->assertModelMissing($user);
+        $this->assertSoftDeleted($user);
     }
 
     /** @test */
@@ -212,10 +213,12 @@ class UserControllerTest extends TestCase
 
         Config::set(['activitylog.subject_returns_soft_deleted_models' => true]);
 
-        $this->assertSame(ActivityEvents::user_deleted->name, $activity->event);
-        $this->assertTrue($activity->causer->is($admin));
-        $this->assertTrue($activity->subject->is($user));
-        $this->assertSame(['restore_url' => route('admin.users.restore', $user)], $activity->properties);
+        $this->assertSame(ActivityEvents::deleted, $activity->event);
+    }
+
+    /** @test */
+    public function assert_user_has_logging_trait()
+    {
     }
 
     /** @test */

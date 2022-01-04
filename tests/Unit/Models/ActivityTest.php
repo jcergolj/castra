@@ -2,15 +2,23 @@
 
 namespace Tests\Unit\Models;
 
+use App\Enums\ActivityEvents;
 use App\Models\Activity;
 use App\QueryBuilders\ActivityQueryBuilder;
 use App\Scopes\VisibleToScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Query\Builder;
 use Tests\TestCase;
 
 /** @see \App\Models\Activity */
 class ActivityTest extends TestCase
 {
+    /** @test */
+    public function assert_model_uses_has_factory_trait()
+    {
+        $this->assertContains(HasFactory::class, class_uses(Activity::class));
+    }
+
     /** @test */
     public function assert_id_is_cast()
     {
@@ -37,6 +45,13 @@ class ActivityTest extends TestCase
     {
         $activity = Activity::factory()->create();
         $this->assertSame('array', $activity->getCasts()['properties']);
+    }
+
+    /** @test */
+    public function assert_event_is_cast()
+    {
+        $activity = Activity::factory()->create();
+        $this->assertNotInstanceOf(ActivityEvents::class, $activity->getCasts()['event']);
     }
 
     /** @test */

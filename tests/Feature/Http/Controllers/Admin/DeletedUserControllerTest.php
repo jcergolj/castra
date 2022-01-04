@@ -2,18 +2,18 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Activity;
-use Mockery\MockInterface;
 use App\Enums\ActivityEvents;
-use Illuminate\Http\Response;
-use App\Providers\AppServiceProvider;
-use Illuminate\Support\Facades\Config;
-use Tests\Concerns\TestableMiddleware;
 use App\Http\Requests\Admin\StoreDeletedUserRequest;
-use Jcergolj\FormRequestAssertions\TestableFormRequest;
+use App\Models\Activity;
+use App\Models\User;
+use App\Providers\AppServiceProvider;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
+use Jcergolj\FormRequestAssertions\TestableFormRequest;
+use Mockery\MockInterface;
+use Tests\Concerns\TestableMiddleware;
+use Tests\TestCase;
 
 /** @see \App\Http\Controllers\DeletedUserController */
 class DeletedUserControllerTest extends TestCase
@@ -53,8 +53,8 @@ class DeletedUserControllerTest extends TestCase
             ->post(route('admin.bulk.users.destroy', [
                 'ids' => [
                     $joe->id,
-                    $jack->id
-                ]
+                    $jack->id,
+                ],
             ]));
 
         $response->assertStatus(Response::HTTP_FOUND)
@@ -65,6 +65,11 @@ class DeletedUserControllerTest extends TestCase
         $this->assertSoftDeleted($jack);
 
         $this->assertNotSoftDeleted($jane);
+    }
+
+    /** @test */
+    public function assert_log_trait_is_present()
+    {
     }
 
     /** @test */
@@ -80,8 +85,8 @@ class DeletedUserControllerTest extends TestCase
             ->post(route('admin.bulk.users.destroy', [
                 'ids' => [
                     $joe->id,
-                    $jack->id
-                ]
+                    $jack->id,
+                ],
             ]));
 
         $response->assertStatus(Response::HTTP_FOUND)
@@ -94,15 +99,9 @@ class DeletedUserControllerTest extends TestCase
 
         Config::set(['activitylog.subject_returns_soft_deleted_models' => true]);
 
-        $this->assertSame(ActivityEvents::user_deleted->name, $activities[0]->event);
-        $this->assertTrue($activities[0]->causer->is($admin));
-        $this->assertTrue($activities[0]->subject->is($joe));
-        $this->assertSame(['restore_url' => route('admin.users.restore', $joe)], $activities[0]->properties);
+        $this->assertSame(ActivityEvents::deleted, $activities[0]->event);
 
-        $this->assertSame(ActivityEvents::user_deleted->name, $activities[1]->event);
-        $this->assertTrue($activities[1]->causer->is($admin));
-        $this->assertTrue($activities[1]->subject->is($jack));
-        $this->assertSame(['restore_url' => route('admin.users.restore', $jack)], $activities[1]->properties);
+        $this->assertSame(ActivityEvents::deleted, $activities[1]->event);
     }
 
     /** @test */
@@ -112,7 +111,7 @@ class DeletedUserControllerTest extends TestCase
     }
 
     /** @test */
-    function admin_can_restore_user()
+    public function admin_can_restore_user()
     {
         $deletedUser = create_user(['deleted_at' => now()]);
 

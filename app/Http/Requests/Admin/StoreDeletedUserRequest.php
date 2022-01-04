@@ -17,11 +17,13 @@ class StoreDeletedUserRequest extends FormRequest
     {
         return [
             'ids' => ['required', 'array'],
-            'ids.*' => ['exists:users,id', function ($attribute, $value, $fail) {
-                if ($value === user()->id) {
-                    $fail('You cannot delete yourself.');
-                }
-            }],
+            'ids.*' => [
+                'exists:users,id', function ($attribute, $value, $fail) {
+                    if ($value === user()->id) {
+                        $fail('You cannot delete yourself.');
+                    }
+                },
+            ],
         ];
     }
 }

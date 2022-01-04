@@ -6,7 +6,6 @@ use App\Scopes\VisibleToScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
@@ -81,8 +80,6 @@ class VisibleToScopeTest extends TestCase
 
 class Team extends Model
 {
-    protected $guarded = [];
-
     protected $casts = [
         'id' => 'integer',
         'user_id' => 'integer',
@@ -93,7 +90,6 @@ class Team extends Model
     protected static function boot()
     {
         parent::boot();
-
         static::addGlobalScope(new VisibleToScope('user_id'));
     }
 }

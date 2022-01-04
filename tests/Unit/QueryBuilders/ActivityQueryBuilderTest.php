@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\QueryBuilders;
 
-use Tests\TestCase;
-use App\Models\Activity;
 use App\Enums\ActivityEvents;
+use App\Models\Activity;
+use Tests\TestCase;
 
 /** @see \App\QueryBuilders\ActivityQueryBuilder */
 /**
@@ -18,7 +18,7 @@ class ActivityQueryBuilderTest extends TestCase
     {
         $activityEmailUpdated = Activity::factory()->create(['event' => ActivityEvents::email_updated_by_user->name]);
         $activityEventNull = Activity::factory()->create(['event' => null]);
-        $activityOtherEvent =  Activity::factory()->create(['event' => 'other_event']);
+        $activityOtherEvent = Activity::factory()->create(['event' => 'other_event']);
 
         $activities = Activity::event(ActivityEvents::email_updated_by_user->name)->get();
 

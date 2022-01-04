@@ -41,7 +41,7 @@ class ActivityQueryBuilder extends Builder
     /**
      * Filter by subject type.
      *
-     * @param  string|null  $logName
+     * @param  string|null  $subjectType
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function subjectType($subjectType = null)

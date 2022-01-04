@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\ActivityEvents;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreDeletedUserRequest;
 use App\Models\User;
@@ -16,8 +15,6 @@ class DeletedUserController extends Controller
     public function store(StoreDeletedUserRequest $request)
     {
         User::destroy($request->ids);
-
-        $this->logDeletedUsers($request->ids);
 
         msg_success_with_undo('Users has been successfully deleted.', route('activities.index'));
 
@@ -35,23 +32,5 @@ class DeletedUserController extends Controller
         msg_success('User has been successfully restored.');
 
         return back();
-    }
-
-    /**
-     * @param  array  $ids
-     * @return void
-     */
-    private function logDeletedUsers($ids)
-    {
-        foreach($ids as $id) {
-            $deletedUser = User::withTrashed()->find($id);
-
-            activity()
-                ->performedOn($deletedUser)
-                ->causedBy(user())
-                ->withProperty('restore_url', route('admin.users.restore', $deletedUser))
-                ->event(ActivityEvents::user_deleted->name)
-                ->log(ActivityEvents::user_deleted->name);
-        }
     }
 }

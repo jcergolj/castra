@@ -1,4 +1,0 @@
-[2021-11-23 13:12:45] testing.INFO: User with an id {user()->id}, requested email change from {user()->email} to {$request->new_email}.  
-[2021-11-23 13:12:45] testing.INFO: User with an id {user()->id}, requested email change from {user()->email} to {$request->new_email}.  
-[2021-11-23 13:16:05] testing.INFO: User with an id {user()->id}, requested email change from {user()->email} to {$request->new_email}.  
-[2021-11-23 13:16:05] testing.INFO: User with an id {user()->id}, requested email change from {user()->email} to {$request->new_email}.  

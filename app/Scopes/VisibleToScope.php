@@ -11,6 +11,10 @@ class VisibleToScope implements Scope
     /** @var string */
     protected $field;
 
+    /**
+     * @param  string  $field
+     * @return void
+     */
     public function __construct($field)
     {
         $this->field = $field;
@@ -19,7 +23,7 @@ class VisibleToScope implements Scope
     /**
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @return void
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function apply(Builder $builder, Model $model)
     {

@@ -10,11 +10,6 @@ use Tests\TestCase;
 /** @see \App\Rules\PasswordRule */
 class PasswordRuleTest extends TestCase
 {
-    public function setUp() : void
-    {
-        parent::setUp();
-    }
-
     /** @test */
     public function validation_passes()
     {
@@ -27,6 +22,15 @@ class PasswordRuleTest extends TestCase
     {
         $rule = new PasswordRule();
         $this->assertTrue($rule->passes('password', 'password'));
+    }
+
+    /** @test */
+    public function password_must_be_confirmed()
+    {
+        $rule = new PasswordRule('password'.'-not-confirmed');
+
+        $this->assertFalse($rule->passes('password', 'password'));
+        $this->assertArrayHasKey('Confirmed', $rule->failedRules['password']);
     }
 
     /** @test */
@@ -46,15 +50,6 @@ class PasswordRuleTest extends TestCase
 
         $this->assertFalse($rule->passes('password', $password));
         $this->assertSame(trans('validation.min.string', ['attribute' => trans('validation.attributes.password'), 'min' => PasswordRule::MIN_PASSWORD_LENGTH]), $rule->message());
-    }
-
-    /** @test */
-    public function password_must_be_confirmed()
-    {
-        $rule = new PasswordRule('password'.'-not-confirmed');
-
-        $this->assertFalse($rule->passes('password', 'password'));
-        $this->assertArrayHasKey('Confirmed', $rule->failedRules['password']);
     }
 
     /** @test */

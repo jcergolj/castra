@@ -5,8 +5,8 @@ namespace Tests\Unit\Components;
 use App\Services\AdminNav;
 use App\Services\MemberNav;
 use App\View\Components\Sidebar;
-use Exception;
 use Tests\TestCase;
+use ValueError;
 
 /** @see \App\Components\Sidebar */
 class SidebarTest extends TestCase
@@ -55,16 +55,5 @@ class SidebarTest extends TestCase
         $this->component(Sidebar::class, ['user' => create_member()])
             ->assertSee(route('dashboards.index'))
             ->assertSeeText('Dashboard');
-    }
-
-    /** @test */
-    public function assert_exception_is_thrown()
-    {
-        $this->makeRequestWithAuth(create_user(['role' => 'undefined']));
-
-        $this->expectException(Exception::class);
-        $component = $this->app->make(Sidebar::class);
-
-        $component->menuStrategy();
     }
 }
