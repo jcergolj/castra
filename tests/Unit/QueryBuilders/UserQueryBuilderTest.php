@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\QueryBuilders;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Enums\UserRoles;
+use App\Models\User;
+use Tests\TestCase;
 
 /** @see \App\QueryBuilders\UserQueryBuilder */
 /**
