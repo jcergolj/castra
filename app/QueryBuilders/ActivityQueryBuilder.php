@@ -2,6 +2,7 @@
 
 namespace App\QueryBuilders;
 
+use App\Enums\ActivityEvents;
 use Illuminate\Database\Eloquent\Builder;
 
 class ActivityQueryBuilder extends Builder
@@ -17,7 +18,7 @@ class ActivityQueryBuilder extends Builder
     public function event($event = null)
     {
         $this->when($event, function ($query, $event) {
-            $query->where('event', $event);
+            $query->where('event', ActivityEvents::from($event));
         });
 
         return $this;

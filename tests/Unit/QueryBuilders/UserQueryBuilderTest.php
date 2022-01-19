@@ -2,8 +2,9 @@
 
 namespace Tests\Unit\QueryBuilders;
 
-use App\Models\User;
 use Tests\TestCase;
+use App\Models\User;
+use App\Enums\UserRoles;
 
 /** @see \App\QueryBuilders\UserQueryBuilder */
 /**
@@ -28,7 +29,9 @@ class UserQueryBuilderTest extends TestCase
     {
         $member = create_user(['email' => 'member@example.com']);
         $admin = create_admin(['email' => 'admin@example.com']);
-        $users = User::role('admin')->get();
+
+        $users = User::role(UserRoles::admin->value)->get();
+
         $this->assertCount(1, $users);
         $this->assertTrue($users->contains($admin));
         $this->assertFalse($users->contains($member));

@@ -16,11 +16,11 @@ class ActivityQueryBuilderTest extends TestCase
     /** @test */
     public function filter_by_event()
     {
-        $activityEmailUpdated = Activity::factory()->create(['event' => ActivityEvents::email_updated_by_user->name]);
+        $activityEmailUpdated = Activity::factory()->create(['event' => ActivityEvents::email_updated_by_user]);
         $activityEventNull = Activity::factory()->create(['event' => null]);
-        $activityOtherEvent = Activity::factory()->create(['event' => 'other_event']);
+        $activityOtherEvent = Activity::factory()->create(['event' => ActivityEvents::deleted]);
 
-        $activities = Activity::event(ActivityEvents::email_updated_by_user->name)->get();
+        $activities = Activity::event(ActivityEvents::email_updated_by_user->value)->get();
 
         $this->assertCount(1, $activities);
         $this->assertTrue($activities->contains($activityEmailUpdated));

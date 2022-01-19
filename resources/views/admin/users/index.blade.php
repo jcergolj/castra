@@ -10,8 +10,8 @@
                         <option value="">All</option>
                         @foreach (\App\Enums\UserRoles::cases() as $role)
                             <option
-                                @if (request()->user()->role->name === $role->name) selected @endif
-                                value="{{ $role->name }}"
+                                @if (request()->user()->role->value === $role->value) selected @endif
+                                value="{{ $role->value }}"
                             >
                                 {{ $role->value }}
                             </option>
