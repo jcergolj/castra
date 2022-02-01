@@ -12,12 +12,12 @@ class UserController extends Controller
 {
     /**
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
      * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Request $request, User $user)
     {
-        $userModel = app()->make(User::class);
-        $users = $userModel->filter($request->only(['search', 'role']))
+        $users = $user->filter($request->only(['search', 'role']))
             ->orderBy($request->get('order_by', 'id'), $request->get('order_by_direction', 'asc'))
             ->paginate($request->get('per_page', AppServiceProvider::PER_PAGE));
 

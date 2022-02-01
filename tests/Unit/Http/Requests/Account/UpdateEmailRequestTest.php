@@ -51,6 +51,7 @@ class UpdateEmailRequestTest extends TestCase
             ->assertFails(['new_email' => 'required']);
     }
 
+    /** @test */
     public function new_email_is_must_be_valid_email_address()
     {
         $this->createFormRequest(UpdateEmailRequest::class)
