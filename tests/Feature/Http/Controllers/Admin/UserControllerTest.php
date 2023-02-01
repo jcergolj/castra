@@ -21,6 +21,7 @@ class UserControllerTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider middlewareRouteDataProvider
      */
     public function middleware_is_applied_for_routes($middleware, $route)

@@ -16,6 +16,7 @@ class AuthenticatedSessionControllerTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider routesProvider
      */
     public function guest_middleware_is_applied_for_routes($route)

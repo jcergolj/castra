@@ -1,7 +1,7 @@
 @props(['orderBy', 'field', 'orderByDirection'])
 
 @if ($orderBy === $field && $orderByDirection === 'asc')
-    <x-svg.chevron-up/>
+    <x-svg.chevron-up />
 @elseif($orderBy === $field && $orderByDirection === 'desc')
-    <x-svg.chevron-down/>
+    <x-svg.chevron-down />
 @endif

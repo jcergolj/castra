@@ -18,7 +18,7 @@ class RegisteredUserControllerTest extends TestCase
 {
     use TestableFormRequest, TestableMiddleware;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 

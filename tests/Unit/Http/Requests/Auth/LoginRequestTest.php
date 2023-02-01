@@ -24,6 +24,7 @@ class LoginRequestTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider validationFailsProvider
      */
     public function test_login_rules_fail($name, $value, $rule)

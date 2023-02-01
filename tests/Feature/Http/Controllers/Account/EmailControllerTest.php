@@ -16,7 +16,7 @@ class EmailControllerTest extends TestCase
 {
     use TestableFormRequest, TestableMiddleware;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -25,6 +25,7 @@ class EmailControllerTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider middlewareRouteDataProvider
      */
     public function middleware_is_applied_for_routes($middleware, $route)

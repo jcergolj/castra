@@ -4,7 +4,6 @@ namespace App\QueryBuilders;
 
 use App\Enums\UserRoles;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
 
 class UserQueryBuilder extends Builder
 {

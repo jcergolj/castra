@@ -1,9 +1,6 @@
-<div
-    @if (session('status')) x-data="{show : true}" @else x-data="{show : false}" @endif
-    x-show="show"
-    x-cloak
-    class="absolute top-24 left-1/2 inline-flex max-w-sm w-full bg-white shadow-md rounded-lg overflow-hidden ml-3"
->
+<div @if (session('status')) x-data="{show : true}" @else x-data="{show : false}" @endif
+    x-show="show" x-cloak
+    class="absolute top-24 left-1/2 inline-flex max-w-sm w-full bg-white shadow-md rounded-lg overflow-hidden ml-3">
 
     @php
         $color = session('status')['color'] ?? null;
@@ -14,11 +11,7 @@
     @endphp
 
     @if ($color !== null)
-        <x-status.body
-            :color="$color"
-            :svg="$svg"
-            :undoUrl="$undo_url"
-        >
+        <x-status.body :color="$color" :svg="$svg" :undoUrl="$undo_url">
             <x-slot name="title">
                 {{ $title }}
             </x-slot>

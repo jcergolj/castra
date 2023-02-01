@@ -6,19 +6,15 @@
         If you didn't receive the email, we will gladly send you another.
     </div>
 
-    <x-auth-session-status :status="session('status')"/>
+    <x-auth-session-status :status="session('status')" />
 
     <div class="mt-4 flex items-center justify-between">
-        <form
-            id="resend_verification"
-            method="POST"
-            action="{{ route('verification.send') }}"
-            class="mt-4"
-        >
+        <form id="resend_verification" method="POST" action="{{ route('verification.send') }}"
+            class="mt-4">
             @csrf
 
             <div>
-                <x-button  class="w-full text-sm">
+                <x-button class="w-full text-sm">
                     Resend Verification Email
                 </x-button>
             </div>

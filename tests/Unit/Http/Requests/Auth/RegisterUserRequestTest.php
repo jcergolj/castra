@@ -27,6 +27,7 @@ class RegisterUserRequestTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider validationFailsProvider
      */
     public function test_register_user_rules_fail($name, $value, $rule)

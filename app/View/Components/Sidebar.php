@@ -39,6 +39,7 @@ class Sidebar extends Component
 
     /**
      * @return mixed
+     *
      * @throws \Exception
      */
     public function menuStrategy()

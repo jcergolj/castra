@@ -9,45 +9,31 @@
                     <x-table.search-select name="role">
                         <option value="">All</option>
                         @foreach (\App\Enums\UserRoles::cases() as $role)
-                            <option
-                                @if (request()->user()->role->value === $role->value) selected @endif
-                                value="{{ $role->value }}"
-                            >
+                            <option @if (request()->user()->role->value === $role->value) selected @endif
+                                value="{{ $role->value }}">
                                 {{ $role->value }}
                             </option>
                         @endforeach
                     </x-table.search-select>
                 </div>
             </x-table.filters>
-            <x-table.table :items="$users">
+            <x-table.table :pagination="$users->withQueryString()">
                 <x-slot name="thead">
                     <x-table.th>
-                        <x-table.header-ordable
-                            route="admin.users.index"
-                            :orderBy="$order_by"
-                            :orderByDirection="$order_by_direction"
-                            field="email"
-                        >
+                        <x-table.header-ordable route="admin.users.index" :orderBy="$order_by"
+                            :orderByDirection="$order_by_direction" field="email">
                             Email
                         </x-table.header-ordable>
                     </x-table.th>
                     <x-table.th>
-                        <x-table.header-ordable
-                            route="admin.users.index"
-                            :orderBy="$order_by"
-                            :orderByDirection="$order_by_direction"
-                            field="role"
-                        >
+                        <x-table.header-ordable route="admin.users.index" :orderBy="$order_by"
+                            :orderByDirection="$order_by_direction" field="role">
                             Role
                         </x-table.header-ordable>
                     </x-table.th>
                     <x-table.th>
-                        <x-table.header-ordable
-                            route="admin.users.index"
-                            :orderBy="$order_by"
-                            :orderByDirection="$order_by_direction"
-                            field="created_at"
-                        >
+                        <x-table.header-ordable route="admin.users.index" :orderBy="$order_by"
+                            :orderByDirection="$order_by_direction" field="created_at">
                             Created
                         </x-table.header-ordable>
                     </x-table.th>
@@ -57,51 +43,39 @@
                     @forelse ($users as $user)
                         <tr>
                             <x-table.td>
-                                <input
-                                    x-ref="item_checkbox"
-                                    type="checkbox"
-                                    name="ids[]"
-                                    value="{{ $user->id }}"
-                                />
+                                <input x-ref="item_checkbox" type="checkbox" name="ids[]"
+                                    value="{{ $user->id }}" />
                             </x-table.td>
                             <x-table.td>
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 w-10 h-10">
-                                        <img
-                                            class="w-full h-full rounded-full"
-                                            src="{{ $user->profileImageFile }}"
-                                        />
+                                        <img class="w-full h-full rounded-full"
+                                            src="{{ $user->profileImageFile }}" />
                                     </div>
                                     <div class="ml-3">
-                                        <a
-                                            href="{{ route('admin.users.show', $user) }}"
-                                            class="text-blue-600 hover:text-blue-900 whitespace-no-wrap"
-                                        >
+                                        <a href="{{ route('admin.users.show', $user) }}"
+                                            class="text-blue-600 hover:text-blue-900 whitespace-no-wrap">
                                             {{ $user->email }}
                                         </a>
                                     </div>
                                 </div>
                             </x-table.td>
                             <x-table.td>
-                                <p class="text-gray-900 whitespace-no-wrap">{{ $user->role->value }}</p>
+                                <p class="text-gray-900 whitespace-no-wrap">{{ $user->role->value }}
+                                </p>
                             </x-table.td>
                             <x-table.td>
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {{ $user->created_at->format('d/m/Y H:i') }}</p>
+                                    {{ $user->created_at->format('d/m/Y H:i') }}
+                                </p>
                             </x-table.td>
                             <x-table.td>
                                 @if (!$user->isItMe())
-                                    <form
-                                        @submit.prevent="openWarningModal = true; form=$event.target"
-                                        action="{{ route('admin.users.destroy', $user) }}"
-                                        method="POST"
-                                    >
+                                    <form action="{{ route('admin.users.destroy', $user) }}"
+                                        method="POST">
                                         @method('DELETE')
                                         @csrf
-                                        <button
-                                            type="submit"
-                                            title="Delete User"
-                                        >
+                                        <button type="submit" title="Delete User">
                                             <x-svg.trash />
                                         </button>
                                     </form>

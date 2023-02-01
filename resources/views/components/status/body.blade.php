@@ -15,10 +15,8 @@
 
         @if ($undoUrl !== null)
             <p class="text-gray-600 text-sm">
-                If you made this action by mistake you can <a
-                    href="{{ $undoUrl }}"
-                    class="text-blue-600 hover:text-blue-900 whitespace-no-wrap w-max"
-                >undo it</a>.
+                If you made this action by mistake you can <a href="{{ $undoUrl }}"
+                    class="text-blue-600 hover:text-blue-900 whitespace-no-wrap w-max">undo it</a>.
             </p>
         @endif
     </div>

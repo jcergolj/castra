@@ -6,7 +6,6 @@ use App\Services\AdminNav;
 use App\Services\MemberNav;
 use App\View\Components\Sidebar;
 use Tests\TestCase;
-use ValueError;
 
 /** @see \App\Components\Sidebar */
 class SidebarTest extends TestCase

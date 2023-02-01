@@ -32,7 +32,7 @@ class VerifyNewEmailController extends Controller
 
         msg('Your email has been successfully updated.');
 
-        return redirect()->route('login');
+        return to_route('login');
     }
 
     /**

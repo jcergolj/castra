@@ -33,7 +33,7 @@ class NewPasswordController extends Controller
         if ($status === Password::PASSWORD_RESET) {
             msg($status);
 
-            return redirect()->route('login');
+            return to_route('login');
         }
 
         return back()->withInput($request->only('email'))

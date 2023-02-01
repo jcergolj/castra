@@ -5,55 +5,43 @@
             <div class="p-6 bg-white rounded-md shadow-md">
                 <h2 class="text-lg text-gray-700 font-semibold capitalize">Profile Image</h2>
                 <turbo-frame id="frame_update_profile_image" @turboReload>
-                    <form
-                        id="update_profile_image"
-                        action="{{ route('accounts.profile-images.update') }}"
-                        method="POST"
-                        class="grid grid-cols-1 gap-6 mt-4"
-                        enctype="multipart/form-data"
-                        @hasTurboFrameHeader data-turbo="false" @endHasTurboFrameHeader
-                    >
+                    <form id="update_profile_image"
+                        action="{{ route('accounts.profile-images.update') }}" method="POST"
+                        class="grid grid-cols-1 gap-6 mt-4" enctype="multipart/form-data"
+                        @hasTurboFrameHeader data-turbo="false" @endHasTurboFrameHeader>
                         @csrf
                         @method('PATCH')
 
                         <div class="mt-4 max-w-md">
                             <x-label class="text-gray-700">
                                 {{ trans_validation_attribute('profile_image') }}
-                                <div x-data="{profileImage: false}" x-cloak class="mt-4">
+                                <div x-data="{ profileImage: false }" x-cloak class="mt-4">
                                     <div class="flex items-center w-full">
-                                        <label
-                                            for="profile_image"
-                                            class="flex flex-col w-full h-20 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300"
-                                        >
-                                            <div class="flex flex-col items-center justify-center pt-3">
-                                                <x-svg.file-upload/>
+                                        <label for="profile_image"
+                                            class="flex flex-col w-full h-20 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                                            <div
+                                                class="flex flex-col items-center justify-center pt-3">
+                                                <x-svg.file-upload />
                                                 <div x-show="!profileImage">
                                                     Attach a file
                                                 </div>
                                                 <div x-show="profileImage" x-text="profileImage">
                                                 </div>
                                             </div>
-                                            <input
-                                                @change="profileImage = $event.target.value"
-                                                id="profile_image"
-                                                type="file"
-                                                name="profile_image"
-                                                class="opacity-0"
-                                                required
-                                            >
+                                            <input @change="profileImage = $event.target.value"
+                                                id="profile_image" type="file"
+                                                name="profile_image" class="opacity-0" required>
                                         </label>
                                     </div>
                                 </div>
-                                <x-error field="profile_image"/>
+                                <x-error field="profile_image" />
                             </x-label>
                         </div>
 
                         <div class="flex justify-between items-center mt-6 max-w-md">
-                            <a
-                                @turboReload
+                            <a @turboReload
                                 class="py-2 px-4 text-sm rounded-md bg-white border-4 border-opacity-20 hover:bg-gray-300 focus:outline-none"
-                                href="{{ route('accounts.profile') }}"
-                            >
+                                href="{{ route('accounts.profile') }}">
                                 Cancel
                             </a>
                             <x-button>Save</x-button>

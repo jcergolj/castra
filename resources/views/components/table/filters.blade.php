@@ -6,9 +6,12 @@
         <div class="flex">
             <div class="relative">
                 <x-table.search-select name="per_page">
-                    <option @if ($perPage == 10) selected @endif value="10">10</option>
-                    <option @if ($perPage == 25) selected @endif value="25">25</option>
-                    <option @if ($perPage == 50) selected @endif value="50">50</option>
+                    <option @if ($perPage == 10) selected @endif value="10">10
+                    </option>
+                    <option @if ($perPage == 25) selected @endif value="25">25
+                    </option>
+                    <option @if ($perPage == 50) selected @endif value="50">50
+                    </option>
                 </x-table.search-select>
             </div>
 
@@ -20,9 +23,9 @@
                 <x-svg.search viewBox="0 0 24 24" class="fill-current text-gray-500" />
             </span>
 
-            <x-table.search-input/>
+            <x-table.search-input />
         </div>
 
-        <x-table.search-button/>
+        <x-table.search-button />
     </div>
 </form>

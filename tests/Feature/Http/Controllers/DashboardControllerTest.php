@@ -13,6 +13,7 @@ class DashboardControllerTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider dashboardRoutesProvider
      */
     public function authenticate_middleware_is_applied($route)
@@ -22,6 +23,7 @@ class DashboardControllerTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider dashboardRoutesProvider
      */
     public function verified_middleware_is_applied($route)

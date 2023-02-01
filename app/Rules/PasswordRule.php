@@ -33,6 +33,7 @@ class PasswordRule implements ImplicitRule
      * @param  string  $attribute
      * @param  mixed  $value
      * @return bool
+     *
      * @throws \Illuminate\Validation\ValidationException
      */
     public function passes($attribute, $value)

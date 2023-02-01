@@ -3,7 +3,6 @@
 namespace Tests\Unit\Http\Middleware;
 
 use App\Http\Middleware\Admin;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Tests\TestCase;

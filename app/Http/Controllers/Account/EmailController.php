@@ -35,6 +35,6 @@ class EmailController extends Controller
 
         $request->user()->notify(new EmailUpdateWarningNotification($request->new_email));
 
-        return redirect()->route('accounts.profile');
+        return to_route('accounts.profile');
     }
 }

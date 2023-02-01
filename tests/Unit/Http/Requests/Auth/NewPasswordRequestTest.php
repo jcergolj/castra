@@ -26,6 +26,7 @@ class NewPasswordRequestTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider validationFailsProvider
      */
     public function test_rules_fail($name, $value, $rule)

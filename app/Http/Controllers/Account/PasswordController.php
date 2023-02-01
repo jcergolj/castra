@@ -26,6 +26,6 @@ class PasswordController extends Controller
 
         msg_success('Your password has been successfully updated.', 'update-password');
 
-        return redirect()->route('accounts.profile');
+        return to_route('accounts.profile');
     }
 }

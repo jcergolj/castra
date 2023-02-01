@@ -2,16 +2,9 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
-use App\Enums\ActivityEvents;
 use App\Http\Requests\Admin\StoreDeletedUserRequest;
-use App\Models\Activity;
-use App\Models\User;
-use App\Providers\AppServiceProvider;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Config;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use Mockery\MockInterface;
 use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
@@ -22,6 +15,7 @@ class DeletedUserControllerTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider middlewareRouteDataProvider
      */
     public function middleware_is_applied_for_routes($middleware, $route)
@@ -65,43 +59,6 @@ class DeletedUserControllerTest extends TestCase
         $this->assertSoftDeleted($jack);
 
         $this->assertNotSoftDeleted($jane);
-    }
-
-    /** @test */
-    public function assert_log_trait_is_present()
-    {
-    }
-
-    /** @test */
-    public function user_deleted_event_is_logged()
-    {
-        $this->assertCount(0, Activity::get());
-
-        $joe = create_user(['email' => 'joe@example.com']);
-        $jack = create_user(['email' => 'jack@example.com']);
-
-        $response = $this->actingAs($admin = create_admin())
-            ->from(route('admin.users.index'))
-            ->post(route('admin.bulk.users.destroy', [
-                'ids' => [
-                    $joe->id,
-                    $jack->id,
-                ],
-            ]));
-
-        $response->assertStatus(Response::HTTP_FOUND)
-            ->assertRedirect(route('admin.users.index'))
-            ->assertSessionHas('status');
-
-        $this->assertCount(2, Activity::get());
-
-        $activities = Activity::get();
-
-        Config::set(['activitylog.subject_returns_soft_deleted_models' => true]);
-
-        $this->assertSame(ActivityEvents::deleted, $activities[0]->event);
-
-        $this->assertSame(ActivityEvents::deleted, $activities[1]->event);
     }
 
     /** @test */

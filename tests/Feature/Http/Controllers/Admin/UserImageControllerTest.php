@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Controllers\Admin;
 
-use Illuminate\Http\Response;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
 use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
@@ -14,6 +13,7 @@ class UserImageControllerTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider middlewareRouteDataProvider
      */
     public function middleware_is_applied_for_routes($middleware, $route)

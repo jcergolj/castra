@@ -18,7 +18,7 @@ class ImageControllerTest extends TestCase
 {
     use TestableFormRequest, TestableMiddleware, InteractsWithTurbo;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -31,6 +31,7 @@ class ImageControllerTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider middlewareRouteDataProvider
      */
     public function middleware_is_applied_for_routes($middleware, $route)

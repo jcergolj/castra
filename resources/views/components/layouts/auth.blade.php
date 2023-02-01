@@ -1,9 +1,5 @@
 <x-app-layout>
-    <div
-        x-data="{ sidebarOpen: false }"
-        x-cloak
-        class="flex h-screen bg-gray-200 font-roboto"
-    >
+    <div x-data="{ sidebarOpen: false }" x-cloak class="flex h-screen bg-gray-200 font-roboto">
         <x-sidebar />
 
         <div class="flex-1 flex flex-col overflow-hidden">

@@ -5,10 +5,10 @@ use App\Models\User;
 /**
  * User seeder.
  *
- * @param  $attributes
+ * @param    $attributes
  * @return \App\Models\User
  */
-function create_user($attributes = []) : User
+function create_user($attributes = []): User
 {
     return User::factory()->create($attributes);
 }
@@ -16,10 +16,10 @@ function create_user($attributes = []) : User
 /**
  * User seeder.
  *
- * @param  $attributes
+ * @param    $attributes
  * @return \App\Models\User
  */
-function make_user($attributes = []) : User
+function make_user($attributes = []): User
 {
     return User::factory()->make($attributes);
 }
@@ -27,10 +27,10 @@ function make_user($attributes = []) : User
 /**
  * Member seeder.
  *
- * @param  $attributes
+ * @param    $attributes
  * @return \App\Models\User
  */
-function create_member($attributes = []) : User
+function create_member($attributes = []): User
 {
     return create_user($attributes);
 }
@@ -38,10 +38,10 @@ function create_member($attributes = []) : User
 /**
  * Admin seeder.
  *
- * @param  $attributes
+ * @param    $attributes
  * @return \App\Models\User
  */
-function create_admin($attributes = []) : User
+function create_admin($attributes = []): User
 {
     return User::factory()->admin()->create($attributes);
 }

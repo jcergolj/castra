@@ -40,6 +40,6 @@ class ImageController extends Controller
             return response()->turboStreamView('accounts.images._update_stream');
         }
 
-        return redirect()->route('accounts.profile');
+        return to_route('accounts.profile');
     }
 }
