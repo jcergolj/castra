@@ -14,10 +14,10 @@ class StoreDeletedUserRequestTest extends TestCase
     /** @test */
     public function test_update_email_rules_pass()
     {
-        $admin = create_admin();
-        $this->makeRequestWithAuth($admin);
+        $this->actingAs(create_admin());
+
         $this->createFormRequest(StoreDeletedUserRequest::class)
-            ->by($admin)
+            ->by(create_admin())
             ->validate([
                 'ids' => [create_user()->id],
             ])
@@ -28,7 +28,9 @@ class StoreDeletedUserRequestTest extends TestCase
     public function admin_cannot_delete_himself()
     {
         $admin = create_admin();
-        $this->makeRequestWithAuth($admin);
+
+        $this->actingAs($admin);
+
         $this->createFormRequest(StoreDeletedUserRequest::class)
             ->by($admin)
             ->validate(['ids' => [$admin->id]])
@@ -75,7 +77,7 @@ class StoreDeletedUserRequestTest extends TestCase
     public function users_must_exists()
     {
         $admin = create_admin();
-        $this->makeRequestWithAuth($admin);
+        $this->actingAs($admin);
 
         $this->createFormRequest(StoreDeletedUserRequest::class)
             ->by($admin)

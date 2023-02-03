@@ -28,8 +28,7 @@ class VisibleToScopeTest extends TestCase
     public function member_can_only_see_his_entities()
     {
         $member = create_member();
-
-        $this->makeRequestWithAuth($member);
+        $this->actingAs($member);
 
         $membersTeam = Team::create(['user_id' => $member->id]);
         Team::create(['user_id' => create_admin()->id]);
@@ -46,7 +45,7 @@ class VisibleToScopeTest extends TestCase
     {
         $admin = create_admin();
 
-        $this->makeRequestWithAuth($admin);
+        $this->actingAs($admin);
 
         $adminsTeam = Team::create(['user_id' => $admin->id]);
         $members1Team = Team::create(['user_id' => create_member()->id]);

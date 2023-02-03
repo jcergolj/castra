@@ -4,12 +4,12 @@
     <div class="mt-8">
 
         <div class="mt-6">
-            <x-table.filters :perPage="$per_page">
+            <x-table.filters :perPage="$per_page" route="admin.users.index">
                 <div class="relative">
                     <x-table.search-select name="role">
                         <option value="">All</option>
                         @foreach (\App\Enums\UserRoles::cases() as $role)
-                            <option @if (request()->user()->role->value === $role->value) selected @endif
+                            <option @if (request()->role === $role->value) selected @endif
                                 value="{{ $role->value }}">
                                 {{ $role->value }}
                             </option>
@@ -17,7 +17,7 @@
                     </x-table.search-select>
                 </div>
             </x-table.filters>
-            <x-table.table :pagination="$users->withQueryString()">
+            <x-table.table :items="$users">
                 <x-slot name="thead">
                     <x-table.th>
                         <x-table.header-ordable route="admin.users.index" :orderBy="$order_by"
@@ -42,10 +42,6 @@
                 <x-slot name="tbody">
                     @forelse ($users as $user)
                         <tr>
-                            <x-table.td>
-                                <input x-ref="item_checkbox" type="checkbox" name="ids[]"
-                                    value="{{ $user->id }}" />
-                            </x-table.td>
                             <x-table.td>
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 w-10 h-10">

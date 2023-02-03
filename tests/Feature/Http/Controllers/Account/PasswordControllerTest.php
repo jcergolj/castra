@@ -8,13 +8,12 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Account\PasswordController */
 class PasswordControllerTest extends TestCase
 {
-    use TestableFormRequest, TestableMiddleware;
+    use TestableFormRequest;
 
     public function setUp(): void
     {
@@ -23,24 +22,18 @@ class PasswordControllerTest extends TestCase
         Notification::fake();
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider middlewareRouteDataProvider
-     */
-    public function middleware_is_applied_for_routes($middleware, $route)
+    /** @test */
+    function auth_middleware_is_applied_to_the_edit_request()
     {
-        $this->assertContains($middleware, $this->getMiddlewareFor($route));
+        $this->get(route('accounts.passwords.edit'))
+            ->assertMiddlewareIsApplied('auth');
     }
 
-    public function middlewareRouteDataProvider()
+    /** @test */
+    function verified_middleware_is_applied_to_the_edit_request()
     {
-        return [
-            'Auth middleware is not applied to accounts.passwords.edit route' => ['auth', 'accounts.passwords.edit'],
-            'Auth middleware is not applied to accounts.passwords.update route' => ['auth', 'accounts.passwords.update'],
-            'Verified middleware is not applied to accounts.passwords.edit route' => ['verified', 'accounts.passwords.edit'],
-            'Verified middleware is not applied to accounts.passwords.update route' => ['verified', 'accounts.passwords.update'],
-        ];
+        $this->get(route('accounts.passwords.edit'))
+            ->assertMiddlewareIsApplied('verified');
     }
 
     /** @test */
@@ -69,6 +62,20 @@ class PasswordControllerTest extends TestCase
                 'turbo-frame[id="frame_update_password"]',
                 'form[action="'.route('accounts.passwords.update').'"]'
             );
+    }
+
+    /** @test */
+    function auth_middleware_is_applied_to_the_update_request()
+    {
+        $this->patch(route('accounts.passwords.update'))
+            ->assertMiddlewareIsApplied('auth');
+    }
+
+    /** @test */
+    function verified_middleware_is_applied_to_the_update_request()
+    {
+        $this->patch(route('accounts.passwords.update'))
+            ->assertMiddlewareIsApplied('verified');
     }
 
     /** @test */

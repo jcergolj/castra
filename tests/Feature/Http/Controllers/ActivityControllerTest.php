@@ -2,32 +2,36 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use App\Providers\AppServiceProvider;
-use Illuminate\Http\Response;
-use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
+use App\Models\Activity;
+use Illuminate\Http\Response;
+use App\Providers\AppServiceProvider;
+use Jcergolj\FormRequestAssertions\TestableFormRequest;
 
-/** @see \App\Http\Controllers\Controller */
+/** @see \App\Http\Controllers\ActivityController */
 class ActivityControllerTest extends TestCase
 {
-    use TestableFormRequest, TestableMiddleware;
+    use TestableFormRequest;
 
     /** @test */
-    public function authenticate_middleware_is_applied()
+    function auth_middleware_is_applied_to_the_index_request()
     {
-        $this->assertContains('auth', $this->getMiddlewareFor('activities.index'));
+        $this->get(route('activities.index'))
+            ->assertMiddlewareIsApplied('auth');
     }
 
     /** @test */
-    public function verified_middleware_is_applied()
+    function verified_middleware_is_applied_to_the_index_request()
     {
-        $this->assertContains('verified', $this->getMiddlewareFor('activities.index'));
+        $this->get(route('activities.index'))
+            ->assertMiddlewareIsApplied('verified');
     }
 
     /** @test */
     public function index_view_can_be_rendered()
     {
+        Activity::factory()->create();
+
         $response = $this->actingAs(create_admin())
             ->get(route('activities.index'));
 
@@ -41,7 +45,5 @@ class ActivityControllerTest extends TestCase
 
     // user can't see causer_id
 
-    // undo action for deleted items
-
-    // purge activities every 3 months
+    // purge activities every
 }

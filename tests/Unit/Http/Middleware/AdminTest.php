@@ -7,13 +7,13 @@ use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Tests\TestCase;
 
-/** @see \App\ */
+/** @see \App\Http\Middleware\Admin */
 class AdminTest extends TestCase
 {
     /** @test */
     public function allow_user_with_role_of_admin_to_continue()
     {
-        $request = $this->makeRequestWithAuth(create_admin());
+        $request = $this->makeRequestWith(create_admin());
 
         $expectedResponse = new Response('allowed', Response::HTTP_OK);
         $next = function () use ($expectedResponse) {
@@ -30,10 +30,11 @@ class AdminTest extends TestCase
     {
         $this->expectException(HttpException::class);
 
-        $request = $this->makeRequestWithAuth(create_member());
+        $request = $this->makeRequestWith(create_member());
 
         $response = (new Admin)->handle($request, function () {
         });
+
         $response->assertStatus(Response::HTTP_FORBIDDEN);
     }
 }

@@ -4,13 +4,12 @@ namespace {{ namespace }};
 
 use Illuminate\Http\Response;
 use Tests\TestCase;
-use Tests\Concerns\TestableMiddleware;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
 
 /** @see \App\Http\Controllers\Controller */
 class {{ class }} extends TestCase
 {
-    use TestableFormRequest, TestableMiddleware;
+    use TestableFormRequest;
 
     /**
      * @test

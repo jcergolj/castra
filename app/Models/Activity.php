@@ -12,7 +12,7 @@ class Activity extends SpatieActivity
 {
     use HasFactory;
 
-    /** @var array */
+    /** @var array<string, string> */
     protected $casts = [
         'id' => 'integer',
         'subject_id' => 'integer',

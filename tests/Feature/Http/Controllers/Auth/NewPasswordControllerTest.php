@@ -10,13 +10,12 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Auth\NewPasswordController */
 class NewPasswordControllerTest extends TestCase
 {
-    use TestableFormRequest, TestableMiddleware;
+    use TestableFormRequest;
 
     /** @test */
     public function guest_middleware_is_applied_for_password_reset_route()

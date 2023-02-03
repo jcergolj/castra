@@ -27,7 +27,7 @@ class SidebarTest extends TestCase
     /** @test */
     public function member_nav_is_returned_from_strategy_for_auth_user()
     {
-        $this->makeRequestWithAuth(create_user());
+        $this->actingAs(create_user());
 
         $component = $this->app->make(Sidebar::class);
         $this->assertInstanceOf(MemberNav::class, $component->menuStrategy());

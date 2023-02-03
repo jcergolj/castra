@@ -117,9 +117,9 @@ class UserTest extends TestCase
         $joe = create_member(['email' => 'joe@example.com']);
         $jane = create_member(['email' => 'jane@example.com']);
 
-        $this->makeRequestWithAuth($joe);
-
+        $this->actingAs($joe);
         $this->assertTrue($joe->isItMe());
+
         $this->assertFalse($jane->isItMe());
     }
 }

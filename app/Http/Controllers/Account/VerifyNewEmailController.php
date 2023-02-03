@@ -45,13 +45,10 @@ class VerifyNewEmailController extends Controller
         activity()
             ->performedOn($user)
             ->causedBy($user)
-            ->event(ActivityEvents::email_updated_by_user->name)
-            ->tap(function (Activity $activity) {
-                $activity->event = ActivityEvents::email_updated_by_user;
-            })
+            ->event(ActivityEvents::EmailUpdatedByUser->value)
             ->withProperties([
                 'email' => $request->new_email,
             ])
-            ->log(ActivityEvents::email_updated_by_user->name);
+            ->log(ActivityEvents::EmailUpdatedByUser->value);
     }
 }

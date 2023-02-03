@@ -2,18 +2,29 @@
 
 namespace Tests\Unit\Listeners;
 
+use Tests\TestCase;
+use Illuminate\Http\UploadedFile;
 use App\Events\ProfileImageUploaded;
+use Illuminate\Support\Facades\Event;
 use App\Listeners\ResizeImageListener;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use Tests\TestCase;
 
 /** @see \App\Listeners\ResizeImageListener */
 class ResizeImageListenerTest extends TestCase
 {
     use RefreshDatabase;
+
+    /** @test */
+    public function assert_event_has_listener()
+    {
+        Event::fake()
+            ->assertListening(
+                ProfileImageUploaded::class,
+                ResizeImageListener::class
+            );
+    }
 
     /** @test */
     public function listener_is_queued()

@@ -11,13 +11,12 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
 use Mockery\MockInterface;
-use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\UserController */
 class UserControllerTest extends TestCase
 {
-    use TestableFormRequest, TestableMiddleware;
+    use TestableFormRequest;
 
     /**
      * @test
@@ -214,7 +213,7 @@ class UserControllerTest extends TestCase
 
         Config::set(['activitylog.subject_returns_soft_deleted_models' => true]);
 
-        $this->assertSame(ActivityEvents::deleted, $activity->event);
+        $this->assertSame(ActivityEvents::Deleted, $activity->event);
     }
 
     /** @test */

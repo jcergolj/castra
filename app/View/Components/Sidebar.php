@@ -49,11 +49,11 @@ class Sidebar extends Component
             'member' => 'MemberNav',
         ];
 
-        if (! array_key_exists($this->user->role->name, $menus)) {
+        if (! array_key_exists($this->user->role->value, $menus)) {
             throw new Exception('Nav class does not exists.');
         }
 
-        $class = "App\Services\\".$menus[$this->user->role->name];
+        $class = "App\Services\\".$menus[$this->user->role->value];
 
         return new $class();
     }

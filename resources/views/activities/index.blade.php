@@ -1,83 +1,71 @@
 <x-layouts.auth>
-    <h3 class="text-gray-700 text-3xl font-medium">Users</h3>
+    <h3 class="text-gray-700 text-3xl font-medium">Activites</h3>
 
     <div class="mt-8">
 
         <div class="mt-6">
-            <x-table.filters :perPage="$per_page">
+            <x-table.filters :perPage="$per_page" route="activities.index">
                 <div class="relative">
-                    <x-table.search-select name="role">
+                    <x-table.search-select name="activity_event">
                         <option value="">All</option>
-                        @foreach (\App\Enums\UserRoles::cases() as $role)
-                            <option @if (request()->user()->role->name === $role->name) selected @endif
-                                value="{{ $role->name }}">
-                                {{ $role->value }}
+                        @foreach (\App\Enums\ActivityEvents::cases() as $activityEvent)
+                            <option @if (request()->activity_event === $activityEvent->value) selected @endif
+                                value="{{ $activityEvent->value }}">
+                                {{ $activityEvent->value }}
                             </option>
                         @endforeach
                     </x-table.search-select>
                 </div>
             </x-table.filters>
-            <x-table.table :items="$users">
+            <x-table.table :items="$activities">
                 <x-slot name="thead">
                     <x-table.th>
-                        <x-table.header-ordable route="admin.users.index" :orderBy="$order_by"
-                            :orderByDirection="$order_by_direction" field="email">
-                            Email
+                        <x-table.header-ordable route="activities.index" :orderBy="$order_by"
+                            :orderByDirection="$order_by_direction" field="event">
+                            Event
                         </x-table.header-ordable>
                     </x-table.th>
                     <x-table.th>
-                        <x-table.header-ordable route="admin.users.index" :orderBy="$order_by"
-                            :orderByDirection="$order_by_direction" field="role">
-                            Role
-                        </x-table.header-ordable>
+                        Who did it
                     </x-table.th>
                     <x-table.th>
-                        <x-table.header-ordable route="admin.users.index" :orderBy="$order_by"
+                        Affected Item
+                    </x-table.th>
+                    <x-table.th>
+                        <x-table.header-ordable route="activities.index" :orderBy="$order_by"
                             :orderByDirection="$order_by_direction" field="created_at">
                             Created
                         </x-table.header-ordable>
                     </x-table.th>
-                    <x-table.th>Delete</x-table.th>
+                    <x-table.th>
+                        Restore deleted item
+                    </x-table.th>
                 </x-slot>
                 <x-slot name="tbody">
-                    @forelse ($users as $user)
+                    @forelse ($activities as $activity)
                         <tr>
                             <x-table.td>
-                                <input x-ref="item_checkbox" type="checkbox" name="ids[]"
-                                    value="{{ $user->id }}" />
+                                {{ $activity->event->value }}
                             </x-table.td>
                             <x-table.td>
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 w-10 h-10">
-                                        <img class="w-full h-full rounded-full"
-                                            src="{{ $user->profileImageFile }}" />
-                                    </div>
-                                    <div class="ml-3">
-                                        <a href="{{ route('admin.users.show', $user) }}"
-                                            class="text-blue-600 hover:text-blue-900 whitespace-no-wrap">
-                                            {{ $user->email }}
-                                        </a>
-                                    </div>
-                                </div>
+                                {{ $activity->causer->email }}
                             </x-table.td>
                             <x-table.td>
-                                <p class="text-gray-900 whitespace-no-wrap">{{ $user->role->value }}
-                                </p>
+                                {{ $activity->properties['subject']['email'] }}
                             </x-table.td>
                             <x-table.td>
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {{ $user->created_at->format('d/m/Y H:i') }}</p>
+                                    {{ $activity->created_at->format('d/m/Y H:i') }}</p>
                             </x-table.td>
                             <x-table.td>
-                                @if (!$user->isItMe())
-                                    <form
-                                        @submit.prevent="openWarningModal = true; form=$event.target"
-                                        action="{{ route('admin.users.destroy', $user) }}"
-                                        method="POST">
-                                        @method('DELETE')
+                                @if($activity->event === \App\Enums\ActivityEvents::Deleted)
+                                    <form action="{{ route('restored-item.store') }}" method="POST">
                                         @csrf
-                                        <button type="submit" title="Delete User">
-                                            <x-svg.trash />
+                                        <input type="hidden" name="id" value="{{ $activity->id }}">
+                                        <input type="hidden" name="subject_id" value="{{ $activity->subject_id }}">
+                                        <input type="hidden" name="subject_type" value="{{ $activity->subject_type }}">
+                                        <button type="submit" title="Restore Item">
+                                            <x-svg.undo />
                                         </button>
                                     </form>
                                 @endif
@@ -86,7 +74,7 @@
                     @empty
                         <tr>
                             <x-table.td colspan="5">
-                                There is no users.
+                                There is no activites.
                             </x-table.td>
                         </tr>
                     @endforelse

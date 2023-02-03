@@ -6,13 +6,12 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Response;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Auth\AuthenticatedSessionController */
 class AuthenticatedSessionControllerTest extends TestCase
 {
-    use TestableFormRequest, TestableMiddleware;
+    use TestableFormRequest;
 
     /**
      * @test

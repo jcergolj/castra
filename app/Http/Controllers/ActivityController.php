@@ -16,8 +16,9 @@ class ActivityController extends Controller
     {
         $activityModel = app()->make(Activity::class);
 
-        $activities = $activityModel->filter($request->only(['event', 'causerId', 'subjectType', 'logName']))
-            ->orderBy($request->get('order_by', 'id'), $request->get('order_by_direction', 'asc'))
+        $activities = $activityModel->with(['causer', 'subject'])
+            ->filter($request->only(['activity_event', 'search']))
+            ->orderBy($request->get('order_by', 'created_at'), $request->get('order_by_direction', 'desc'))
             ->paginate($request->get('per_page', AppServiceProvider::PER_PAGE));
 
         return view('activities.index', [

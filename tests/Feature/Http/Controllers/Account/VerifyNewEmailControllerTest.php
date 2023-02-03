@@ -2,27 +2,24 @@
 
 namespace Tests\Feature\Http\Controllers\Account;
 
-use App\Enums\ActivityEvents;
+use Tests\TestCase;
+use App\Models\User;
 use App\Models\Activity;
-use App\Services\SignedUrlGenerator;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Enums\ActivityEvents;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use App\Services\SignedUrlGenerator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Tests\Concerns\TestableMiddleware;
-use Tests\TestCase;
 
-/** @see \App\Http\Controllers\VerifyNewEmailController */
+/** @see \App\Http\Controllers\Account\VerifyNewEmailController */
 class VerifyNewEmailControllerTest extends TestCase
 {
-    use TestableMiddleware;
-
-    /**
-     * @test
-     */
-    public function throttle_is_applied_for_account_verification_verify_route()
+    /** @test */
+    function throttle_middleware_is_applied_to_the_edit_request()
     {
-        $this->assertContains('throttle', $this->getMiddlewareFor('accounts.verification.verify'));
+        $this->get(route('accounts.verification.verify'))
+            ->assertMiddlewareIsApplied('throttle:6,1');
     }
 
     /** @test */
@@ -79,10 +76,12 @@ class VerifyNewEmailControllerTest extends TestCase
 
         $activity = Activity::first();
 
-        $this->assertSame(ActivityEvents::email_updated_by_user, $activity->event);
+        $this->assertEquals(ActivityEvents::EmailUpdatedByUser, $activity->event);
+
         $this->assertTrue($activity->causer->is($user));
-        $this->assertTrue($activity->subject->is($user));
-        $this->assertSame(['email' => 'new.email@example.com'], $activity->properties);
+        $this->assertSame($user->id, $activity->subject_id);
+        $this->assertSame(User::class, $activity->subject_type);
+        $this->assertSame('new.email@example.com', $activity->properties['email']);
     }
 
     /** @test */

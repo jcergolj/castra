@@ -14,12 +14,6 @@ Route::prefix('admin')
 
         Route::resource('users', UserController::class)->except(['edit', 'update']);
 
-        // create a deleted users that's why is a store/post
-        Route::post('deleted-users', [DeletedUserController::class, 'store'])->name('bulk.users.destroy');
-        // for the undo action user is un-deleted
-        Route::delete('deleted-users/{user}', [DeletedUserController::class, 'destroy'])
-            ->name('users.restore')->withTrashed();
-
         Route::get('user-images/{user}/edit', [UserImageController::class, 'edit'])->name('user-images.edit');
         Route::patch('user-images/{user}/update', [UserImageController::class, 'update'])->name('user-images.update');
 

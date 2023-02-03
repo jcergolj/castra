@@ -30,7 +30,7 @@ class UserQueryBuilderTest extends TestCase
         $member = create_user(['email' => 'member@example.com']);
         $admin = create_admin(['email' => 'admin@example.com']);
 
-        $users = User::role(UserRoles::admin->value)->get();
+        $users = User::role(UserRoles::Admin->value)->get();
 
         $this->assertCount(1, $users);
         $this->assertTrue($users->contains($admin));

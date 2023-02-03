@@ -17,7 +17,7 @@ class ImageController extends Controller
 
     /**
      * @param  \App\Http\Requests\Account\UpdateImageRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return Illuminate\Contracts\Routing\ResponseFactory|Illuminate\Http\Response
      */
     public function update(UpdateImageRequest $request)
     {

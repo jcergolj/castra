@@ -7,13 +7,12 @@ use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Notification;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Auth\PasswordResetLinkController */
 class PasswordResetLinkControllerTest extends TestCase
 {
-    use TestableFormRequest, TestableMiddleware;
+    use TestableFormRequest;
 
     /** @test */
     public function guest_middleware_is_applied_for_password_request_route()

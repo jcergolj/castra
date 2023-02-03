@@ -23,13 +23,7 @@ class LogsDeleteActivityTest extends TestCase
     /** @test */
     public function deleted_model_event_is_logged()
     {
-        $request = new Request();
-
-        $request->setRouteResolver(function () use ($request) {
-            return (new Route('GET', 'restore', [
-                'as' => 'restore',
-            ]))->bind($request);
-        });
+        $this->actingAs($admin = create_admin());
 
         config(['activitylog.subject_returns_soft_deleted_models' => true]);
 
@@ -41,17 +35,19 @@ class LogsDeleteActivityTest extends TestCase
 
         $team = Team::create();
 
+        $teamId = $team->id;
         $team->delete();
 
         $this->assertCount(1, Activity::get());
 
         $activity = Activity::first();
 
-        $this->assertSame(ActivityEvents::deleted, $activity->event);
-        $this->assertTrue($activity->causer->is($admin));
-        $this->assertTrue($activity->subject->is($team));
+        $this->assertSame(ActivityEvents::Deleted, $activity->event);
 
-        $this->assertSame(['restore_url' => route('restore')], $activity->properties);
+        $this->assertTrue($activity->causer->is($admin));
+
+        $this->assertSame($teamId, $activity->subject_id);
+        $this->assertSame(Team::class, $activity->subject_type);
     }
 }
 
@@ -60,10 +56,4 @@ class Team extends Model
     use LogsDeleteActivity;
 
     public $timestamps = false;
-
-    /** @return string */
-    public function restoreRouteName()
-    {
-        return 'restore';
-    }
 }

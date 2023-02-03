@@ -14,9 +14,6 @@ trait LogsDeleteActivity
     /** @var array */
     protected static $recordEvents = ['deleted'];
 
-    /** @return string */
-    abstract public function restoreRouteName();
-
     public function getActivityLogOptions(): LogOptions
     {
         return LogOptions::defaults();
@@ -28,7 +25,11 @@ trait LogsDeleteActivity
      */
     public function tapActivity(Activity $activity)
     {
-        $activity->event = ActivityEvents::deleted;
-        $activity->properties = ['restore_url' => route($this->restoreRouteName(), $activity->subject)];
+        if (!in_array($activity->event, static::$recordEvents)) {
+            return;
+        }
+
+        $activity->event = ActivityEvents::Deleted->value;
+        $activity->properties = ['subject' => $activity->subject];
     }
 }

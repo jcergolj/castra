@@ -9,14 +9,13 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 use Tonysm\TurboLaravel\Testing\InteractsWithTurbo;
 
 /** @see \App\Http\Controllers\Account\ImageController */
 class ImageControllerTest extends TestCase
 {
-    use TestableFormRequest, TestableMiddleware, InteractsWithTurbo;
+    use TestableFormRequest, InteractsWithTurbo;
 
     public function setUp(): void
     {
@@ -29,24 +28,18 @@ class ImageControllerTest extends TestCase
             ->image('image.jpg', 1000, 1000);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider middlewareRouteDataProvider
-     */
-    public function middleware_is_applied_for_routes($middleware, $route)
+    /** @test */
+    function auth_middleware_is_applied_to_the_edit_request()
     {
-        $this->assertContains($middleware, $this->getMiddlewareFor($route));
+        $this->get(route('accounts.profile-images.edit'))
+            ->assertMiddlewareIsApplied('auth');
     }
 
-    public function middlewareRouteDataProvider()
+    /** @test */
+    function verified_middleware_is_applied_to_the_edit_request()
     {
-        return [
-            'Auth middleware is not applied to accounts.profile-images.edit route' => ['auth', 'accounts.profile-images.edit'],
-            'Auth middleware is not applied to accounts.profile-images.update route' => ['auth', 'accounts.profile-images.update'],
-            'Verified middleware is not applied to accounts.profile-images.edit route' => ['verified', 'accounts.profile-images.edit'],
-            'Verified middleware is not applied to accounts.profile-images.update route' => ['verified', 'accounts.profile-images.update'],
-        ];
+        $this->get(route('accounts.profile-images.edit'))
+            ->assertMiddlewareIsApplied('verified');
     }
 
     /** @test */
@@ -73,6 +66,20 @@ class ImageControllerTest extends TestCase
                 'turbo-frame[id="frame_update_profile_image"]',
                 'form[action="'.route('accounts.profile-images.update').'"]'
             );
+    }
+
+    /** @test */
+    function auth_middleware_is_applied_to_the_update_request()
+    {
+        $this->patch(route('accounts.profile-images.update'))
+            ->assertMiddlewareIsApplied('auth');
+    }
+
+    /** @test */
+    function verified_middleware_is_applied_to_the_update_request()
+    {
+        $this->patch(route('accounts.profile-images.update'))
+            ->assertMiddlewareIsApplied('verified');
     }
 
     /** @test */

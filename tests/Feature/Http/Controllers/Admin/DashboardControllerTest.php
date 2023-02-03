@@ -3,14 +3,11 @@
 namespace Tests\Feature\Http\Controllers\Admin;
 
 use Illuminate\Http\Response;
-use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Admin\DashboardController */
 class DashboardControllerTest extends TestCase
 {
-    use TestableMiddleware;
-
     /**
      * @test
      *

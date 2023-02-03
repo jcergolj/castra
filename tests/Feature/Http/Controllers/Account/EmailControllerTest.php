@@ -8,13 +8,12 @@ use App\Notifications\EmailUpdateWarningNotification;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Notification;
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Account\EmailController */
 class EmailControllerTest extends TestCase
 {
-    use TestableFormRequest, TestableMiddleware;
+    use TestableFormRequest;
 
     public function setUp(): void
     {
@@ -23,24 +22,18 @@ class EmailControllerTest extends TestCase
         Notification::fake();
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider middlewareRouteDataProvider
-     */
-    public function middleware_is_applied_for_routes($middleware, $route)
+    /** @test */
+    function auth_middleware_is_applied_to_the_edit_request()
     {
-        $this->assertContains($middleware, $this->getMiddlewareFor($route));
+        $this->get(route('accounts.emails.edit'))
+            ->assertMiddlewareIsApplied('auth');
     }
 
-    public function middlewareRouteDataProvider()
+    /** @test */
+    function verified_middleware_is_applied_to_the_edit_request()
     {
-        return [
-            'Auth middleware is not applied to accounts.emails.edit route' => ['auth', 'accounts.emails.edit'],
-            'Auth middleware is not applied to accounts.emails.update route' => ['auth', 'accounts.emails.update'],
-            'Verified middleware is not applied to accounts.emails.edit route' => ['verified', 'accounts.emails.edit'],
-            'Verified middleware is not applied to accounts.emails.update route' => ['verified', 'accounts.emails.update'],
-        ];
+        $this->get(route('accounts.emails.edit'))
+            ->assertMiddlewareIsApplied('verified');
     }
 
     /** @test */
@@ -68,6 +61,20 @@ class EmailControllerTest extends TestCase
                 'turbo-frame[id="frame_update_email"]',
                 'form[action="'.route('accounts.emails.update').'"]'
             );
+    }
+
+      /** @test */
+    function auth_middleware_is_applied_to_the_update_request()
+    {
+        $this->patch(route('accounts.emails.update'))
+            ->assertMiddlewareIsApplied('auth');
+    }
+
+    /** @test */
+    function verified_middleware_is_applied_to_the_update_request()
+    {
+        $this->patch(route('accounts.emails.update'))
+            ->assertMiddlewareIsApplied('verified');
     }
 
     /** @test */

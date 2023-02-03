@@ -67,8 +67,9 @@ class UserController extends Controller
 
         $user->delete();
 
-        msg_success_with_undo('User has been successfully deleted.', route('admin.users.restore', $user));
+        msg_success('User has been successfully deleted.');
 
+        // redirect to last page;
         return back();
     }
 }

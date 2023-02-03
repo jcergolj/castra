@@ -17,10 +17,4 @@ class EventServiceProviderTest extends TestCase
     {
         Event::fake()->assertListening(Registered::class, SendEmailVerificationNotification::class);
     }
-
-    /** @test */
-    public function resize_image_listener_is_attached_to_profile_image_uploaded_event()
-    {
-        Event::fake()->assertListening(ProfileImageUploaded::class, ResizeImageListener::class);
-    }
 }

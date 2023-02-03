@@ -1,10 +1,12 @@
-@props(['color' => null, 'svg' => null, 'undoUrl' => null])
+@props(['color' => null])
 
-<div class="flex justify-center items-center w-12 bg-{{ $color }}-500">
-    <x-dynamic-component :component="$svg" />
-</div>
-
-<div class="-mx-3 py-2 px-4">
+<div
+    x-data="{ show: true }" x-show="show" x-cloak
+    x-transition:leave="transition ease-in duration-300"
+    x-transition:leave-start="opacity-100 transform scale-100"
+    x-transition:leave-end="opacity-0 transform scale-90" x-init="setTimeout(() => { show = false; }, 3500);"
+    class="-mx-3 py-2 px-4"
+>
     <div class="mx-3">
         <span class="text-{{ $color }}-500 font-semibold">
             {{ $title }}
@@ -12,12 +14,5 @@
         <p class="text-gray-600 text-sm">
             {{ $message }}
         </p>
-
-        @if ($undoUrl !== null)
-            <p class="text-gray-600 text-sm">
-                If you made this action by mistake you can <a href="{{ $undoUrl }}"
-                    class="text-blue-600 hover:text-blue-900 whitespace-no-wrap w-max">undo it</a>.
-            </p>
-        @endif
     </div>
 </div>

@@ -3,13 +3,12 @@
 namespace Tests\Feature\Http\Controllers\Admin;
 
 use Jcergolj\FormRequestAssertions\TestableFormRequest;
-use Tests\Concerns\TestableMiddleware;
 use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Admin\UserImageController */
 class UserImageControllerTest extends TestCase
 {
-    use TestableFormRequest, TestableMiddleware;
+    use TestableFormRequest;
 
     /**
      * @test

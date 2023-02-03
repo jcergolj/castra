@@ -49,7 +49,16 @@ class PasswordRuleTest extends TestCase
         $rule = new PasswordRule($password);
 
         $this->assertFalse($rule->passes('password', $password));
-        $this->assertSame(trans('validation.min.string', ['attribute' => trans('validation.attributes.password'), 'min' => PasswordRule::MIN_PASSWORD_LENGTH]), $rule->message());
+        $this->assertSame(
+            trans(
+                'validation.min.string',
+                [
+                    'attribute' => trans('validation.attributes.password'),
+                    'min' => PasswordRule::MIN_PASSWORD_LENGTH
+                ]
+            ),
+            $rule->message()
+        );
     }
 
     /** @test */

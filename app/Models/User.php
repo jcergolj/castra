@@ -16,13 +16,13 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable, SoftDeletes, LogsDeleteActivity;
 
-    /** @var array */
+    /** @var array<int, string> */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /** @var array */
+    /** @var array<string, string> */
     protected $casts = [
         'id' => 'integer',
         'email_verified_at' => 'datetime',
@@ -67,7 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /** @return bool */
     public function isAdmin()
     {
-        return $this->role === UserRoles::admin;
+        return $this->role === UserRoles::Admin;
     }
 
     /** @return bool */

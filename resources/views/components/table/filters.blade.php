@@ -1,6 +1,6 @@
-@props(['perPage'])
+@props(['perPage', 'route' => null])
 
-<form id="filters" method="get" action="{{ route('admin.users.index') }}">
+<form id="filters" method="get" action="{{ route($route) }}">
     @csrf
     <div class="mt-3 flex flex-col sm:flex-row">
         <div class="flex">

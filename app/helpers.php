@@ -37,16 +37,16 @@ if (! function_exists('msg')) {
     function msg($message, $level = 'success', $message_bag = null)
     {
         $look_up = [
-            'success' => 'alert-success',
-            'error' => 'alert-danger',
-            'warning' => 'alert-warning',
-            'info' => 'alert-primary',
+            'success' => 'sky',
+            'error' => 'sky',
+            'warning' => 'sky',
+            'info' => 'sky',
         ];
 
         session()->flash(
             'status',
             [
-                'level' => $look_up[$level],
+                'color' => $look_up[$level],
                 'message' => $message,
                 'message_bag' => $message_bag,
             ]

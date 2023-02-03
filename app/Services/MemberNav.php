@@ -9,6 +9,7 @@ class MemberNav
     {
         return [
             ['svg' => 'svg.dashboard', 'route' => 'dashboards.index', 'title' => 'Dashboard'],
+            ['svg' => 'svg.log', 'route' => 'activities.index', 'title' => 'Log'],
         ];
     }
 }

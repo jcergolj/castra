@@ -28,12 +28,12 @@ class EmailController extends Controller
             'update-email'
         );
 
-        $request->user()->notify(new EmailUpdateRequestNotification(
+        $request->user()?->notify(new EmailUpdateRequestNotification(
             Carbon::now()->addDay(),
             $request->new_email
         ));
 
-        $request->user()->notify(new EmailUpdateWarningNotification($request->new_email));
+        $request->user()?->notify(new EmailUpdateWarningNotification($request->new_email));
 
         return to_route('accounts.profile');
     }

@@ -15,7 +15,7 @@ abstract class TestCase extends BaseTestCase
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Request $request
      */
-    public function makeRequestWithAuth(User $user)
+    public function makeRequestWith(User $user)
     {
         $request = $this->app->make(Request::class);
 
