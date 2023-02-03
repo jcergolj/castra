@@ -6,7 +6,7 @@ jobs:
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php: ["8.1"]
+                php: ["8.2"]
         steps:
             - uses: actions/checkout@v3
 
@@ -19,9 +19,6 @@ jobs:
               run: composer install --no-progress --prefer-dist --optimize-autoloader
               env:
                   APP_ENV: testing
-
-            - name: Run php cs fixer
-              run: vendor/bin/php-cs-fixer fix
 
             - name: Run laravel pint
               run: vendor/bin/pint
