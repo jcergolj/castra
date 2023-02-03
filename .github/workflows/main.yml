@@ -2,22 +2,38 @@ on: [push]
 
 jobs:
     fixes:
-        name: 'fix styling'
+        name: "fix styling"
         runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php: ["8.1"]
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
-            - name: Run PHP CS Fixer
-              uses: docker://oskarstark/php-cs-fixer-ga
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
               with:
-                  args: --config=.php-cs-fixer.dist.php --allow-risky=yes
+                  php-version: ${{ matrix.php }}
+
+            - name: Install Composer Dependencies
+              run: composer install --no-progress --prefer-dist --optimize-autoloader
+              env:
+                  APP_ENV: testing
+
+            - name: Run php cs fixer
+              run: vendor/bin/php-cs-fixer fix
+
+            - name: Run laravel pint
+              run: vendor/bin/pint
 
             - name: Install NPM dependencies
               run: npm ci
 
-            - name: Run Prettier
-              run: npm run format
+            - name: Run Prettier - format js files
+              run: npm run format-js
+
+            - name: Run Prettier - format blade files
+              run: npm run format-blade
 
             - name: Commit changes
               uses: stefanzweifel/git-auto-commit-action@v4
@@ -26,55 +42,12 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    insights:
-        name: 'insights'
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                php: ['8.1']
-        steps:
-            - uses: actions/checkout@v1
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php }}
-            - name: Run composer install
-              run: composer install -n --prefer-dist
-              env:
-                  APP_ENV: testing
-            - name: Cache composer dependencies
-              uses: actions/cache@v1
-              with:
-                  path: vendor
-                  key: composer-${{ hashFiles('composer.lock') }}
-            - name: Run insights
-              run: php artisan insights --no-interaction --min-quality=90 --min-complexity=85 --min-architecture=90 --min-style=95
-
-    phpstan:
-        name: 'phpstan'
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                php: ['8.1']
-        steps:
-            - uses: actions/checkout@v1
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php }}
-            - name: Run composer install
-              run: composer install -n --prefer-dist
-              env:
-                  APP_ENV: testing
-            - name: Run phphstan
-              run: ./vendor/bin/phpstan analyse --memory-limit=2G
-
     security-checker:
         name: 'package security checker'
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php: ['8.1']
+                php: ['8.2']
         steps:
             - uses: actions/checkout@v1
             - name: Setup PHP
@@ -88,48 +61,104 @@ jobs:
             - name: Run composer packages security check
               run: php vendor/bin/security-checker security:check composer.lock
 
-    phpunit:
-        name: 'phpunit'
+    insights:
+        name: "insights"
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                php: ['8.1']
+                php: ["8.2"]
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v3
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php }}
+
+            - name: Install Composer Dependencies
+              run: composer install --no-progress --prefer-dist --optimize-autoloader
+              env:
+                  APP_ENV: testing
+
+            - name: Cache composer dependencies
+              uses: actions/cache@v3
+              with:
+                  path: vendor
+                  key: composer-${{ hashFiles('composer.lock') }}
+
+            - name: Run insights
+              run: php artisan insights --no-interaction --min-quality=90 --min-complexity=60 --min-architecture=85 --min-style=95
+
+    phpstan:
+        name: "phpstan"
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php: ["8.1"]
+        steps:
+            - uses: actions/checkout@v3
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+
             - name: Run composer install
               run: composer install -n --prefer-dist
               env:
                   APP_ENV: testing
+
+            - name: Run phphstan
+              run: ./vendor/bin/phpstan analyse --memory-limit=2G
+
+    envy:
+        name: "envy"
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php: ["8.2"]
+        steps:
+            - uses: actions/checkout@v3
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+
+            - name: Install Composer Dependencies
+              run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+            - name: Run Envy sync
+              run: php artisan envy:sync --dry
+
+            - name: Run Envy prune
+              run: php artisan envy:prune --dry
+
+    phpunit:
+        name: "phpunit"
+        runs-on: ubuntu-latest
+        services:
+            redis:
+                image: redis
+                ports:
+                    - 6379:6379
+                options: --health-cmd="redis-cli ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        strategy:
+            matrix:
+                php: ["8.1", "8.2"]
+        steps:
+            - uses: actions/checkout@v3
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+
+            - name: Install Composer Dependencies
+              run: composer install --no-progress --prefer-dist --optimize-autoloader
+              env:
+                  APP_ENV: testing
+
             - name: Prepare Laravel Application
               run: |
                   cp .env.example .env
                   php artisan key:generate
-            - name: Run tests
-              run: php artisan test --parallel
-              env:
-                  APP_ENV: testing
 
-    package-security-checker:
-        name: 'package security checker'
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                php: ['8.1']
-        steps:
-            - uses: actions/checkout@v1
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php }}
-            - name: Run composer install
-              run: composer install -n --prefer-dist
-              env:
-                  APP_ENV: testing
-            - name: Run security checker
-              run: php vendor/bin/security-checker security:check composer.lock
-              env:
-                  APP_ENV: testing
+            - name: Run tests
+              run: php artisan test
