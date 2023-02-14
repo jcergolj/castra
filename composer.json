@@ -79,7 +79,9 @@
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=2G",
         "env-sync": "php artisan envy:sync --dry",
         "env-prune": "php artisan envy:prune --dry",
+        "vite": "npm run vite",
         "analyse": [
+            "@vite",
             "@security-checker",
             "@env-sync",
             "@env-prune",
