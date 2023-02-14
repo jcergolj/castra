@@ -25,7 +25,7 @@ trait LogsDeleteActivity
      */
     public function tapActivity(Activity $activity)
     {
-        if (!in_array($activity->event, static::$recordEvents)) {
+        if (! in_array($activity->event, static::$recordEvents)) {
             return;
         }
 

@@ -23,14 +23,14 @@ class PasswordControllerTest extends TestCase
     }
 
     /** @test */
-    function auth_middleware_is_applied_to_the_edit_request()
+    public function auth_middleware_is_applied_to_the_edit_request()
     {
         $this->get(route('accounts.passwords.edit'))
             ->assertMiddlewareIsApplied('auth');
     }
 
     /** @test */
-    function verified_middleware_is_applied_to_the_edit_request()
+    public function verified_middleware_is_applied_to_the_edit_request()
     {
         $this->get(route('accounts.passwords.edit'))
             ->assertMiddlewareIsApplied('verified');
@@ -65,14 +65,14 @@ class PasswordControllerTest extends TestCase
     }
 
     /** @test */
-    function auth_middleware_is_applied_to_the_update_request()
+    public function auth_middleware_is_applied_to_the_update_request()
     {
         $this->patch(route('accounts.passwords.update'))
             ->assertMiddlewareIsApplied('auth');
     }
 
     /** @test */
-    function verified_middleware_is_applied_to_the_update_request()
+    public function verified_middleware_is_applied_to_the_update_request()
     {
         $this->patch(route('accounts.passwords.update'))
             ->assertMiddlewareIsApplied('verified');

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
-use App\Providers\AppServiceProvider;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -19,11 +18,11 @@ class ActivityController extends Controller
         $activities = $activityModel->with(['causer', 'subject'])
             ->filter($request->only(['activity_event', 'search']))
             ->orderBy($request->get('order_by', 'created_at'), $request->get('order_by_direction', 'desc'))
-            ->paginate($request->get('per_page', AppServiceProvider::PER_PAGE));
+            ->paginate($request->get('per_page', config('castra.per_page')));
 
         return view('activities.index', [
             'activities' => $activities,
-            'per_page' => $request->get('per_page', AppServiceProvider::PER_PAGE),
+            'per_page' => $request->get('per_page', config('castra.per_page')),
             'order_by' => $request->get('order_by', 'created_at'),
             'order_by_direction' => $request->get('order_by_direction', 'desc'),
         ]);

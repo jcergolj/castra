@@ -2,8 +2,6 @@
 
 namespace Tests\Unit\Providers;
 
-use App\Events\ProfileImageUploaded;
-use App\Listeners\ResizeImageListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Support\Facades\Event;

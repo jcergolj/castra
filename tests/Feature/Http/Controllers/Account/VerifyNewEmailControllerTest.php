@@ -2,21 +2,21 @@
 
 namespace Tests\Feature\Http\Controllers\Account;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Activity;
 use App\Enums\ActivityEvents;
-use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
+use App\Models\Activity;
+use App\Models\User;
 use App\Services\SignedUrlGenerator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Tests\TestCase;
 
 /** @see \App\Http\Controllers\Account\VerifyNewEmailController */
 class VerifyNewEmailControllerTest extends TestCase
 {
     /** @test */
-    function throttle_middleware_is_applied_to_the_edit_request()
+    public function throttle_middleware_is_applied_to_the_edit_request()
     {
         $this->get(route('accounts.verification.verify'))
             ->assertMiddlewareIsApplied('throttle:6,1');

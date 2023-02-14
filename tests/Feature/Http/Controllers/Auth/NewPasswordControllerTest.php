@@ -18,15 +18,10 @@ class NewPasswordControllerTest extends TestCase
     use TestableFormRequest;
 
     /** @test */
-    public function guest_middleware_is_applied_for_password_reset_route()
+    public function guest_middleware_is_applied_to_the_password_reset_request()
     {
-        $this->assertContains('guest', $this->getMiddlewareFor('password.reset'));
-    }
-
-    /** @test */
-    public function guest_middleware_is_applied_for_password_update_route()
-    {
-        $this->assertContains('guest', $this->getMiddlewareFor('password.update'));
+        $this->get(route('password.reset', 'token'))
+            ->assertMiddlewareIsApplied('guest');
     }
 
     public function test_reset_password_view_can_be_rendered()
@@ -39,6 +34,13 @@ class NewPasswordControllerTest extends TestCase
             ->assertFormHasPasswordInput('password')
             ->assertFormHasPasswordInput('password_confirmation')
             ->assertFormHasSubmitButton();
+    }
+
+    /** @test */
+    public function guest_middleware_is_applied_to_the_password_update_request()
+    {
+        $this->post(route('password.update', 'token'))
+            ->assertMiddlewareIsApplied('guest');
     }
 
     public function test_password_can_be_reset_with_valid_token()

@@ -14,15 +14,17 @@ use Tests\TestCase;
 class EmailVerificationNotificationControllerTest extends TestCase
 {
     /** @test */
-    public function throttle_middleware_is_applied_for_verification_send_route()
+    public function auth_middleware_is_applied_to_the_verification_send_request()
     {
-        $this->assertContains('throttle', $this->getMiddlewareFor('verification.send'));
+        $this->post(route('verification.send'))
+            ->assertMiddlewareIsApplied('auth');
     }
 
     /** @test */
-    public function auth_middleware_is_applied_for_verification_send_route()
+    public function throttle_middleware_is_applied_to_the_verification_send_request()
     {
-        $this->assertContains('auth', $this->getMiddlewareFor('verification.send'));
+        $this->post(route('verification.send'))
+            ->assertMiddlewareIsApplied('throttle:6,1');
     }
 
     /** @test */

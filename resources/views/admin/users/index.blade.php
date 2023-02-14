@@ -49,10 +49,7 @@
                                             src="{{ $user->profileImageFile }}" />
                                     </div>
                                     <div class="ml-3">
-                                        <a href="{{ route('admin.users.show', $user) }}"
-                                            class="text-blue-600 hover:text-blue-900 whitespace-no-wrap">
-                                            {{ $user->email }}
-                                        </a>
+                                        {{ $user->email }}
                                     </div>
                                 </div>
                             </x-table.td>
@@ -67,10 +64,11 @@
                             </x-table.td>
                             <x-table.td>
                                 @if (!$user->isItMe())
-                                    <form action="{{ route('admin.users.destroy', $user) }}"
+                                    <form id="delete_user_{{ $user->id }}" action="{{ route('admin.users.destroy', $user) }}"
                                         method="POST">
                                         @method('DELETE')
                                         @csrf
+
                                         <button type="submit" title="Delete User">
                                             <x-svg.trash />
                                         </button>

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\AppServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\URL;
 
 class UserController extends Controller
 {
@@ -19,36 +19,14 @@ class UserController extends Controller
     {
         $users = $user->filter($request->only(['search', 'role']))
             ->orderBy($request->get('order_by', 'id'), $request->get('order_by_direction', 'asc'))
-            ->paginate($request->get('per_page', AppServiceProvider::PER_PAGE));
+            ->paginate($request->get('per_page', config('castra.per_page')));
 
         return view('admin.users.index', [
             'users' => $users,
-            'per_page' => $request->get('per_page', AppServiceProvider::PER_PAGE),
+            'per_page' => $request->get('per_page', config('castra.per_page')),
             'order_by' => $request->get('order_by', 'id'),
             'order_by_direction' => $request->get('order_by_direction', 'asc'),
         ]);
-    }
-
-    /** @return \Illuminate\View\View */
-    public function create()
-    {
-    }
-
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request)
-    {
-    }
-
-    /**
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\View\View
-     */
-    public function show(User $user)
-    {
-        return view('admin.users.show', ['user' => $user]);
     }
 
     /**
@@ -69,7 +47,15 @@ class UserController extends Controller
 
         msg_success('User has been successfully deleted.');
 
-        // redirect to last page;
-        return back();
+        $request = Request::create(URL::previous());
+
+        $paginator = $user->select('id')->filter($request->only(['search', 'role']))
+            ->orderBy($request->get('order_by', 'id'), $request->get('order_by_direction', 'asc'))
+            ->paginate($request->get('per_page', config('castra.per_page')));
+
+        $toPage = $paginator->lastPage() <= (int) $request->page ? $paginator->lastPage() : $request->page;
+        $request->merge(['page' => $toPage]);
+
+        return redirect($request->fullUrlWithQuery($request->all()));
     }
 }

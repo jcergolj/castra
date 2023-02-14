@@ -15,15 +15,17 @@ class PasswordResetLinkControllerTest extends TestCase
     use TestableFormRequest;
 
     /** @test */
-    public function guest_middleware_is_applied_for_password_request_route()
+    public function guest_middleware_is_applied_to_the_password_request_request()
     {
-        $this->assertContains('guest', $this->getMiddlewareFor('password.request'));
+        $this->get(route('password.request'))
+            ->assertMiddlewareIsApplied('guest');
     }
 
     /** @test */
-    public function guest_middleware_is_applied_for_password_email_route()
+    public function guest_middleware_is_applied_to_the_password_email_request()
     {
-        $this->assertContains('guest', $this->getMiddlewareFor('password.email'));
+        $this->get(route('password.email'))
+            ->assertMiddlewareIsApplied('guest');
     }
 
     public function test_reset_password_link_view_can_be_rendered()

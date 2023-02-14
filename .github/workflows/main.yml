@@ -39,6 +39,24 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    name: "build assets"
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Install NPM dependencies
+              run: npm ci
+
+            - name: Build assests
+              run: npm run vite
+
+            - name: Commit changes
+              uses: stefanzweifel/git-auto-commit-action@v4
+              with:
+                  commit_message: build assets
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     security-checker:
         name: 'package security checker'
         runs-on: ubuntu-latest

@@ -7,8 +7,6 @@ use App\Models\Activity;
 use App\Models\Concerns\LogsDeleteActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 

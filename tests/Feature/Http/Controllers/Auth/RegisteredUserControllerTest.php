@@ -25,15 +25,10 @@ class RegisteredUserControllerTest extends TestCase
     }
 
     /** @test */
-    public function guest_middleware_is_applied_for_register_routes()
+    public function guest_middleware_is_applied_to_the_register_request()
     {
-        $this->assertContains('guest', $this->getMiddlewareFor('register'));
-    }
-
-    /** @test */
-    public function guest_middleware_is_applied_for_register_store_routes()
-    {
-        $this->assertContains('guest', $this->getMiddlewareFor('register.store'));
+        $this->get(route('register'))
+            ->assertMiddlewareIsApplied('guest');
     }
 
     /** @test */
@@ -48,6 +43,13 @@ class RegisteredUserControllerTest extends TestCase
             ->assertFormHasSubmitButton();
 
         $response->assertStatus(Response::HTTP_OK);
+    }
+
+    /** @test */
+    public function guest_middleware_is_applied_to_the_register_store_request()
+    {
+        $this->post(route('register.store'))
+            ->assertMiddlewareIsApplied('guest');
     }
 
     /** @test */

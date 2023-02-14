@@ -8,34 +8,25 @@ use Tests\TestCase;
 /** @see \App\Http\Controllers\Admin\DashboardController */
 class DashboardControllerTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @dataProvider dashboardRoutesProvider
-     */
-    public function authenticate_middleware_is_applied($route)
+    /** @test */
+    public function auth_middleware_is_applied_to_the_index_request()
     {
-        $this->assertContains('auth', $this->getMiddlewareFor($route));
+        $this->get(route('admin.dashboards.index'))
+            ->assertMiddlewareIsApplied('auth');
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider dashboardRoutesProvider
-     */
-    public function verified_middleware_is_applied($route)
+    /** @test */
+    public function verified_middleware_is_applied_to_the_index_request()
     {
-        $this->assertContains('verified', $this->getMiddlewareFor($route));
+        $this->get(route('admin.dashboards.index'))
+            ->assertMiddlewareIsApplied('verified');
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider dashboardRoutesProvider
-     */
-    public function admin_middleware_is_applied($route)
+    /** @test */
+    public function admin_middleware_is_applied_to_the_index_request()
     {
-        $this->assertContains('admin', $this->getMiddlewareFor($route));
+        $this->get(route('admin.dashboards.index'))
+            ->assertMiddlewareIsApplied('admin');
     }
 
     /** @test */
@@ -46,12 +37,5 @@ class DashboardControllerTest extends TestCase
 
         $response->assertStatus(Response::HTTP_OK)
             ->assertSee('Dashboard');
-    }
-
-    public function dashboardRoutesProvider()
-    {
-        return [
-            'Route dashboard doesn\'t have middleware.' => ['admin.dashboards.index'],
-        ];
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Account\EmailController;
+use App\Http\Controllers\Account\ImageController;
+use App\Http\Controllers\Account\PasswordController;
+use App\Http\Controllers\Account\ProfileController;
+use App\Http\Controllers\Account\VerifyNewEmailController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RestoredItemController;
-use App\Http\Controllers\Account\EmailController;
-use App\Http\Controllers\Account\ImageController;
-use App\Http\Controllers\Account\ProfileController;
-use App\Http\Controllers\Account\PasswordController;
-use App\Http\Controllers\Account\VerifyNewEmailController;
+use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
 

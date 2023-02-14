@@ -2,20 +2,18 @@
 
 namespace App\Providers;
 
-use PHPUnit\Framework\Assert;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Testing\TestResponse;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
-use function PHPUnit\Framework\assertContains;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Testing\TestResponse;
+use PHPUnit\Framework\Assert;
 use function PHPUnit\Framework\assertArrayHasKey;
+use function PHPUnit\Framework\assertContains;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public const PER_PAGE = 10;
-
     /** @return void */
     public function register()
     {
@@ -47,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
             return $this;
         });
 
-         TestResponse::macro('assertMiddlewareIsApplied', function ($middleware) {
+        TestResponse::macro('assertMiddlewareIsApplied', function ($middleware) {
             assertContains(
                 $middleware,
                 Route::getRoutes()->getByName(Route::currentRouteName())->gatherMiddleware(),

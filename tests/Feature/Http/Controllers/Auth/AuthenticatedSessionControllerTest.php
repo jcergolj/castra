@@ -13,28 +13,25 @@ class AuthenticatedSessionControllerTest extends TestCase
 {
     use TestableFormRequest;
 
-    /**
-     * @test
-     *
-     * @dataProvider routesProvider
-     */
-    public function guest_middleware_is_applied_for_routes($route)
+    /** @test */
+    public function guest_middleware_is_applied_to_the_login_request()
     {
-        $this->assertContains('guest', $this->getMiddlewareFor($route));
-    }
-
-    public function routesProvider()
-    {
-        return [
-            'Route login doesn\'t have guest middleware.' => ['login'],
-            'Route login.store doesn\'t have guest middleware.' => ['login.store'],
-        ];
+        $this->get(route('login'))
+            ->assertMiddlewareIsApplied('guest');
     }
 
     /** @test */
-    public function authenticate_middleware_is_applied_for_logout_route()
+    public function guest_middleware_is_applied_to_the_login_store_request()
     {
-        $this->assertContains('auth', $this->getMiddlewareFor('logout'));
+        $this->post(route('login.store'))
+            ->assertMiddlewareIsApplied('guest');
+    }
+
+    /** @test */
+    public function auth_middleware_is_applied_to_the_logout_request()
+    {
+        $this->delete(route('logout'))
+            ->assertMiddlewareIsApplied('auth');
     }
 
     /** @test */

@@ -18,23 +18,25 @@ class VerifyEmailControllerTest extends TestCase
 {
     use TestableFormRequest;
 
-    /**
-     * @test
-     *
-     * @dataProvider middlewareRouteDataProvider
-     */
-    public function middleware_is_applied_for_routes($middleware, $route)
+    /** @test */
+    public function auth_middleware_is_applied_to_the_verification_verify_request()
     {
-        $this->assertContains($middleware, $this->getMiddlewareFor($route));
+        $this->get(route('verification.verify', [1, 'hash']))
+            ->assertMiddlewareIsApplied('auth');
     }
 
-    public function middlewareRouteDataProvider()
+    /** @test */
+    public function signed_middleware_is_applied_to_the_verification_verify_request()
     {
-        return [
-            'Auth middleware is not applied to verification.verify' => ['auth', 'verification.verify'],
-            'Signed middleware is not applied to verification.verify' => ['signed', 'verification.verify'],
-            'Throttle middleware is not applied to verification.verify' => ['throttle', 'verification.verify'],
-        ];
+        $this->get(route('verification.verify', [1, 'hash']))
+            ->assertMiddlewareIsApplied('signed');
+    }
+
+    /** @test */
+    public function throttle_middleware_is_applied_to_the_verification_verify_request()
+    {
+        $this->get(route('verification.verify', [1, 'hash']))
+            ->assertMiddlewareIsApplied('throttle:6,1');
     }
 
     /** @test */

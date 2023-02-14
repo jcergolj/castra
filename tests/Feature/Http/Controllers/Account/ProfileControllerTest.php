@@ -9,14 +9,14 @@ use Tests\TestCase;
 class ProfileControllerTest extends TestCase
 {
     /** @test */
-    function auth_middleware_is_applied_to_the_view_request()
+    public function auth_middleware_is_applied_to_the_view_request()
     {
         $this->get(route('accounts.profile'))
             ->assertMiddlewareIsApplied('auth');
     }
 
     /** @test */
-    function verified_middleware_is_applied_to_view()
+    public function verified_middleware_is_applied_to_view()
     {
         $this->get(route('accounts.profile'))
             ->assertMiddlewareIsApplied('verified');

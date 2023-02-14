@@ -54,7 +54,7 @@ class PasswordRuleTest extends TestCase
                 'validation.min.string',
                 [
                     'attribute' => trans('validation.attributes.password'),
-                    'min' => PasswordRule::MIN_PASSWORD_LENGTH
+                    'min' => PasswordRule::MIN_PASSWORD_LENGTH,
                 ]
             ),
             $rule->message()
