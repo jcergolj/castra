@@ -15,7 +15,6 @@ class PasswordController extends Controller
     }
 
     /**
-     * @param  \App\Http\Requests\Account\UpdatePasswordRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdatePasswordRequest $request)

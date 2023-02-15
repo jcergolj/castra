@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\URL;
 class UserController extends Controller
 {
     /**
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
      * @return \Illuminate\View\View
      */
     public function index(Request $request, User $user)
@@ -30,7 +28,6 @@ class UserController extends Controller
     }
 
     /**
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(User $user)

@@ -21,7 +21,6 @@ class NewPasswordController extends Controller
     /**
      * Handle an incoming new password request.
      *
-     * @param  \App\Http\Requests\Auth\NewPasswordRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -43,7 +42,6 @@ class NewPasswordController extends Controller
     /**
      * Reset user's password.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     private function resetPassword(Request $request)

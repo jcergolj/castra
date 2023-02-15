@@ -4,9 +4,6 @@ use App\Models\User;
 
 /**
  * User seeder.
- *
- * @param    $attributes
- * @return \App\Models\User
  */
 function create_user($attributes = []): User
 {
@@ -15,9 +12,6 @@ function create_user($attributes = []): User
 
 /**
  * User seeder.
- *
- * @param    $attributes
- * @return \App\Models\User
  */
 function make_user($attributes = []): User
 {
@@ -26,9 +20,6 @@ function make_user($attributes = []): User
 
 /**
  * Member seeder.
- *
- * @param    $attributes
- * @return \App\Models\User
  */
 function create_member($attributes = []): User
 {
@@ -37,9 +28,6 @@ function create_member($attributes = []): User
 
 /**
  * Admin seeder.
- *
- * @param    $attributes
- * @return \App\Models\User
  */
 function create_admin($attributes = []): User
 {

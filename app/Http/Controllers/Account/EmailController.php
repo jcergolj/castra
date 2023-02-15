@@ -17,7 +17,6 @@ class EmailController extends Controller
     }
 
     /**
-     * @param  \App\Http\Requests\Account\UpdateEmailRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateEmailRequest $request)

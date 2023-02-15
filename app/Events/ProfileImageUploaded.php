@@ -15,7 +15,6 @@ class ProfileImageUploaded
     public $user;
 
     /**
-     * @param  \App\Models\User  $user
      * @return void
      */
     public function __construct(User $user)

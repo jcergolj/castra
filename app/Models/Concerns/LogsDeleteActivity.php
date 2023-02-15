@@ -20,7 +20,6 @@ trait LogsDeleteActivity
     }
 
     /**
-     * @param  \Spatie\Activitylog\Models\Activity  $activity
      * @return void
      */
     public function tapActivity(Activity $activity)

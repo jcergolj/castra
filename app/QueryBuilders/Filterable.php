@@ -5,7 +5,6 @@ namespace App\QueryBuilders;
 trait Filterable
 {
     /**
-     * @param  array  $filters
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function filter(array $filters)

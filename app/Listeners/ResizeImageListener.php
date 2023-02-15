@@ -16,7 +16,6 @@ class ResizeImageListener implements ShouldQueue
     public $event;
 
     /**
-     * @param  \App\Events\ProfileImageUploaded  $event
      * @return void
      */
     public function handle(ProfileImageUploaded $event)

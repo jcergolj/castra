@@ -23,7 +23,6 @@ class EmailUpdateRequestNotification extends Notification implements ShouldQueue
     protected $newEmail;
 
     /**
-     * @param  \Illuminate\Support\Carbon  $validUntil
      * @param  string  $newEmail
      * @return void
      */

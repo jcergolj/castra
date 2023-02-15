@@ -12,7 +12,6 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication, LazilyRefreshDatabase;
 
     /**
-     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Request $request
      */
     public function makeRequestWith(User $user)

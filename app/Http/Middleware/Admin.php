@@ -9,8 +9,6 @@ use Illuminate\Http\Response;
 class Admin
 {
     /**
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)

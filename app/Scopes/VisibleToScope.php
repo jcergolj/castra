@@ -21,8 +21,6 @@ class VisibleToScope implements Scope
     }
 
     /**
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param  \Illuminate\Database\Eloquent\Model  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function apply(Builder $builder, Model $model)

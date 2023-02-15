@@ -17,7 +17,6 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * @param  \App\Http\Requests\Auth\LoginRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(LoginRequest $request)
@@ -30,7 +29,6 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request)

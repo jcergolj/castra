@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class ActivityController extends Controller
 {
     /**
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
     public function index(Request $request)
