@@ -8,14 +8,12 @@ use Illuminate\Validation\Rule;
 
 class UpdateEmailRequest extends FormRequest
 {
-    /** @return bool */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    /** @return array */
-    public function rules()
+    public function rules(): array
     {
         return [
             'new_email' => [

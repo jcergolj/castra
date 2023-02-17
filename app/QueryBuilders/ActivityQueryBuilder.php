@@ -5,17 +5,15 @@ namespace App\QueryBuilders;
 use App\Enums\ActivityEvents;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * @template TModelClass of \Illuminate\Database\Eloquent\Model
+ * @extends Builder<TModelClass>
+ */
 class ActivityQueryBuilder extends Builder
 {
     use Filterable;
 
-    /**
-     * Filter by event.
-     *
-     * @param  string|null  $event
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function event($event = null)
+    public function event(string|null $event = null): Builder
     {
         $this->when($event, function ($query, $event) {
             $query->where('event', ActivityEvents::from($event));
@@ -24,13 +22,7 @@ class ActivityQueryBuilder extends Builder
         return $this;
     }
 
-    /**
-     * Filter by causer.
-     *
-     * @param  string|null  $causer
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function causerId($causer = null)
+    public function causerId(string|null $causer = null): Builder
     {
         $this->when($causer, function ($query, $causer) {
             $query->where('causer_id', $causer);
@@ -39,13 +31,7 @@ class ActivityQueryBuilder extends Builder
         return $this;
     }
 
-    /**
-     * Filter by subject type.
-     *
-     * @param  string|null  $subjectType
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function subjectType($subjectType = null)
+    public function subjectType(string|null $subjectType = null): Builder
     {
         $this->when($subjectType, function ($query, $subjectType) {
             $query->where('subject_type', $subjectType);
@@ -54,13 +40,7 @@ class ActivityQueryBuilder extends Builder
         return $this;
     }
 
-    /**
-     * Filter by log name.
-     *
-     * @param  string|null  $logName
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function logName($logName = null)
+    public function logName(string|null $logName = null): Builder
     {
         $this->when($logName, function ($query, $logName) {
             $query->where('log_name', $logName);

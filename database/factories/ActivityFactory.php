@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ActivityFactory extends Factory
 {
-    /** @return array */
-    public function definition()
+    public function definition(): array
     {
         $user = create_user();
 

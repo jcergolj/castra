@@ -5,16 +5,14 @@ namespace App\Http\Controllers\Account;
 use App\Enums\ActivityEvents;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class VerifyNewEmailController extends Controller
 {
-    /**
-     * @param  \Illuminate\Foundation\Auth\EmailVerificationRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function __invoke(Request $request)
+    public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
         auth()->logout();
 
@@ -34,12 +32,7 @@ class VerifyNewEmailController extends Controller
         return to_route('login');
     }
 
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return void
-     */
-    private function logActivity($request, $user)
+    private function logActivity(Request $request, User $user): void
     {
         activity()
             ->performedOn($user)

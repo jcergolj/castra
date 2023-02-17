@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use App\Enums\ActivityEvents;
-use App\QueryBuilders\ActivityQueryBuilder;
 use App\Scopes\VisibleToScope;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Query\Builder;
+use App\QueryBuilders\ActivityQueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Activitylog\Models\Activity as SpatieActivity;
 
@@ -22,22 +24,19 @@ class Activity extends SpatieActivity
     ];
 
     /**
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder|static
+     * @param Builder $query
      */
-    public function newEloquentBuilder($query)
+    public function newEloquentBuilder($query): ActivityQueryBuilder
     {
         return new ActivityQueryBuilder($query);
     }
 
-    /** @return \Illuminate\Support\Collection<int, mixed> */
-    public static function getSubjectTypes()
+    public static function getSubjectTypes(): Collection
     {
         return self::groupBy('subject_type')->get('subject_type')->pluck('subject_type');
     }
 
-    /** @return void */
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
         static::addGlobalScope(new VisibleToScope('causer_id'));

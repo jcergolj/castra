@@ -11,8 +11,6 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 class EventServiceProvider extends ServiceProvider
 {
     /**
-     * The event listener mappings for the application.
-     *
      * @var array<string, array<int, string>>
      */
     protected $listen = [
@@ -24,8 +22,7 @@ class EventServiceProvider extends ServiceProvider
         ],
     ];
 
-    /** @return void */
-    public function boot()
+    public function boot(): void
     {
     }
 }

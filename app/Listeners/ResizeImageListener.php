@@ -15,10 +15,7 @@ class ResizeImageListener implements ShouldQueue
     /** @var object */
     public $event;
 
-    /**
-     * @return void
-     */
-    public function handle(ProfileImageUploaded $event)
+    public function handle(ProfileImageUploaded $event): void
     {
         $file = Storage::disk('profile_image')->get("{$event->user->profile_image}");
 

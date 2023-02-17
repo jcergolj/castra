@@ -2,12 +2,11 @@
 
 namespace App\QueryBuilders;
 
+use Illuminate\Database\Eloquent\Builder;
+
 trait Filterable
 {
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function filter(array $filters)
+    public function filter(array $filters): Builder
     {
         collect($filters)->filter(function ($args, $method) {
             return method_exists($this, $method);
@@ -18,12 +17,7 @@ trait Filterable
         return $this;
     }
 
-    /**
-     * @param  mixed  $method
-     * @param  mixed  $args
-     * @return mixed
-     */
-    protected function call($method, $args)
+    protected function call($method, $args): mixed
     {
         if (is_array($args)) {
             return $this->$method($args[0], $args[1]);

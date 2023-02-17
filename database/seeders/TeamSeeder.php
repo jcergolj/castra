@@ -6,8 +6,7 @@ use Illuminate\Database\Seeder;
 
 class TeamSeeder extends Seeder
 {
-    /** @return void */
-    public function run()
+    public function run(): void
     {
         //
     }

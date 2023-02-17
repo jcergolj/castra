@@ -6,20 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\UpdateEmailRequest;
 use App\Notifications\EmailUpdateRequestNotification;
 use App\Notifications\EmailUpdateWarningNotification;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Carbon;
+use Illuminate\View\View;
 
 class EmailController extends Controller
 {
-    /** @return \Illuminate\View\View */
-    public function edit()
+    public function edit(): View
     {
         return view('accounts.emails.edit');
     }
 
-    /**
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(UpdateEmailRequest $request)
+    public function update(UpdateEmailRequest $request): RedirectResponse
     {
         msg_success(
             "A email change request has been sent to {$request->new_email}.

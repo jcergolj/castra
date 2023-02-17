@@ -8,14 +8,12 @@ class {{ class }}
 {
     use Dispatchable;
 
-    /** @return void */
     public function __construct()
     {
         //
     }
 
-    /** @return void */
-    public function handle()
+    public function handle(): void
     {
         //
     }

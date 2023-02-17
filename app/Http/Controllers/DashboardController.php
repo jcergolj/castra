@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+
 class DashboardController extends Controller
 {
-    /** @return \Illuminate\View\View */
-    public function index()
+    public function index(): View
     {
         return view('dashboards.index');
     }

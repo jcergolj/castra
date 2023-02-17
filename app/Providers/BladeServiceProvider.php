@@ -7,13 +7,11 @@ use Illuminate\Support\ServiceProvider;
 
 class BladeServiceProvider extends ServiceProvider
 {
-    /** @return void */
-    public function register()
+    public function register(): void
     {
     }
 
-    /** @return void */
-    public function boot()
+    public function boot(): void
     {
         Blade::directive('turboReload', function () {
             return "<?php if(request()->header('Turbo-Frame') === null)

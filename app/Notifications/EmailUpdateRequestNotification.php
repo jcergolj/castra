@@ -22,28 +22,19 @@ class EmailUpdateRequestNotification extends Notification implements ShouldQueue
     /** @var string */
     protected $newEmail;
 
-    /**
-     * @param  string  $newEmail
-     * @return void
-     */
-    public function __construct(Carbon $validUntil, $newEmail)
+    public function __construct(Carbon $validUntil, string $newEmail)
     {
         $this->signedUrlGenerator = app(SignedUrlGenerator::class);
         $this->validUntil = $validUntil;
         $this->newEmail = $newEmail;
     }
 
-    /** @return array */
-    public function via()
+    public function via(): array
     {
         return ['mail'];
     }
 
-    /**
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         $signedUrl = $this->signedUrlGenerator->forNewEmail(
             $notifiable,
@@ -59,8 +50,7 @@ class EmailUpdateRequestNotification extends Notification implements ShouldQueue
             ->line('If you didn\'t request it, please let us know.');
     }
 
-    /** @return array */
-    public function toArray()
+    public function toArray(): array
     {
         return [];
     }

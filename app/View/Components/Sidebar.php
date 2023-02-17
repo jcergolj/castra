@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use App\Models\User;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class Sidebar extends Component
@@ -11,13 +12,7 @@ class Sidebar extends Component
     /** @var array */
     public $menu;
 
-    /** @var \App\Models\User */
-    protected $user;
-
-    /**
-     * @return void
-     */
-    public function __construct(User $user)
+    public function __construct(protected User $user)
     {
         if ($user->id === null) {
             $this->user = user();
@@ -26,10 +21,7 @@ class Sidebar extends Component
         }
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function render()
+    public function render(): View
     {
         $this->menu = $this->menuStrategy()->build();
 
@@ -37,11 +29,9 @@ class Sidebar extends Component
     }
 
     /**
-     * @return mixed
-     *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function menuStrategy()
+    public function menuStrategy(): mixed
     {
         $menus = [
             'admin' => 'AdminNav',

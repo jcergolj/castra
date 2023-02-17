@@ -14,10 +14,7 @@ class ProfileImageUploaded
     /** @var \App\Models\User */
     public $user;
 
-    /**
-     * @return void
-     */
-    public function __construct(User $user)
+    public function __construct(User $user): void
     {
         $this->user = $user;
     }

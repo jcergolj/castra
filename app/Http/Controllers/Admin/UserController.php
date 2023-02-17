@@ -4,16 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\URL;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
-    /**
-     * @return \Illuminate\View\View
-     */
-    public function index(Request $request, User $user)
+    public function index(Request $request, User $user): View
     {
         $users = $user->filter($request->only(['search', 'role']))
             ->orderBy($request->get('order_by', 'id'), $request->get('order_by_direction', 'asc'))
@@ -27,10 +26,7 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(User $user)
+    public function destroy(User $user): RedirectResponse
     {
         abort_if(! $user->exists, Response::HTTP_NOT_FOUND, 'User do not exists.');
 

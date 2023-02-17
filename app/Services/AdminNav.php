@@ -4,8 +4,7 @@ namespace App\Services;
 
 class AdminNav
 {
-    /** @return array */
-    public function build()
+    public function build(): array
     {
         return [
             ['svg' => 'svg.dashboard', 'route' => 'admin.dashboards.index', 'title' => 'Dashboard'],

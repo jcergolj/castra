@@ -3,52 +3,37 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class TeamController extends Controller
 {
-    /** @return \Illuminate\View\View */
-    public function index()
+    public function index(): View
     {
     }
 
-    /** @return \Illuminate\View\View */
-    public function create()
+    public function create(): View
     {
     }
 
-    /**
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
     }
 
-    /**
-     * @return \Illuminate\View\View
-     */
-    public function show(Team $team)
+    public function show(Team $team): View
     {
     }
 
-    /**
-     * @return \Illuminate\View\View
-     */
-    public function edit(Team $team)
+    public function edit(Team $team): View
     {
     }
 
-    /**
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Request $request, Team $team)
+    public function update(Request $request, Team $team): RedirectResponse
     {
     }
 
-    /**
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Team $team)
+    public function destroy(Team $team): RedirectResponse
     {
     }
 }

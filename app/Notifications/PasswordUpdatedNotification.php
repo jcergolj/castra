@@ -11,14 +11,12 @@ class PasswordUpdatedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /** @return array */
-    public function via()
+    public function via(): array
     {
         return ['mail'];
     }
 
-    /** @return \Illuminate\Notifications\Messages\MailMessage */
-    public function toMail()
+    public function toMail(): MailMessage
     {
         return (new MailMessage())
             ->subject('Your password has been changed')
@@ -27,8 +25,7 @@ class PasswordUpdatedNotification extends Notification implements ShouldQueue
             ->line('If you didn\'t changed it. Please contact us immediately.');
     }
 
-    /** @return array */
-    public function toArray()
+    public function toArray(): array
     {
         return [];
     }

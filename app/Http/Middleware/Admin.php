@@ -8,10 +8,7 @@ use Illuminate\Http\Response;
 
 class Admin
 {
-    /**
-     * @return mixed
-     */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         if ($request->user()->isAdmin()) {
             return $next($request);

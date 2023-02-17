@@ -4,8 +4,6 @@ namespace {{ namespace }};
 
 use PHPUnit\Framework\TestCase;
 
-/** @see \App\ */
 class {{ class }} extends TestCase
 {
-
 }

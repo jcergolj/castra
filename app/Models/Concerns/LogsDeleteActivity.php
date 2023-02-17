@@ -19,10 +19,7 @@ trait LogsDeleteActivity
         return LogOptions::defaults();
     }
 
-    /**
-     * @return void
-     */
-    public function tapActivity(Activity $activity)
+    public function tapActivity(Activity $activity): void
     {
         if (! in_array($activity->event, static::$recordEvents)) {
             return;

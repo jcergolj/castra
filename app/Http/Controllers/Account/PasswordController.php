@@ -5,19 +5,17 @@ namespace App\Http\Controllers\Account;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\UpdatePasswordRequest;
 use App\Notifications\PasswordUpdatedNotification;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class PasswordController extends Controller
 {
-    /** @return \Illuminate\View\View */
-    public function edit()
+    public function edit(): View
     {
         return view('accounts.passwords.edit');
     }
 
-    /**
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(UpdatePasswordRequest $request)
+    public function update(UpdatePasswordRequest $request): RedirectResponse
     {
         $request->user()->update(['password' => bcrypt($request->new_password)]);
 

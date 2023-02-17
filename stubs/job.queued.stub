@@ -13,14 +13,12 @@ class {{ class }} implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /** @return void */
     public function __construct()
     {
         //
     }
 
-    /** @return void */
-    public function handle()
+    public function handle(): void
     {
         //
     }

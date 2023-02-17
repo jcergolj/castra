@@ -8,22 +8,11 @@ use Illuminate\Database\Eloquent\Scope;
 
 class VisibleToScope implements Scope
 {
-    /** @var string */
-    protected $field;
-
-    /**
-     * @param  string  $field
-     * @return void
-     */
-    public function __construct($field)
+    public function __construct(protected string $field)
     {
-        $this->field = $field;
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function apply(Builder $builder, Model $model)
+    public function apply(Builder $builder, Model $model): Builder
     {
         if (user() === null || user()->isAdmin()) {
             return $builder;

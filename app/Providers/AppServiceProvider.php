@@ -14,13 +14,11 @@ use function PHPUnit\Framework\assertContains;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /** @return void */
-    public function register()
+    public function register(): void
     {
     }
 
-    /** @return void */
-    public function boot()
+    public function boot(): void
     {
         Validator::excludeUnvalidatedArrayKeys();
 

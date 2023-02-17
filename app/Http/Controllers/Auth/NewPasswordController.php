@@ -5,27 +5,23 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\NewPasswordRequest;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class NewPasswordController extends Controller
 {
-    /** @return \Illuminate\View\View */
-    public function create(Request $request)
+    public function create(Request $request): View
     {
         return view('auth.reset-password', ['request' => $request]);
     }
 
-    /**
-     * Handle an incoming new password request.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(NewPasswordRequest $request)
+    /** @throws ValidationException */
+    public function store(NewPasswordRequest $request): RedirectResponse
     {
         $status = $this->resetPassword($request);
 
@@ -39,12 +35,7 @@ class NewPasswordController extends Controller
             ->withErrors(['email' => $status]);
     }
 
-    /**
-     * Reset user's password.
-     *
-     * @return mixed
-     */
-    private function resetPassword(Request $request)
+    private function resetPassword(Request $request): mixed
     {
         return Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),

@@ -4,8 +4,7 @@ namespace App\Services;
 
 class MemberNav
 {
-    /** @return array */
-    public function build()
+    public function build(): array
     {
         return [
             ['svg' => 'svg.dashboard', 'route' => 'dashboards.index', 'title' => 'Dashboard'],

@@ -2,17 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\URL;
 
 class SignedUrlGenerator
 {
-    /**
-     * @param  \App\Models\User  $user
-     * @param  string  $newEmail
-     * @param  \Illuminate\Support\Carbon  $validUntil
-     * @return string
-     */
-    public function forNewEmail($user, $newEmail, $validUntil)
+    public function forNewEmail(User $user, string $newEmail, Carbon $validUntil): string
     {
         return URL::temporarySignedRoute(
             'accounts.verification.verify',

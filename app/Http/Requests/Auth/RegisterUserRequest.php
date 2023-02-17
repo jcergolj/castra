@@ -7,14 +7,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterUserRequest extends FormRequest
 {
-    /** @return bool */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    /** @return array */
-    public function rules()
+    public function rules(): array
     {
         return [
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],

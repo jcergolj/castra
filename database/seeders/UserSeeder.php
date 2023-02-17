@@ -8,8 +8,7 @@ use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
-    /** @return void */
-    public function run()
+    public function run(): void
     {
         if (app()->isProduction()) {
             return;

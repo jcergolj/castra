@@ -8,29 +8,16 @@ use Illuminate\Support\Facades\Hash;
 
 class PasswordCheckRule implements Rule
 {
-    /** @var \App\Models\User */
-    protected $user;
-
-    /**
-     * @return void
-     */
-    public function __construct(User $user)
+    public function __construct(protected User $user)
     {
-        $this->user = $user;
     }
 
-    /**
-     * @param  string  $attribute
-     * @param  mixed  $password
-     * @return bool
-     */
-    public function passes($attribute, $password)
+    public function passes(mixed $attribute, mixed $password): bool
     {
         return Hash::check($password, $this->user->password);
     }
 
-    /**  @return string */
-    public function message()
+    public function message(): string
     {
         return trans('validation.password_check');
     }

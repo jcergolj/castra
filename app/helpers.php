@@ -1,40 +1,21 @@
 <?php
 
 if (! function_exists('user')) {
-    /**
-     * Get current auth user.
-     *
-     * @return mixed
-     */
-    function user()
+    function user(): mixed
     {
         return auth()->user();
     }
 }
 
 if (! function_exists('trans_validation_attribute')) {
-    /**
-     * Translation for validation attribute.
-     *
-     * @param  string  $key
-     * @return string
-     */
-    function trans_validation_attribute($key)
+    function trans_validation_attribute(string $key): string
     {
         return trans("validation.attributes.{$key}");
     }
 }
 
 if (! function_exists('msg')) {
-    /**
-     * Flash success message.
-     *
-     * @param  string  $message
-     * @param  string  $level
-     * @param  string|null  $message_bag
-     * @return void
-     */
-    function msg($message, $level = 'success', $message_bag = null)
+    function msg(string $message, string $level = 'success', string|null $message_bag = null): void
     {
         $look_up = [
             'success' => 'sky',
@@ -55,56 +36,28 @@ if (! function_exists('msg')) {
 }
 
 if (! function_exists('msg_success')) {
-    /**
-     * Flash success message.
-     *
-     * @param  string  $message
-     * @param  string|null  $message_bag
-     * @return void
-     */
-    function msg_success($message, $message_bag = null)
+    function msg_success(string $message, string|null $message_bag = null): void
     {
         msg($message, 'success', $message_bag);
     }
 }
 
 if (! function_exists('msg_error')) {
-    /**
-     * Flash error message.
-     *
-     * @param  string  $message
-     * @param  string|null  $message_bag
-     * @return void
-     */
-    function msg_error($message, $message_bag = null)
+    function msg_error(string $message, string|null $message_bag = null): void
     {
         msg($message, 'error', $message_bag);
     }
 }
 
 if (! function_exists('msg_info')) {
-    /**
-     * Flash info message.
-     *
-     * @param  string  $message
-     * @param  string|null  $message_bag
-     * @return void
-     */
-    function msg_info($message, $message_bag = null)
+    function msg_info(string $message, string|null $message_bag = null): void
     {
         msg($message, 'info', $message_bag);
     }
 }
 
 if (! function_exists('msg_warning')) {
-    /**
-     * Flash warning message.
-     *
-     * @param  string  $message
-     * @param  string|null  $message_bag
-     * @return void
-     */
-    function msg_warning($message, $message_bag = null)
+    function msg_warning(string $message, string|null $message_bag = null): void
     {
         msg($message, 'warning', $message_bag);
     }

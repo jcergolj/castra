@@ -14,29 +14,17 @@ class PasswordRule implements ImplicitRule
     /** @var array */
     public $failedRules = null;
 
-    /** @var string|null */
-    protected $confirmationValue;
-
     /** @var string */
     private $message = '';
 
-    /**
-     * @param  string  $confirmationValue
-     * @return void
-     */
-    public function __construct($confirmationValue = null)
+    public function __construct(protected string|null $confirmationValue = null)
     {
-        $this->confirmationValue = $confirmationValue;
     }
 
     /**
-     * @param  string  $attribute
-     * @param  mixed  $value
-     * @return bool
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    public function passes($attribute, $value)
+    public function passes(mixed $attribute, mixed $value): bool
     {
         $validator = Validator::make([
             $attribute => $value,
@@ -57,14 +45,12 @@ class PasswordRule implements ImplicitRule
         return true;
     }
 
-    /** @return string */
-    public function message()
+    public function message(): string
     {
         return $this->message;
     }
 
-    /** @return void */
-    public function passwordDefaultsRules()
+    public function passwordDefaultsRules(): void
     {
         Password::defaults(function () {
             $rule = Password::min(self::MIN_PASSWORD_LENGTH);
@@ -75,8 +61,7 @@ class PasswordRule implements ImplicitRule
         });
     }
 
-    /** @return array */
-    protected function rules()
+    protected function rules(): array
     {
         $this->passwordDefaultsRules();
 

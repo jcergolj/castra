@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use App\Enums\UserRoles;
-use App\Models\Concerns\LogsDeleteActivity;
+use Illuminate\Database\Query\Builder;
 use App\QueryBuilders\UserQueryBuilder;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
+use App\Models\Concerns\LogsDeleteActivity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -30,23 +31,20 @@ class User extends Authenticatable implements MustVerifyEmail
         'role' => UserRoles::class,
     ];
 
-    /** @return string */
-    public function restoreRouteName()
+    public function restoreRouteName(): string
     {
         return 'admin.users.restore';
     }
 
-    /**
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder|static
+     /**
+     * @param Builder $query
      */
-    public function newEloquentBuilder($query)
+    public function newEloquentBuilder($query): UserQueryBuilder
     {
         return new UserQueryBuilder($query);
     }
 
-    /** @return string */
-    public function getProfileImageFileAttribute()
+    public function getProfileImageFileAttribute(): string
     {
         if ($this->profile_image === null) {
             return asset('images/default-user.png');
@@ -55,23 +53,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return Storage::disk('profile_image')->url("{$this->profile_image}");
     }
 
-    /**
-     * @param  string  $imageName
-     * @return null
-     */
-    public function saveImage($imageName)
+    public function saveImage(string $imageName): void
     {
         $this->update(['profile_image' => $imageName]);
     }
 
-    /** @return bool */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->role === UserRoles::Admin;
     }
 
-    /** @return bool */
-    public function isItMe()
+    public function isItMe(): bool
     {
         return $this->is(user());
     }

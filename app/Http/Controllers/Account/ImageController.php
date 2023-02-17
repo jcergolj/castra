@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Account;
 
+use Illuminate\View\View;
+use Illuminate\Http\Response;
 use App\Events\ProfileImageUploaded;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Account\UpdateImageRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Account\UpdateImageRequest;
+use Illuminate\Contracts\Routing\ResponseFactory;
 
 class ImageController extends Controller
 {
-    /** @return \Illuminate\View\View */
-    public function edit()
+    public function edit(): View
     {
         return view('accounts.images.edit');
     }
 
-    /**
-     * @return Illuminate\Contracts\Routing\ResponseFactory|Illuminate\Http\Response
-     */
-    public function update(UpdateImageRequest $request)
+    public function update(UpdateImageRequest $request): ResponseFactory|Response|RedirectResponse
     {
         if ($request->user()->profile_image !== null) {
             Storage::disk('profile_image')
