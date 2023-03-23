@@ -28,9 +28,7 @@ class Sidebar extends Component
         return view('components.layouts.sidebar');
     }
 
-    /**
-     * @throws Exception
-     */
+    /** @throws Exception */
     public function menuStrategy(): mixed
     {
         $menus = [

@@ -21,9 +21,7 @@ class PasswordRule implements ImplicitRule
     {
     }
 
-    /**
-     * @throws ValidationException
-     */
+    /** @throws ValidationException */
     public function passes(mixed $attribute, mixed $value): bool
     {
         $validator = Validator::make([

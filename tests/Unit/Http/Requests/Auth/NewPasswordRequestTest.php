@@ -36,7 +36,7 @@ class NewPasswordRequestTest extends TestCase
             ->assertFails([$name => $rule]);
     }
 
-    public function validationFailsProvider()
+    public static function validationFailsProvider()
     {
         return [
             'Test token is required' => ['token', '', 'required'],

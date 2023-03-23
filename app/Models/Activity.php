@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Enums\ActivityEvents;
-use App\Scopes\VisibleToScope;
-use Illuminate\Support\Collection;
-use Illuminate\Database\Query\Builder;
 use App\QueryBuilders\ActivityQueryBuilder;
+use App\Scopes\VisibleToScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Spatie\Activitylog\Models\Activity as SpatieActivity;
 
 class Activity extends SpatieActivity
@@ -23,9 +23,7 @@ class Activity extends SpatieActivity
         'event' => ActivityEvents::class,
     ];
 
-    /**
-     * @param Builder $query
-     */
+    /** @param  Builder  $query */
     public function newEloquentBuilder($query): ActivityQueryBuilder
     {
         return new ActivityQueryBuilder($query);

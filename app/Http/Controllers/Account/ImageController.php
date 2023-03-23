@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Account;
 
-use Illuminate\View\View;
-use Illuminate\Http\Response;
 use App\Events\ProfileImageUploaded;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Account\UpdateImageRequest;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class ImageController extends Controller
 {

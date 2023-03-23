@@ -54,7 +54,7 @@ class RegisterUserRequestTest extends TestCase
         $this->assertTrue($request->authorize());
     }
 
-    public function validationFailsProvider()
+    public static function validationFailsProvider()
     {
         return [
             'Test email is required' => ['email', '', 'required'],

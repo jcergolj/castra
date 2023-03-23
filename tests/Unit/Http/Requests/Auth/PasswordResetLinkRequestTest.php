@@ -33,7 +33,7 @@ class PasswordResetLinkRequestTest extends TestCase
             ->assertFails([$name => $rule]);
     }
 
-    public function validationFailsProvider()
+    public static function validationFailsProvider()
     {
         return [
             'Test email is required' => ['email', '', 'required'],

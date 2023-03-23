@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use App\Enums\UserRoles;
-use Illuminate\Database\Query\Builder;
-use App\QueryBuilders\UserQueryBuilder;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Notifications\Notifiable;
 use App\Models\Concerns\LogsDeleteActivity;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\QueryBuilders\UserQueryBuilder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -36,9 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'admin.users.restore';
     }
 
-     /**
-     * @param Builder $query
-     */
+    /** @param  Builder  $query */
     public function newEloquentBuilder($query): UserQueryBuilder
     {
         return new UserQueryBuilder($query);

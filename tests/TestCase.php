@@ -11,9 +11,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, LazilyRefreshDatabase;
 
-    /**
-     * @return \Illuminate\Http\Request $request
-     */
+    /** @return \Illuminate\Http\Request $request */
     public function makeRequestWith(User $user)
     {
         $request = $this->app->make(Request::class);

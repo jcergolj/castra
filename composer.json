@@ -22,13 +22,14 @@
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
         "itsgoingd/clockwork": "^5.1",
+        "jcergolj/additional-test-assertions-for-laravel": "^2.0",
         "jcergolj/laravel-form-request-assertions": "^1.0",
         "jcergolj/laravel-view-test-assertions": "^2.0",
+        "laravel/pint": "^1.0",
         "mockery/mockery": "^1.4",
         "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^10.0",
-        "spatie/laravel-ignition": "^2.0",
-        "laravel/pint": "^1.0"
+        "spatie/laravel-ignition": "^2.0"
     },
     "config": {
         "optimize-autoloader": true,
