@@ -20,6 +20,9 @@ jobs:
               env:
                   APP_ENV: testing
 
+            - name: Run tlint
+              run: tlint format
+
             - name: Run laravel pint
               run: vendor/bin/pint
 

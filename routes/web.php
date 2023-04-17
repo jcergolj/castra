@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/login');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboards.index');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboards.index');
 
     Route::get('activities', [ActivityController::class, 'index'])->name('activities.index');
     Route::post('restored-items', [RestoredItemController::class, 'store'])->name('restored-item.store');

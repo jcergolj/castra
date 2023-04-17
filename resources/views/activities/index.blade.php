@@ -58,7 +58,7 @@
                                     {{ $activity->created_at->format('d/m/Y H:i') }}</p>
                             </x-table.td>
                             <x-table.td>
-                                @if($activity->event === \App\Enums\ActivityEvents::Deleted)
+                                @if ($activity->event === \App\Enums\ActivityEvents::Deleted)
                                     <form action="{{ route('restored-item.store') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $activity->id }}">

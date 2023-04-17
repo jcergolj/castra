@@ -79,11 +79,13 @@
         "env-sync": "php artisan envy:sync --dry",
         "env-prune": "php artisan envy:prune --dry",
         "vite": "npm run build",
+        "tlint": "tlint format",
         "analyse": [
             "@vite",
             "@security-checker",
             "@env-sync",
             "@env-prune",
+            "@tlint",
             "@pint",
             "@bladeprettier",
             "@jsprettier",

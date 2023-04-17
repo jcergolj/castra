@@ -13,7 +13,7 @@
             $alignmentClasses = 'origin-top-right right-0';
             break;
     }
-    
+
     switch ($width) {
         case '48':
             $width = 'w-48';

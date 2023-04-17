@@ -6,7 +6,7 @@
         <table class="min-w-full leading-normal" x-data="{ selectAll: false }" x-cloak>
 
                 <thead>
-                    @if($bulkDeleteRoute !== null)
+                    @if ($bulkDeleteRoute !== null)
                         <tr x-show="selectAll">
                             <th class="pl-4 pt-2 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
                                 colspan="6">
