@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Enums\UserRoles;
-use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

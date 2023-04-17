@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.8",
         "nunomaduro/larastan": "^2.4",
         "spatie/laravel-activitylog": "^4.7",
+        "tightenco/tlint": "^8.0",
         "worksome/envy": "^1.0"
     },
     "require-dev": {

@@ -20,6 +20,9 @@ jobs:
               env:
                   APP_ENV: testing
 
+            - name: install tlint
+              run: composer global require tightenco/tlint
+
             - name: Run tlint
               run: tlint format
 
