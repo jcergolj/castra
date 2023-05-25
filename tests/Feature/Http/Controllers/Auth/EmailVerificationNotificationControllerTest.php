@@ -54,7 +54,7 @@ class EmailVerificationNotificationControllerTest extends TestCase
         $this->assertTrue($user->fresh()->email_verified_at->eq($verifiedAt));
 
         $response->assertStatus(Response::HTTP_FOUND)
-             ->assertRedirect(RouteServiceProvider::HOME);
+            ->assertRedirect(RouteServiceProvider::HOME);
     }
 
     /** @test */
